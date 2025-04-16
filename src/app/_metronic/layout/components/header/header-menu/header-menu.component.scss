@@ -1,0 +1,60 @@
+:host {
+  height: inherit;
+  width: inherit;
+}
+
+.container{
+  display: flex;
+  //justify-content: center !important;
+  //align-items: center !important;;
+}
+.form{
+  width: 400px;
+  padding-top: 15px;
+}
+
+.input-group {
+  border: 1px solid #d1d3e2;
+  border-radius: 0.35rem;
+  width: 400px;
+}
+
+.input-group-text {
+  //background: #f8f9fc;
+  border: none;
+}
+
+.form-group{
+  padding-top: 15px;
+  padding-left: 20px;
+  width: 400px;
+}
+a:hover{
+  background-color: #e9f2ff;
+}
+
+.menu-nav {
+  list-style-type: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-item {
+  margin-right: 20px;
+}
+
+.menu-link {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.menu-link:hover {
+  color: #f0a500; /* Customize hover color */
+}
+
+.menu-title {
+  color: #333;
+}

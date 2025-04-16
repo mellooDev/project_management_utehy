@@ -1,0 +1,89 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">Dữ liệu cần phê duyệt</h4>
+  </div>
+  <div class="card-body">
+    <div class="search-container mt-22">
+      <div class="input-group">
+        <input type="text" class="form-control" [(ngModel)]="filter" (input)="onSearch()" placeholder="Tìm kiếm sản phẩm..." />
+        <i class="bi bi-x-circle-fill delete-input" (click)="clearSearch()"></i>
+        <span class="input-group-text"  style="cursor: pointer;">
+          <i class="bi bi-search"></i> <!-- Biểu tượng kính lúp -->
+        </span>
+      </div>
+    </div>
+
+    <div *ngIf="requestProd.length === 0; else dataAvailable">
+      <p>Không có dữ liệu</p>
+    </div>
+
+    <ng-template #dataAvailable>
+      <table class="table table-striped mt-3 custom-bordered">
+        <thead class="custom-header">
+          <tr>
+            <th style="text-align: center">STT</th>
+            <th>Tên sản phẩm</th>
+            <th>Lĩnh vực</th>
+            <th>Mô tả ngắn</th>
+            <th>Ngày tạo</th>
+            <th>Ngày kiểm duyệt</th>
+            <th>Lượt mua</th>
+            <th>Lượt xem</th>
+            <th>Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+
+          </tr>
+          <tr *ngFor="let item of requestProd; let i = index">
+            <td style="text-align: center;">{{i + 1 + (currentPage-1) * pageSize}}</td>
+            <td>
+              <a (click)="navigateToComponent(item)" style="cursor: pointer; color: #007bff">
+                {{item.product_name}}
+              </a>
+            </td>
+            <td>{{item.category_name}}</td>
+            <td [innerHTML]="item.description"></td>
+            <td>{{item.created_date}}</td>
+            <td>{{item.approved_date}}</td>
+            <td>{{item.performance.buy}}</td>
+            <td>{{item.performance.view}}</td>
+            <td>@switch (item.approval_status) {
+              @case(0) {
+                <span class="badge badge-warning">Chờ kiểm duyệt</span>
+              }
+              @case(1) {
+                <span class="badge badge-success">Đã kiểm duyệt</span>
+              }
+              @case(2) {
+                <span class="badge badge-danger">Từ chối</span>
+              }
+              @case(4) {
+                <span class="badge badge-secondary">Tạm dừng</span>
+              }
+              @default {
+                <span class="badge badge-warning">Chờ kiểm duyệt</span>
+              }
+            }
+
+          </tr>
+        </tbody>
+      </table>
+    </ng-template>
+
+
+
+    <div *ngIf="requestProd.length > 0" class="pagination-container mt-3">
+      <ngb-pagination
+        [collectionSize]="recordsTotal"
+        [(page)]="currentPage"
+        [pageSize]="pageSize"
+        (pageChange)="onPageChange($event)"
+      ></ngb-pagination>
+    </div>
+
+  </div>
+
+
+</div>

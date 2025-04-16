@@ -1,0 +1,66 @@
+<div class="card">
+  <!-- Tiêu đề trang -->
+  <div class="card-header">
+    <h3 class="card-title">
+      <h1>Phê duyệt Đăng kí người bán</h1>
+    </h3>
+  </div>
+
+  <!-- Bộ lọc và nút Tạo -->
+  <div class="card-body pt-0">
+    <div class="mt-4">
+      <div class="search-container mt-4 row-container" style="width: 400px;">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Tìm kiếm dữ liệu..."
+            [(ngModel)]="searchTerm" (keyup.enter)="onSearch()" />
+          <span class="input-group-text" (click)="onSearch()" style="cursor: pointer;">
+            <i class="bi bi-search"></i> <!-- Biểu tượng kính lúp -->
+          </span>
+        </div>
+      </div>
+      <table class="table table-striped mt-3 custom-bordered">
+        <thead class="custom-header">
+          <tr>
+            <th>STT</th>
+            <th>Họ và tên</th>
+            <th>CID</th>
+            <th>Email</th>
+            <th>Số điện thoại</th>
+            <th>Trạng thái</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of pagedData; let i = index">
+            <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+            <td>{{ item.customer_name }}</td>
+            <td>{{item.customer_cid }}</td>
+            <td>{{item.customer_email }}</td>
+            <td>{{item.customer_phone }}</td>
+            <td>
+              <ng-container [ngSwitch]="item.status">
+                <span *ngSwitchCase="0">Đang đợi phê</span>
+                <span *ngSwitchCase="1">Đã phê</span>
+                <span *ngSwitchDefault>Trạng thái không xác định</span>
+              </ng-container>
+            </td>
+            <td>
+              <a  (click)="goDetail(item)" 
+              style="cursor: pointer;color: #007bff;">Xem chi tiết</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="pagination-container mt-3 d-flex justify-content-end">
+          <div class="pagination-container mt-3">
+            <ngb-pagination
+              [collectionSize]="filteredData.length"
+              [(page)]="currentPage"
+              [pageSize]="pageSize"
+              (pageChange)="onPageChange($event)"
+            ></ngb-pagination>
+          </div>
+      </div>
+    </div>
+  </div>

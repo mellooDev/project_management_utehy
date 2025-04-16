@@ -1,0 +1,119 @@
+.btn-inline {
+  display: flex;               /* Use flexbox to align items inline */
+  align-items: center;         /* Vertically center the items */
+  padding: 5px 15px;           /* Padding for spacing */
+  background-color: transparent;
+  border: 2px solid #9A9CAE;   /* Border color for the button */
+  border-radius: 5px;          /* Rounded corners for the button */
+  cursor: pointer;             /* Cursor pointer on hover */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Circle style for the button */
+.btn-circle {
+  width: 30px;                /* Smaller circle size */
+  height: 30px;               /* Smaller circle size */
+  border-radius: 50%;         /* Make it round */
+  background-color: #9A9CAE;  /* Circle background color */
+  margin-right: 10px;         /* Space between circle and text */
+  display: inline-block;      /* Ensure it's inline with the text */
+}
+
+/* Styling for the text (name) */
+.btn-inline span {
+  font-size: 14px;
+ // color: #D2D2D2;
+}
+
+/* Hover effect: Change background color and border */
+.btn-inline span:hover {
+ // color: white;  /* Change text color when hovered */
+}
+
+/* Dropdown menu styling */
+.dropdown-menu {
+  min-width: 200px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+  padding: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+  cursor: pointer;
+}
+
+.text {
+  color: white;
+}
+
+.text:hover {
+  color: white;
+}
+
+.rotate-down {
+  display: inline-block;
+  transform: rotate(0deg); /* Default down position */
+  transition: transform 0.3s ease; /* Smooth animation */
+}
+
+.rotate-up {
+  display: inline-block;
+  transform: rotate(-180deg); /* Rotate up */
+  transition: transform 0.3s ease; /* Smooth animation */
+}
+
+.info-list ul {
+  padding: 0;
+  margin: 0;
+}
+
+.info-list li {
+  padding: 10px 0;            /* Padding for each list item */
+  border-bottom: 1px solid #e4e4e4; /* Border between items */
+}
+
+.info-title {
+  font-weight: bold;        /* Bold the label text */
+  color: #333;              /* Dark text for the title */
+}
+
+.info-value {
+  font-weight: normal;      /* Regular font for the value */
+  color: #555;              /* Lighter text for the value */
+}
+
+.dropdown-menu {
+  border-radius: 10px; /* Rounded corners */
+  min-width: 200px; /* Set a minimum width for dropdown */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  background-color: #fff; /* White background */
+}
+
+/* Dropdown Items Styling */
+.dropdown-item {
+  display: flex;
+  align-items: center; /* Align icon and text vertically */
+  padding: 10px 15px; /* Add padding for spacing */
+  font-size: 14px; /* Adjust font size */
+  color: #333; /* Text color */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Hover effect */
+.dropdown-item:hover {
+  background-color: #9A9CAE; /* Background color on hover */
+  color: #fff; /* White text color on hover */
+  border-radius: 8px; /* Optional: Add rounded corners on hover */
+}
+
+/* Icon Styling */
+.dropdown-item i {
+  font-size: 16px; /* Adjust icon size */
+}

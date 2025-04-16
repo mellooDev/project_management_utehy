@@ -1,0 +1,79 @@
+<div>
+  <h1 mat-dialog-title style="float: left;">Thông tin đăng ký tài khoản trả sau</h1>
+      <span (click)="closeModal()" style="float: right;     margin-top: 10px;
+        margin-right: 16px;
+        font-size: 16px;cursor: pointer;">X
+      </span>
+  <div style="float: right; margin-top: 30px; margin-right:25px">
+    <span>Trạng thái </span>
+    <ng-container [ngSwitch]="user.payment_approve_status">
+      <span style="color:green" *ngSwitchCase="PaymentApproveStatus.APPROVED">Đã duyệt</span>
+      <span style="color:saddlebrown" *ngSwitchCase="PaymentApproveStatus.PENDING">Chờ phê duyệt</span>
+      <span style="color:red" *ngSwitchCase="PaymentApproveStatus.REJECTED">Từ chối</span>
+    </ng-container>
+  </div>
+
+</div>
+
+<mat-dialog-content style="padding-right:30px">
+
+  <div class="container">
+    <form [formGroup]="userForm" class="row">
+
+      <div class="col-6">
+        <div class="form-group row">
+          <label for="customer-name">Họ và tên</label>
+          <input class="form-control input-contract" type="text" formControlName="customer-name" id="customer-name" readonly>
+        </div>
+        <div class="form-group row pt-4">
+          <label for="email">Email</label>
+          <input class="form-control input-contract" type="text" formControlName="email" id="email" readonly>
+        </div>
+        <div class="form-group row pt-4">
+          <label for="contract-number">Số hợp đồng</label>
+          <input class="form-control input-contract" type="text" formControlName="contract-number" id="contract-number" readonly>
+        </div>
+        <div class="form-group row pt-4">
+          <label for="start-date">Ngày bắt đầu</label>
+          <input class="form-control input-contract" type="text" formControlName="start-date" id="start-date" readonly>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="form-group row input-contract">
+          <label for="customer-id">CID</label>
+          <input class="form-control input-contract" type="text" id="customer-id" formControlName="customer-id" readonly>
+        </div>
+
+        <div class="form-group row input-contract pt-4">
+          <label for="phone">Số điện thoại</label>
+          <input class="form-control input-contract" type="text" id="phone" formControlName="phone" readonly>
+        </div>
+
+        <div class="form-group row input-contract pt-4">
+          <label for="file">File đính kèm</label>
+          <p (click)="downloadFile()" class="input-contract" type="text" id="file" readonly style="color: #0b7dda; cursor: pointer; margin-top: 5px">{{fileName}}</p>
+        </div>
+
+        <div class="form-group row input-contract pt-4">
+          <label for="end-date">Ngày kết thúc</label>
+          <input class="form-control input-contract" type="text" id="end-date" formControlName="end-date" readonly>
+        </div>
+      </div>
+      <div class="form-group row pt-4">
+        <label for="content">Nội dung</label>
+        <input class="form-control input-contract" type="text" id="content" style="min-height: 100px"
+               formControlName="content" readonly>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+<div class="modal-footer pb-5 pr-5 ki-text-align-left" *ngIf="user.payment_approve_status === PaymentApproveStatus.PENDING">
+  <button (click)="approve()" type="button" class="btn btn-primary" style="margin-right: 10px">
+    Đồng ý
+  </button>
+  <button (click)="reject()" style="margin-right: 30px" type="button"
+          class="btn btn-outline btn-outline-danger btn-outline-default">
+    Từ chối
+  </button>
+</div>

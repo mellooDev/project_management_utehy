@@ -1,0 +1,47 @@
+<!--<a target="_blank" [href]="appPreviewChangelogUrl"-->
+<!--  class="btn btn-flex flex-center btn-custom btn-primary overflow-hidden text-nowrap px-0 h-40px w-100"-->
+<!--  data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss-="click" title="Metronic Docs & Components">-->
+
+<!--  <span class="btn-label">-->
+<!--    Docs & Components-->
+<!--  </span>-->
+<!--  <app-keenicon name="document" class="fs-2 m-0"></app-keenicon>-->
+<!--</a>-->
+
+<div class="dropdown" *ngIf="profile">
+  <!-- Tab Button with Inline Circle and Text -->
+  <button class="btn btn-inline" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"
+    style="width: 100%;">
+    <span class="btn-circle"></span>
+    <span >{{ (profile.fn) | truncate:25 }}</span>
+    <i class="fas fa-chevron-down ms-2" [class.rotate-down]="!showMore" [class.rotate-up]="showMore"></i>
+  </button>
+
+  <!-- Dropdown Menu -->
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <li style="padding: 10px; font-size: 14px; color: #333;">
+      <!--        <i class="bi bi-cogs me-2"></i>-->
+      <span
+        style="background-color: white; width: 25px; height: 25px;border-radius: 50%;margin-right: 10px;display: inline-block; border: 1px solid gray"></span>
+      <span>{{ (profile.fn) | truncate:25 }}</span>
+    </li>
+    <div class="separator"></div>
+    <li>
+      <a class="dropdown-item" [routerLink]="'/profile'" [queryParams]="{ tab: 'profile-info' }">
+        <i class="bi bi-person-circle me-2"></i>Hồ sơ của tôi
+      </a>
+    </li>
+    <div class="separator"></div>
+    <li>
+      <a class="dropdown-item" [routerLink]="'/profile'" [queryParams]="{ tab: 'change-password'}">
+        <i class="bi bi-person-circle me-2"></i>Đổi mật khẩu
+      </a>
+    </li>
+    <div class="separator"></div>
+    <li>
+      <a class="dropdown-item" (click)="logout()">
+        <i class="bi bi-box-arrow-left me-2"></i>Đăng xuất
+      </a>
+    </li>
+  </ul>
+</div>

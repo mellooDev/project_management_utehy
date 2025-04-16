@@ -1,0 +1,43 @@
+.page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+  border-width: 0.25em;
+}
+
+.btn-light-hover-primary:hover {
+  background-color: #f0f4ff;
+  color: #3699ff;
+}
+
+.btn-light-hover-danger:hover {
+  background-color: #ffe2e5;
+  color: #f64e60;
+}
+
+.btn-light-hover-warning:hover {
+  background-color: #fff4de;
+  color: #ffa800;
+}
+
+.job-link {
+  color: #007bff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.job-link:hover {
+  text-decoration: underline;
+}

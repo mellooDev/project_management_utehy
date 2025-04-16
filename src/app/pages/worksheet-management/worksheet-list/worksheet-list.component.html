@@ -1,0 +1,119 @@
+<div class="card">
+  <!-- Tiêu đề trang -->
+  <div class="card-header">
+    <h3 class="card-title">
+      <h1>Worksheets</h1>
+    </h3>
+  </div>
+
+  <!-- Bộ lọc và nút Tạo -->
+  <div class="card-body pt-0">
+    <div class="mt-4">
+      <div class="search-container mt-4 row-container d-flex justify-content-between align-items-center"
+           style="width: 100%; ">
+
+        <div class="input-group" style="max-width: 400px; flex-grow: 1;">
+          <input type="text" class="form-control" placeholder="Tìm kiếm dữ liệu..."
+                 [(ngModel)]="searchTerm" (keyup.enter)="onSearch()"/>
+          <span class="input-group-text" (click)="onSearch()" style="cursor: pointer;">
+            <i class="bi bi-search"></i> <!-- Biểu tượng kính lúp -->
+          </span>
+        </div>
+
+        <!-- Nút "Tạo mới" -->
+        <div class="dropdown ms-3" >
+          <button
+            class="btn btn-primary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Tạo mới
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li>
+              <a class="dropdown-item" (click)="createNew('worksheet')">Worksheet</a>
+            </li>
+            <li>
+              <a class="dropdown-item" (click)="createNew('folder')">Folder</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <br>
+
+      <mat-tab-group (selectedTabChange)="onTabChange($event)">
+        <!-- Tab 1 -->
+        <mat-tab label="Worksheets">
+          <div class="tab-content">
+
+            <table class="table table-striped mt-3 custom-bordered">
+              <thead class="custom-header">
+              <tr>
+                <th><b>Tên Worksheet</b></th>
+                <th><b>Cập nhật gần nhất </b></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of worksheetDTOS; let i = index">
+                <td><a href="/worksheet/worksheet-running/{{item.id}}">{{ item.name }}</a></td>
+                <td>{{ timeSinceLastModified(item.lastModifiedDate) }}</td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="pagination-container mt-3 d-flex justify-content-end">
+              <div class="pagination-container mt-3">
+                <ngb-pagination
+                  [(page)]="currentPageWS"
+                  [pageSize]="pageSizeWS"
+                  (pageChange)="onPageChangeWS($event)"
+                  [collectionSize]="totalRecordsWS"></ngb-pagination>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+
+        <!-- Tab 2 -->
+        <mat-tab label="Folders">
+          <div class="tab-content">
+
+            <table class="table table-striped mt-3 custom-bordered">
+              <thead class="custom-header">
+              <tr>
+                <th><b>Tên Folder</b></th>
+                <th><b>Cập nhật gần nhất </b></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of folderDTOS; let i = index">
+                <td>{{ item.name }}</td>
+                <td>{{ timeSinceLastModified(item.lastModifiedDate) }}</td>
+              </tr>
+              </tbody>
+            </table>
+
+            <div class="pagination-container mt-3 d-flex justify-content-end">
+              <div class="pagination-container mt-3">
+                <ngb-pagination
+                  [(page)]="currentPageFD"
+                  [pageSize]="pageSizeFD"
+                  (pageChange)="onPageChangeFD($event)"
+                  [collectionSize]="totalRecordsFD"></ngb-pagination>
+              </div>
+            </div>
+
+          </div>
+
+        </mat-tab>
+
+
+      </mat-tab-group>
+
+
+    </div>
+  </div>
+</div>
+<p-toast />

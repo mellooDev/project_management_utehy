@@ -1,0 +1,75 @@
+<div class="card">
+  <!-- Tiêu đề trang -->
+  <div class="card-header">
+    <h3 class="card-title">
+      <h1>Danh sách tài khoản trả sau</h1>
+    </h3>
+  </div>
+
+  <!-- Bộ lọc và nút Tạo -->
+  <div class="card-body pt-0">
+    <div class="mt-4">
+      <div class="search-container mt-4 row-container" style="width: 400px;">
+        <div class="input-group">
+          <input appTrim type="text" class="form-control" placeholder="Tìm kiếm dữ liệu..."
+                 [(ngModel)]="searchTerm" (keyup.enter)="onSearch()"/>
+          <span class="input-group-text" (click)="onSearch()" style="cursor: pointer;">
+            <i class="bi bi-search"></i> <!-- Biểu tượng kính lúp -->
+          </span>
+        </div>
+      </div>
+      <table class="table table-striped mt-3 custom-bordered">
+        <thead class="custom-header">
+        <tr>
+          <th class="tb-header">STT</th>
+          <th class="tb-header">CID</th>
+          <th class="tb-header">Họ và tên</th>
+          <th class="tb-header">Email</th>
+          <th class="tb-header">Số điện thoại</th>
+          <th class="tb-header">Số hợp đồng</th>
+          <th class="tb-header">Ngày bắt đầu</th>
+          <th class="tb-header">Ngày kết thúc</th>
+          <th class="tb-header">Trạng thái</th>
+          <th class="tb-header">Thao tác</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of userDTOS; let i = index">
+          <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+          <td>{{ item.customer_id }}</td>
+          <td>{{ item.full_name }}</td>
+          <td>{{ item.email }}</td>
+          <td>{{ item.phone }}</td>
+          <td>{{ item.contract_number }}</td>
+          <td>{{ item.start_date | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ item.end_date | date: 'dd/MM/yyyy' }}</td>
+          <td>
+
+            <ng-container [ngSwitch]="item.payment_approve_status">
+              <span style="color:green" *ngSwitchCase="PaymentApproveStatus.APPROVED">Đã duyệt</span>
+              <span style="color:saddlebrown" *ngSwitchCase="PaymentApproveStatus.PENDING">Chờ phê duyệt</span>
+              <span style="color:red" *ngSwitchCase="PaymentApproveStatus.REJECTED">Từ chối</span>
+            </ng-container>
+          </td>
+          <td>
+            <span style="cursor: pointer;" (click)="openReview(item)" class="ki-duotone ki-eye fs-1">
+              <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+            </span>
+
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="pagination-container mt-3 d-flex justify-content-end">
+        <div class="pagination-container mt-3">
+          <ngb-pagination
+            [(page)]="currentPage"
+            [pageSize]="pageSize"
+            (pageChange)="onPageChange($event)"
+            [collectionSize]="totalRecords"></ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

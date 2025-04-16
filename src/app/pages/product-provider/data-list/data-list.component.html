@@ -1,0 +1,221 @@
+<div class="container mt-4">
+  <h1>Quản lý dữ liệu</h1>
+
+  <div class="search-container mt-4">
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Tìm kiếm dữ liệu hoặc nhà cung cấp..."
+        [(ngModel)]="searchTerm"
+        (keyup.enter)="onSearch()"
+      />
+      <span
+        class="input-group-text"
+        (click)="onSearch()"
+        style="cursor: pointer"
+      >
+        <i class="bi bi-search"></i>
+        <!-- Biểu tượng kính lúp -->
+      </span>
+    </div>
+    <div class="btn-group">
+      <button
+        class="btn btn-primary dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Tạo mới
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <a
+            class="dropdown-item"
+            routerLink="/product-provider/structured-data"
+          >
+            Dataset</a
+          >
+        </li>
+        <li>
+          <a
+            class="dropdown-item"
+            routerLink="/product-provider/unstructured-data"
+          >
+            File</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <!--
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Tìm kiếm dữ liệu hoặc nhà cung cấp..."
+    [(ngModel)]="searchTerm"
+    (keyup.enter)="onSearch()"
+  /> -->
+</div>
+
+<div >
+  <table class="table table-striped custom-bordered">
+    <thead class="custom-header">
+      <tr>
+        <th style="text-align: center">STT</th>
+        <th>Tên dữ liệu</th>
+        <th>Loại dữ liệu</th>
+        <th>Chủ sở hữu</th>
+        <th>Phiên bản</th>
+        <th>Trạng thái</th>
+        <th>Thao tác</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of pagedData; let i = index">
+        <td style="text-align: center">
+          {{ (currentPage - 1) * pageSize + (i + 1) }}
+        </td>
+        <td [routerLink]="['/products', item.product_id]" style="cursor: pointer;">
+          <a style="color: #1b84ff">{{ item.description.name }}</a>
+        </td>
+  
+        <td>{{ getTypeLabel(item.productType) }}</td>
+        <td>{{ item.owner_id }}</td>
+        <td>{{ item.version }}</td>
+        <td>{{ item.status }}</td>
+        <td>
+          <button class="action-button" (click)="open(content)">Sửa</button>
+          <button class="action-button" (click)="open(deleteModal)">Gỡ</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label for="dataName" class="form-label">Tên dữ liệu</label>
+        <input
+          type="text"
+          id="dataName"
+          class="form-control"
+          placeholder="Nhập tên dữ liệu"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="dataType" class="form-label">Loại dữ liệu</label>
+        <select id="dataType" class="form-select">
+          <option value="">Chọn loại dữ liệu</option>
+          <option value="type1">Loại 1</option>
+          <option value="type2">Loại 2</option>
+          <option value="type3">Loại 3</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="owner" class="form-label">Chủ sở hữu</label>
+        <input
+          type="text"
+          id="owner"
+          class="form-control"
+          placeholder="Nhập chủ sở hữu"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="version" class="form-label">Phiên bản</label>
+        <select id="version" class="form-select">
+          <option value="">Chọn phiên bản</option>
+          <option value="active">2.0.1</option>
+          <option value="inactive">2.1.1</option>
+          <option value="archived">2.2.1</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="status" class="form-label">Trạng thái</label>
+        <select id="status" class="form-select">
+          <option value="">Chọn trạng thái</option>
+          <option value="active">Đã phê duyệt</option>
+          <option value="inactive">Đợi phê duyệt</option>
+          <option value="archived">Từ chối</option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-secondary btn-cancel"
+      (click)="modal.dismiss('Cancel click')"
+    >
+      Cancel
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-secondary btn-save"
+      (click)="modal.close('Save click')"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #deleteModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile Delete</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form action="">
+      <p>Do you want to delete this data?</p>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-secondary btn-cancel"
+      (click)="modal.dismiss('Cancel click')"
+    >
+      Cancel
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="modal.close('save click')"
+    >
+      Delete
+    </button>
+  </div>
+</ng-template>
+
+  <div class="pagination-container mt-3 d-flex justify-content-end">
+    <ngb-pagination
+      [collectionSize]="filteredData.length"
+      [(page)]="currentPage"
+      [pageSize]="pageSize"
+      (pageChange)="onPageChange($event)"
+    ></ngb-pagination>
+  </div>
+
+  <div *ngFor="let item of pagedData">
+  <p>{{ item.name }}</p>
+</div>
+</div>

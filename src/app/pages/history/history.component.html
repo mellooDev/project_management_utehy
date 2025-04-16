@@ -1,0 +1,142 @@
+<div class="card">
+  <!-- Tiêu đề trang -->
+  <div class="card-header">
+    <h3 class="card-title">
+      <h1>Lịch sử giao dịch</h1>
+    </h3>
+  </div>
+
+  <!-- Bộ lọc và nút Tạo -->
+  <div class="card-body pt-0">
+    <div class="mt-4">
+      <div class="search-container mt-4">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Tìm kiếm dữ liệu hoặc nhà cung cấp..."
+            [(ngModel)]="searchTerm"
+            (keyup.enter)="onSearch()"
+          />
+          <span
+            class="input-group-text"
+            (click)="onSearch()"
+            style="cursor: pointer"
+          >
+            <i class="bi bi-search"></i>
+            <!-- Biểu tượng kính lúp -->
+          </span>
+        </div>
+
+        <!--
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Tìm kiếm dữ liệu hoặc nhà cung cấp..."
+    [(ngModel)]="searchTerm"
+    (keyup.enter)="onSearch()"
+  /> -->
+      </div>
+      <table class="table table-striped mt-3 custom-bordered">
+        <thead class="custom-header">
+          <tr>
+            <th>STT</th>
+            <th>Dữ liệu</th>
+            <th>Nhà cung cấp</th>
+            <th>Kiểu dữ liệu</th>
+            <th>Ngày mua</th>
+            <th>Thành tiền</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of pagedData; let i = index">
+            <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+            <td (click)="open(item, historyDetail)" style="cursor: pointer; color: #1b84ff;">
+              {{ item.productName }}
+            </td>
+            <td>{{ item.productProviderName }}</td>
+            <td>{{ getTypeLabel(item.productType) }}</td>
+            <td>{{ convertTimestampToDate(item.createdDate) }}</td>
+            <td>{{ formatNumber(item.amount) }}</td>
+          </tr>
+        </tbody>
+        
+      </table>
+
+      <div class="pagination-container mt-3 d-flex justify-content-end">
+        <ngb-pagination
+          [collectionSize]="totalRecords"
+          [(page)]="currentPage"
+          [pageSize]="pageSize"
+          (pageChange)="onPageChange($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal template -->
+<ng-template #historyDetail let-modal> 
+    <div class="modal-content shadow-lg border-0">
+      <!-- Header của modal -->
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title d-flex align-items-center" style="color: #fff;">
+          Chi tiết lịch sử giao dịch
+        </h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          aria-label="Close"
+          (click)="modal.close()"
+        ></button>
+      </div>
+
+      <!-- Body của modal -->
+      <div class="modal-body" *ngIf="orderDetail">
+        <div class="container">
+          <!-- Thông tin sản phẩm với các dòng phân cách -->
+          <div class="row py-2 border-bottom">
+            <div class="col-md-4 fw-bold text-muted">Tên dữ liệu:</div>
+            <div class="col-md-8">{{ orderDetail?.data?.productName }}</div>
+          </div>
+
+          <div class="row py-2 border-bottom">
+            <div class="col-md-4 fw-bold text-muted">Nhà cung cấp:</div>
+            <div class="col-md-8">{{ orderDetail?.data?.productProviderName }}</div>
+          </div>
+
+          <div class="row py-2 border-bottom">
+            <div class="col-md-4 fw-bold text-muted">Kiểu dữ liệu:</div>
+            <div class="col-md-8">{{ getTypeLabel(orderDetail?.data?.productType) }}</div>
+          </div>
+
+          <div class="row py-2 border-bottom">
+            <div class="col-md-4 fw-bold text-muted">Ngày mua:</div>
+            <div class="col-md-8">{{ convertTimestampToDate(orderDetail?.data?.createdDate) }}</div>
+          </div>
+
+          <div class="row py-2 border-bottom">
+            <div class="col-md-4 fw-bold text-muted">Thành tiền:</div>
+            <div class="col-md-8 text-success fw-bold">
+              {{ formatNumber(orderDetail?.data?.amount) }} VND
+            </div>
+          </div>
+
+          
+        </div>
+      </div>
+
+      <!-- Footer của modal -->
+      <div class="modal-footer d-flex justify-content-end">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="modal.close()"
+        >
+           Đóng
+        </button>
+      </div>
+    </div>
+</ng-template>
+

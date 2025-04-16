@@ -1,0 +1,91 @@
+<!--<ng-container *ngIf="appFooterContainerCSSClass">-->
+<!--  &lt;!&ndash;begin::Footer container&ndash;&gt;-->
+<!--  <div class="app-container" [ngClass]="appFooterContainerCSSClass">-->
+<!--    <ng-container *ngTemplateOutlet="footerView"></ng-container>-->
+<!--  </div>-->
+<!--  &lt;!&ndash;end::Footer container&ndash;&gt;-->
+<!--</ng-container>-->
+
+<!--<ng-container *ngIf="!appFooterContainerCSSClass">-->
+<!--  <ng-container *ngTemplateOutlet="footerView"></ng-container>-->
+<!--</ng-container>-->
+
+<!--<ng-template #footerView>-->
+<!--  &lt;!&ndash;begin::Copyright&ndash;&gt;-->
+<!--  <div class="text-gray-900 order-2 order-md-1">-->
+<!--    <span class="text-muted fw-semibold me-1">{{currentDateStr}}&copy;</span>-->
+<!--    <a href="https://keenthemes.com/" target="_blank" class="text-gray-800 text-hover-primary">Keenthemes</a>-->
+<!--  </div>-->
+<!--  &lt;!&ndash;end::Copyright&ndash;&gt;-->
+
+<!--  &lt;!&ndash;begin::Menu&ndash;&gt;-->
+<!--  <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">-->
+<!--    <li class="menu-item"><a href="https://keenthemes.com/" target="_blank" class="menu-link px-2">About</a></li>-->
+
+<!--    <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank" class="menu-link px-2">Support</a></li>-->
+
+<!--    <li class="menu-item"><a href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469"-->
+<!--        target="_blank" class="menu-link px-2">Purchase</a></li>-->
+<!--  </ul>-->
+<!--  &lt;!&ndash;end::Menu&ndash;&gt;-->
+
+<!--</ng-template>-->
+<!--<ng-template #footerView>-->
+  <footer class="footer bg-dark text-light" *ngIf="!isLogin">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-4">
+          <div class="footer-logo" style="margin-bottom: 32px;">
+            <img src="./assets/media/logos/dep-logo-white.svg" alt="Marketplace Logo" class="img-fluid"/><h1 style="color: white">DATA EXCHANGE PLATFORM</h1>
+          </div>
+          <p>97 Nguyễn Chí Thanh, Đống Đa, Hà Nội</p>
+          <p>0243.553.3388</p>
+          <p>{{ 'si.vnptit@vnpt.vn' }}</p>
+        </div>
+
+        <div class="col-12 col-md-8">
+          <div class="row">
+            <!-- Platform Section -->
+            <div class="col-6 col-md-3">
+              <h6 class="text-uppercase text-light">Giới thiệu</h6>
+              <ul class="list-unstyled">
+                <li><a href="#" class="text-light">Giới thiệu chung</a></li>
+                <li><a href="#" class="text-light">Tầm nhìn, sứ mệnh</a></li>
+                <li><a href="#" class="text-light">Cơ cấu tổ chức</a></li>
+                <li><a href="#" class="text-light">Nguồn lực</a></li>
+                <li><a href="#" class="text-light">Đối tác</a></li>
+                <li><a href="#" class="text-light">Khách hàng</a></li>
+              </ul>
+            </div>
+
+            <!-- Solutions Section -->
+            <div class="col-6 col-md-3">
+              <h6 class="text-uppercase text-light">Tin tức</h6>
+              <ul class="list-unstyled">
+                <li><a href="#" class="text-light">Tin VNPT</a></li>
+                <li><a href="#" class="text-light">Bài viết VNPT</a></li>
+              </ul>
+            </div>
+
+            <!-- Resources Section -->
+            <div class="col-6 col-md-3">
+              <h6 class="text-uppercase text-light">Điều khoản chung</h6>
+              <ul class="list-unstyled">
+                <li><a href="https://drive.google.com/file/d/1Y2AuBBExDTIFDX8PrUWFVIEFrskGB9pN/view?usp=sharing" target="_blank" class="text-light">Điều khoản dịch vụ</a></li>
+                <li><a href="https://drive.google.com/file/d/1INMW7QDXLGY8lX7mnvPQHT1v9dFHgHAQ/view?usp=sharing" target="_blank" class="text-light">Chính sách bảo mật</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <p class="mb-0 small">
+            Copyright © 2024 VNPT
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+<!--</ng-template>-->

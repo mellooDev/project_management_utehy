@@ -1,0 +1,71 @@
+.search-container {
+  max-width: 400px;
+  margin-bottom: 15px;
+  padding: 20px 0px;
+}
+.table {
+  margin-top: 20px;
+  width: 100%;
+}
+.pagination-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.custom-header th {
+  font-weight: bold; /* Làm chữ đậm */
+}
+
+.button-action {
+  padding: calc(0.775rem + 1px) calc(1.5rem + 1px);
+  border-radius: 0.475rem;
+  border: none;
+}
+
+.button-action:focus {
+  border: none;
+}
+
+.custom-bordered tbody tr:nth-child(odd) {
+  background-color: #f2f2f2; /* Màu nền nhạt cho dòng lẻ */
+}
+
+.custom-bordered tbody tr:nth-child(even) {
+  background-color: #ffffff; /* Màu nền trắng cho dòng chẵn */
+}
+
+.delete-input {
+  position: absolute;
+  top: 15px;
+  right: 60px;
+  cursor: pointer;
+}
+
+.input-group input:not(:placeholder-shown) + .delete-input {
+  display: block;
+}
+
+
+td:nth-child(3), td:nth-child(4) {
+  width: 15%;
+}
+
+td:last-child {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-download {
+  background-color: #73EC8B;
+  color: #fff;
+}
+
+.btn-delete {
+  background-color: #F72C5B;
+  color: #fff;
+}
+
+.btn-view {
+  background-color: #37AFE1;
+  color: #fff;
+}

@@ -1,0 +1,485 @@
+<div class="container mt-4">
+  <!-- <h1>Tạo mới sản phẩm</h1>
+  <div style="text-align: center;">
+    <div class="circle active">
+      1
+    </div>
+    <span style="color: #007bff;">----------------------------------------------</span>
+    <div class="circle" [ngClass]="{'active': status === 'active', 'inactive': status === 'inactive'}">
+      2
+    </div>
+
+  </div>
+
+  <div class="stepper">
+    <div>
+
+    <div class="step" [class.active]="activeStep === 1" >
+
+    </div>
+    <div class="button-container"  [ngClass]="{ 'hidden': activeStep === 2 }">
+      <button
+      [ngClass]="{ 'hidden': activeStep === 2 }"
+      class="btn-next"
+      (click)="nextStep()">
+      Tiếp theo
+    </button>
+    </div>
+  </div>
+  <div class="step" [class.active]="activeStep === 2">
+    <div class="step-container">
+
+    </div>
+  </div>
+
+
+
+
+  </div>
+
+
+  <div class="controls">
+    <button (click)="prevStep()" [disabled]="currentStep === 0">Trước</button>
+    <button (click)="nextStep()" [disabled]="currentStep === steps.length">Tiếp theo</button>
+  </div> -->
+  <div class="progress-container">
+    <!-- Thanh chính của tiến trình -->
+    <div
+      class="progress-bar"
+      [style.width.%]="(currentStep / steps.length) * 100"
+    ></div>
+
+    <h1></h1>
+
+    <!-- Các bước -->
+    <div class="steps">
+      <div
+        class="step"
+        *ngFor="let step of steps; let i = index"
+        [class.completed]="i < currentStep"
+        [class.active]="i === currentStep"
+      >
+        <!-- Hiển thị số hoặc tick -->
+        <span class="step-number">
+          <ng-container *ngIf="i < currentStep">✔</ng-container>
+          <ng-container *ngIf="i >= currentStep">{{ i + 1 }}</ng-container>
+        </span>
+        <!-- Hiển thị nhãn -->
+        <span class="step-label">{{ step }}</span>
+
+        <!-- Đường nối chỉ hiển thị nếu không phải bước cuối -->
+        <span *ngIf="i < steps.length - 1" class="step-connector"></span>
+      </div>
+    </div>
+    <div class="stepper">
+      <div class="stepData" [class.active]="currentStep === 0">
+        <h2 class="">Chọn dữ liệu</h2>
+
+
+        <div class="data-selection-container">
+          <div class="uploaded-data">
+            <p>Dữ liệu đã tải lên</p>
+            <div class="uploaded-data-treetable bordered-table">
+              <p-tree
+                [value]="files"
+                [(selection)]="selectedFiles"
+                selectionMode="checkbox"
+                class="w-full md:w-30rem"
+                (onNodeSelect)="onNodeSelect($event)"
+                (onNodeUnselect)="onNodeUnselect($event)"
+              />
+            </div>
+          </div>
+
+          <div class="data-info">
+            <p>Thông tin dữ liệu</p>
+            <div class="data-info-table bordered-table">
+              <div *ngIf="!tableDataResponse?.length; else dataTable">
+                <p style="text-align: center; font-size: 1rem">
+                  Vui lòng chọn table
+                </p>
+              </div>
+              <ng-template #dataTable>
+                <table class="table table-striped mt-3 custom-bordered">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let column of columns">{{ column }}</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr *ngFor="let row of tableDataResponse">
+                      <td *ngFor="let column of columns">{{ row[column] }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </ng-template>
+            </div>
+
+            <div *ngIf="messageStep1File" class="text-danger">
+              {{ messageStep1File }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stepData" [class.active]="currentStep === 1">
+        <!-- Tiêu đề chính -->
+        <h2 class="">Thông tin dữ liệu</h2>
+        <div class="data-exchange-container">
+          <div class="row">
+            <!-- Cột 8 -->
+            <div class="col-8">
+              <!-- Dòng 1 -->
+              <div class="form-row">
+                <div class="form-group col-6">
+                  <label for="dataName">Tên dữ liệu (*)</label>
+                  <input
+                    type="text"
+                    id="dataName"
+                    class="form-control"
+                    [(ngModel)]="dataName"
+                    (ngModelChange)="onInputChange('dataName')"
+                    placeholder="Tên dữ liệu"
+                    required
+                  />
+                  <span class="text-danger" *ngIf="isDataNameInvalid">
+                    {{ messageStep2Name.dataName }}
+                  </span>
+                </div>
+
+                <div class="form-group col-6">
+                  <label for="dataField">Lĩnh vực(*)</label>
+                  <select
+                    id="dataField"
+                    class="form-control"
+                    [(ngModel)]="dataField"
+                    (ngModelChange)="onInputChange('dataField')"
+                  >
+                    <option value="" disabled selected class="placeholder">
+                      Chọn lĩnh vực
+                    </option>
+                    <option
+                      *ngFor="let field of dataAPIField"
+                      [value]="field.description.category_description_id"
+                    >
+                      {{ field.description.name }}
+                    </option>
+                  </select>
+                  <span *ngIf="isDataFieldInvalid" class="text-danger">
+                    {{ messageStep2Name.dataField }}
+                  </span>
+                </div>
+              </div>
+              <!-- Dòng 2 -->
+              <div class="form-row">
+                <div class="form-group col-6">
+                  <label for="shortDescription">Mô tả ngắn (*)</label>
+                  <input
+                    placeholder="Nhập mô tả ngắn"
+                    type="text"
+                    id="shortDescription"
+                    class="form-control"
+                    [(ngModel)]="shortDescription"
+                    (ngModelChange)="onInputChange('shortDescription')"
+                    required
+                  />
+                  <span class="text-danger" *ngIf="isShortDescriptionInvalid">
+                    {{ messageStep2Name.shortDescription }}
+                  </span>
+                </div>
+                <div class="form-group col-6">
+                  <label>Logo</label>
+                  <div class="image-upload-container"   style="margin-top: 5px;">
+                    <input
+                      type="file"
+                      id="logoUpload"
+                      accept="image/png, image/jpeg"
+                      (change)="onFileUpload($event)"
+                    />
+                  </div>
+                  <!-- <label for="logoUpload">Logo tải lên</label>
+                 <input type="file" id="logoUpload" class="form-control" (change)="onFileUpload($event)" /> -->
+                </div>
+              </div>
+              <!-- Dòng 3 -->
+              <div class="form-row">
+                <div class="form-group col-12">
+                  <label for="dataDescription">Mô tả dữ liệu(*)</label>
+                      <angular-editor [(ngModel)]="htmlContentDes" [config]="editorConfig" [(ngModel)]="longDescription"
+                        (ngModelChange)="onInputChange('longDescription')"></angular-editor>
+                      <span class="text-danger" *ngIf="isLongDescriptionInvalid">
+                        {{ messageStep2Name.longDescription }}
+                      </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cột 4 -->
+            <div class="col-4">
+              <!-- Dòng 1 -->
+              <div class="form-group">
+                <label for="version">Phiên bản (*)</label>
+                <input
+                  placeholder="Nhập phiên bản, ví dụ: 1.1.1"
+                  type="text"
+                  id="version"
+                  class="form-control"
+                  [(ngModel)]="version"
+                  (ngModelChange)="onInputChange('version')"
+                  [(ngModel)]="version"
+                  required
+                />
+
+                <span class="text-danger" *ngIf="isVersionInvalid">
+                  {{ messageStep2Name.version }}
+                </span>
+              </div>
+              <!-- Dòng 2 -->
+              <div class="form-group">
+                <label class="mt-6">Hiển thị</label>
+                <div class="data-check mt-3">
+                  <input
+                    type="radio"
+                    id="displayYes"
+                    value="hiển thị"
+                    [(ngModel)]="displayOption"
+                    checked
+                  />
+                  <label for="displayYes">Hiển thị</label>
+                  <input
+                    type="radio"
+                    id="displayNo"
+                    value="ẩn"
+                    [(ngModel)]="displayOption"
+                  />
+                  <label for="displayNo">Ẩn</label>
+                </div>
+              </div>
+              <!-- Dòng 3 -->
+              <div class="form-group">
+                <label class="mt-6">Sở hữu dữ liệu</label>
+                <div class="data-check mt-3">
+                  <input
+                    type="radio"
+                    id="ownerManager"
+                    value="Chủ quản"
+                    [(ngModel)]="ownershipOption"
+                  />
+                  <label for="ownerManager">Chủ quản</label>
+                  <input
+                    type="radio"
+                    id="ownerHolder"
+                    value="Chủ sở hữu"
+                    [(ngModel)]="ownershipOption"
+                    checked
+                  />
+                  <label for="ownerHolder">Chủ sở hữu</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stepData" [class.active]="currentStep === 2">
+        <!-- Tiêu đề chính -->
+        <h2 class="">Tài liệu</h2>
+        <div class="data-exchange-container">
+          <div class="row">
+            <!-- Cột 8 -->
+            <div class="col-8">
+              <div class="form-row">
+                <div class="form-group col-12">
+                  <label for="htmlContentApp">Ứng dụng của dữ liệu</label>
+                  <angular-editor
+                    [(ngModel)]="htmlContentApp"
+                    [config]="editorConfig"
+                  ></angular-editor>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-12">
+                  <label for="htmlContentExample">Ví dụ sử dụng</label>
+                  <angular-editor
+                    [(ngModel)]="htmlContentExample"
+                    [config]="editorConfig"
+                  ></angular-editor>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cột 4 -->
+            <div class="col-4">
+              <!-- Dòng 1 -->
+              <div class="form-group">
+                <label>Dữ liệu mẫu</label>
+                <div class="image-upload-container">
+                  <textarea  id="example_json"
+                  class="form-control"
+                  [(ngModel)]="example_json" placeholder="example json">
+
+                  </textarea>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="delivery_id">Hình thức tải dữ liệu</label>
+                <select
+                  id="delivery_id"
+                  class="form-control"
+                  [(ngModel)]="delivery_id"
+                >
+                  <!-- <option value="" disabled selected class="placeholder">
+                    Chọn lĩnh vực
+                  </option> -->
+                  <option
+                    *ngFor="let field of deliveryMethods"
+                    [value]="field.id"
+                  >
+                    {{ field.name }}
+                  </option>
+                </select>
+              </div>
+
+              <!-- Dòng 2 -->
+              <div class="form-group">
+                <label class="mt-6">Chứng chỉ dữ liệu</label>
+                <div class="pdf-upload-container">
+                  <label for="pdfUpload" class="upload-icon">
+                    <i class="fa fa-upload" style="font-size: 25px"></i> Tải lên
+                    file
+                  </label>
+                  <input
+                    type="file"
+                    id="pdfUpload"
+                    accept="application/pdf"
+                    style="display: none"
+                    (change)="onPdfUpload($event)"
+                  />
+
+                  <div class="uploaded-pdfs">
+                    <div
+                      *ngFor="let pdf of uploadedPdfs; index as i"
+                      class="pdf-item"
+                    >
+                      <a [href]="pdf.url" target="_blank">{{ pdf.name }}</a>
+                      <button class="delete-btn" (click)="removePdf(i)">
+                        X
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stepData" [class.active]="currentStep === 3">
+        <!-- Tiêu đề chính -->
+        <h2 class="">Chi phí</h2>
+        <div class="data-selection-container">
+          <div class="payment-action">
+            <div
+              class="payment-option"
+              [ngClass]="{ selected: isSelected === 'free' }"
+              (click)="selectPayment('free')"
+            >
+              <span class="icon">🆓</span>
+              <span class="text">Miễn phí</span>
+              <span *ngIf="isSelected === 'free'" class="checkmark">✔</span>
+            </div>
+
+            <div
+              class="payment-option"
+              [ngClass]="{ selected: isSelected === 'paid' }"
+              (click)="selectPayment('paid')"
+            >
+              <span class="icon">💵</span>
+              <span class="text">Trả phí</span>
+              <span *ngIf="isSelected === 'paid'" class="checkmark">✔</span>
+            </div>
+          </div>
+          <div class="payment-content-right">
+            <div *ngIf="isSelected === 'free'" class="notification">
+              <div
+                class="free-payment-notification"
+              >
+                <p>Dữ liệu được chia sẻ không tính phí</p>
+                <p>
+                  Bất kì cá nhân/ tổ chức/ người sử dụng dữ liệu đều có thể truy
+                  cập và sử dụng dữ liệu
+                </p>
+              </div>
+            </div>
+            <div *ngIf="isSelected === 'paid'" class="payment-content">
+              <div class="create-package">
+                <button class="btn btn-success" (click)="openCreate()">
+                  <i class="fas fa-plus"></i>Thêm gói cước
+                </button>
+              </div>
+              <table class="table table-striped custom-bordered">
+                <thead class="custom-header">
+                  <tr>
+                    <th>Tên gói cước</th>
+                    <th>Loại gói</th>
+                    <th>Đơn giá</th>
+                    <th>Đơn vị</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of paymentDataLocal; let i = index">
+                    <td>{{ item.planName }}</td>
+                    <td>{{ item.planType }}</td>
+                    <td>{{ item.basePrice }}</td>
+                    <td>{{ item.optionMount }}</td>
+                    <td style="text-align: center">
+                      <button
+                        class="action-button"
+                        (click)="openUpdate(item.id)"
+                      >
+                        Sửa
+                      </button>
+                      <button
+                        class="action-button"
+                        (click)="openDelete(item.id)"
+                      >
+                        Xóa
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p-toast></p-toast>
+
+  <div
+    class="controls container mt-5 d-flex"
+    style="margin-left: 0; justify-content: space-between; align-items: center"
+  >
+    <button
+      class="btn btn-inline btn-sm btn-primary"
+      (click)="prevStep()"
+      [disabled]="currentStep === 0"
+    >
+      Trước
+    </button>
+    <button class="btn btn-inline btn-sm btn-primary" *ngIf="currentStep !== 3" (click)="nextStep()">Tiếp theo</button>
+    <button class="btn btn-inline btn-sm btn-primary" *ngIf="currentStep === 3" (click)="nextStep()">
+      <ng-container *ngIf="loadingSubmit">
+        <span class="indicator-progress" [style.display]="'block'">
+          Vui lòng chờ...
+          <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+        </span>
+      </ng-container>
+      <ng-container *ngIf="!loadingSubmit">
+        <span class="indicator-label">Tiếp theo </span>
+      </ng-container>
+    </button>
+  </div>
+</div>

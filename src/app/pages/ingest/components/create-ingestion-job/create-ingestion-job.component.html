@@ -1,0 +1,1232 @@
+<div class="card">
+  <!-- Tiêu đề trang -->
+  <div class="card-header">
+    <h3 class="card-title">
+      <h1>Thêm job đồng bộ</h1>
+    </h3>
+  </div>
+  <!-- Alert Error -->
+  <ng-container *ngIf="errMsg">
+    <div
+      class="alert alert-dismissible bg-light-danger border border-danger border-dashed d-flex flex-column flex-sm-row w-100 p-5 mb-10"
+    >
+      <!--begin::Icon-->
+      <i
+        class="ki-duotone ki-message-text-2 fs-2hx text-danger me-4 mb-5 mb-sm-0"
+        ><span class="path1"></span><span class="path2"></span
+        ><span class="path3"></span
+      ></i>
+      <!--end::Icon-->
+
+      <!--begin::Content-->
+      <div class="d-flex flex-column pe-0 pe-sm-10">
+        <h5 class="mb-1">Có lỗi xảy ra!</h5>
+        <span>{{ errMsg }}</span>
+      </div>
+      <!--end::Content-->
+
+      <!--begin::Close-->
+      <button
+        type="button"
+        class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto"
+        data-bs-dismiss="alert"
+      >
+        <i class="ki-duotone ki-cross fs-1 text-danger"
+          ><span class="path1"></span><span class="path2"></span
+        ></i>
+      </button>
+      <!--end::Close-->
+    </div>
+  </ng-container>
+
+  <!-- Nội dung -->
+
+  <div class="card-body pt-0">
+    <mat-stepper linear #stepper>
+      <!-- Step 1: Thông tin chung -->
+      <mat-step [stepControl]="ingestionForm" label="Thông tin chung">
+        <form [formGroup]="ingestionForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label fw-bolder text-gray-900 fs-6"
+                  >Tên Job *</label
+                >
+                <input
+                  class="form-control bg-transparent"
+                  type="text"
+                  formControlName="jobName"
+                  autofocus="true"
+                  placeholder="Nhập tên Job"
+                  [ngClass]="{
+                    'is-invalid': ingestControls['jobName'].invalid,
+                    'is-valid': ingestControls['jobName'].valid
+                  }"
+                />
+                <ng-container
+                  [ngTemplateOutlet]="formError"
+                  [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'Tên Job không được để trống',
+                    control: ingestControls['jobName']
+                  }"
+                ></ng-container>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="form-group d-flex justify-content-between align-items-center"
+              >
+                <!-- Job Source Type -->
+                <div class="w-50 pe-2">
+                  <label class="form-label fw-bolder text-gray-900 fs-6"
+                    >Nguồn dữ liệu *</label
+                  >
+                  <select
+                    class="form-control bg-transparent"
+                    formControlName="jobSrcType"
+                    (change)="changeJobSrcType()"
+                    [ngClass]="{
+                      'is-invalid': ingestControls['jobSrcType'].invalid,
+                      'is-valid': ingestControls['jobSrcType'].valid
+                    }"
+                  >
+                    <option value="API">API</option>
+                    <option value="KAFKA">Kafka</option>
+                    <option value="FILE">File</option>
+                  </select>
+                  <ng-container
+                    [ngTemplateOutlet]="formError"
+                    [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message: 'Nguồn dữ liệu là bắt buộc',
+                      control: ingestControls['jobSrcType']
+                    }"
+                  ></ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <!-- Start Now -->
+              <div class="form-group">
+                <label class="form-label fw-bolder text-gray-900 fs-6"
+                  >Khởi động</label
+                >
+                <mat-slide-toggle
+                  class="form-control bg-transparent"
+                  formControlName="startNow"
+                  >Chạy ngay sau khi khởi tạo</mat-slide-toggle
+                >
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label fw-bolder text-gray-900 fs-6"
+                >Mô tả</label
+              >
+              <textarea
+                class="form-control bg-transparent fw-bolder"
+                formControlName="description"
+                placeholder="Nhập mô tả"
+                rows="3"
+                [ngClass]="{
+                  'is-invalid': ingestControls['description'].invalid,
+                  'is-valid': ingestControls['description'].valid
+                }"
+              ></textarea>
+              <ng-container
+                [ngTemplateOutlet]="formError"
+                [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'Mô tả không được để trống',
+                  control: ingestControls['description']
+                }"
+              ></ng-container>
+            </div>
+          </div>
+          <div class="step-buttons">
+            <button class="btn btn-sm btn-secondary" [routerLink]="['/ingest']">
+              Quay lại
+            </button>
+            <button matStepperNext class="btn btn-sm btn-primary">Tiếp</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- Step 2: Cấu hình nguồn dữ liệu -->
+      <mat-step [stepControl]="sourceConfigForm" label="Cấu hình nguồn dữ liệu">
+        <form [formGroup]="sourceConfigForm">
+          <ng-container *ngIf="ingestionForm.value.jobSrcType === 'API'">
+            <h4 class="form-section-title">Cấu hình API</h4>
+            <div class="form-group">
+              <label class="form-label fw-bolder text-gray-900 fs-6"
+                >API URL</label
+              >
+              <input
+                class="form-control bg-transparent"
+                type="text"
+                formControlName="apiUrl"
+                placeholder="Nhập URL API"
+                [ngClass]="{
+                  'is-invalid': sourceConfigControls['apiUrl'].invalid,
+                  'is-valid': sourceConfigControls['apiUrl'].valid
+                }"
+              />
+              <ng-container
+                [ngTemplateOutlet]="formError"
+                [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'API URL là bắt buộc',
+                  control: sourceConfigControls['apiUrl']
+                }"
+              ></ng-container>
+            </div>
+            <div
+              class="form-group d-flex justify-content-between align-items-center"
+            >
+              <!-- HTTP Method -->
+              <div class="w-50 ps-2">
+                <label class="form-label fw-bolder text-gray-900 fs-6"
+                  >HTTP Method</label
+                >
+                <select
+                  class="form-control bg-transparent"
+                  formControlName="apiHttpMethod"
+                  [ngClass]="{
+                    'is-invalid': sourceConfigControls['apiHttpMethod'].invalid,
+                    'is-valid': sourceConfigControls['apiHttpMethod'].valid
+                  }"
+                >
+                  <option value="GET">GET</option>
+                  <option value="POST">POST</option>
+                  <option value="PUT">PUT</option>
+                </select>
+                <ng-container
+                  [ngTemplateOutlet]="formError"
+                  [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'HTTP Method là bắt buộc',
+                    control: sourceConfigControls['apiHttpMethod']
+                  }"
+                ></ng-container>
+              </div>
+              <!-- Data Path -->
+              <div class="w-50 pe-2">
+                <label class="form-label fw-bolder text-gray-900 fs-6"
+                  >Data Path</label
+                >
+                <input
+                  class="form-control bg-transparent"
+                  type="text"
+                  formControlName="dataPath"
+                  placeholder="Nhập đường dẫn đến dữ liệu (data, data.items, e.g...)"
+                  [ngClass]="{
+                    'is-invalid': sourceConfigControls['dataPath'].invalid,
+                    'is-valid': sourceConfigControls['dataPath'].valid
+                  }"
+                />
+                <ng-container
+                  [ngTemplateOutlet]="formError"
+                  [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'Data Path là bắt buộc',
+                    control: sourceConfigControls['dataPath']
+                  }"
+                ></ng-container>
+              </div>
+            </div>
+
+            <!-- Tabs for API Configuration -->
+            <mat-tab-group>
+              <!-- Params Tab -->
+              <mat-tab label="Params">
+                <div class="mt-4">
+                  <button
+                    class="btn btn-sm btn-icon btn-primary mb-5"
+                    (click)="addKeyValue('apiParams')"
+                  >
+                    <i class="bi bi-plus"></i>
+                  </button>
+                  <div
+                    formArrayName="apiParams"
+                    *ngIf="sourceConfigForm.get('apiParams') as params"
+                  >
+                    <div
+                      *ngFor="let param of apiParams.controls; let i = index"
+                      class="d-flex mb-2 align-items-center mt-2"
+                      [formGroupName]="i"
+                    >
+                      <input
+                        class="form-control me-2"
+                        type="text"
+                        placeholder="Key"
+                        formControlName="key"
+                      />
+                      <input
+                        class="form-control me-2"
+                        type="text"
+                        placeholder="Value"
+                        formControlName="value"
+                      />
+                      <button
+                        class="btn btn-sm btn-sm btn-icon btn-light-hover-danger"
+                        (click)="removeKeyValue('apiParams', i)"
+                      >
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div *ngIf="!apiParams?.length">
+                    <p class="text-muted">No query parameters added.</p>
+                  </div>
+                </div>
+              </mat-tab>
+
+              <!-- Headers Tab -->
+              <mat-tab label="Headers">
+                <div class="mt-4">
+                  <button
+                    class="btn btn-sm btn-icon btn-primary mb-5"
+                    (click)="addKeyValue('apiHeaders')"
+                  >
+                    <i class="bi bi-plus"></i>
+                  </button>
+                  <div
+                    formArrayName="apiHeaders"
+                    *ngIf="sourceConfigForm.get('apiHeaders') as headers"
+                  >
+                    <div
+                      *ngFor="let header of apiHeaders.controls; let i = index"
+                      class="d-flex mb-2 align-items-center mt-2"
+                      [formGroupName]="i"
+                    >
+                      <input
+                        class="form-control me-2"
+                        type="text"
+                        placeholder="Key"
+                        formControlName="key"
+                      />
+                      <input
+                        class="form-control me-2"
+                        type="text"
+                        placeholder="Value"
+                        formControlName="value"
+                      />
+                      <button
+                        class="btn btn-sm btn-sm btn-icon btn-light-hover-danger"
+                        (click)="removeKeyValue('apiHeaders', i)"
+                      >
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div *ngIf="!apiHeaders?.length">
+                    <p class="text-muted">No headers added.</p>
+                  </div>
+                </div>
+              </mat-tab>
+
+              <!-- Authentication Tab -->
+              <mat-tab label="Authentication">
+                <div class="mt-4">
+                  <!-- Loại Authentication -->
+                  <label class="form-label fw-bolder text-gray-900 fs-6"
+                    >Authentication Type</label
+                  >
+                  <select
+                    class="form-control bg-transparent"
+                    formControlName="apiAuthType"
+                  >
+                    <option [value]="ApiAuthType.NONE">None</option>
+                    <option [value]="ApiAuthType.BASIC">Basic</option>
+                    <option [value]="ApiAuthType.BEARER">Bearer</option>
+                    <option [value]="ApiAuthType.JWT">JWT</option>
+                  </select>
+
+                  <!-- Basic Authentication -->
+                  <div
+                    *ngIf="sourceConfigControls?.apiAuthType?.value === 'BASIC'"
+                    class="mt-4"
+                  >
+                    <h5 class="fw-bolder text-gray-900">
+                      Basic Authentication
+                    </h5>
+                    <div class="form-group mb-3">
+                      <label class="form-label fw-bolder text-gray-900 fs-6"
+                        >Username</label
+                      >
+                      <input
+                        class="form-control bg-transparent"
+                        type="text"
+                        placeholder="Nhập username"
+                        [(ngModel)]="basicAuth.username"
+                      />
+                    </div>
+                    <div class="form-group mb-3">
+                      <label class="form-label fw-bolder text-gray-900 fs-6"
+                        >Password</label
+                      >
+                      <input
+                        class="form-control bg-transparent"
+                        type="password"
+                        placeholder="Nhập password"
+                        [(ngModel)]="basicAuth.password"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Bearer Token -->
+                  <div
+                    *ngIf="
+                      sourceConfigControls?.apiAuthType?.value === 'BEARER' ||
+                      sourceConfigControls?.apiAuthType?.value === 'JWT'
+                    "
+                    class="mt-4"
+                  >
+                    <div class="form-group mb-3">
+                      <label class="form-label fw-bolder text-gray-900 fs-6"
+                        >Token</label
+                      >
+                      <textarea
+                        class="form-control bg-transparent"
+                        formControlName="apiAuthDetails"
+                        placeholder="Nhập token"
+                        rows="3"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </mat-tab>
+
+              <!-- Body Tab -->
+              <mat-tab label="Body">
+                <div class="form-group">
+                  <label class="form-label fw-bolder text-gray-900 fs-6"
+                    >Body</label
+                  >
+                  <mat-form-field appearance="outline" class="w-100">
+                    <textarea
+                      matInput
+                      formControlName="apiBody"
+                      rows="10"
+                      placeholder="Nhập body (JSON format)"
+                      class="form-control bg-transparent"
+                      placeholder="Nhập URL API"
+                      [ngClass]="{
+                        'is-invalid': sourceConfigControls['apiBody'].invalid,
+                        'is-valid': sourceConfigControls['apiBody'].valid
+                      }"
+                    >
+                    </textarea>
+                    <button
+                      mat-icon-button
+                      matSuffix
+                      aria-label="Format JSON"
+                      matTooltip="Format JSON"
+                      (click)="beautifyJson()"
+                    >
+                      <mat-icon>format_align_left</mat-icon>
+                    </button>
+                  </mat-form-field>
+                  <ng-container
+                    [ngTemplateOutlet]="formError"
+                    [ngTemplateOutletContext]="{
+                      validation: 'invalidJson',
+                      message: 'JSON không hợp lệ. Vui lòng kiểm tra lại.',
+                      control: sourceConfigControls['apiBody']
+                    }"
+                  ></ng-container>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+            <!-- end tab -->
+            <!-- end api cfg -->
+          </ng-container>
+
+          <ng-container *ngIf="ingestionForm.value.jobSrcType === 'KAFKA'">
+            <h4 class="form-section-title">Cấu hình Kafka</h4>
+            <div class="form-group">
+              <label class="form-label fw-bolder text-gray-900 fs-6"
+                >Data path</label
+              >
+              <input
+                class="form-control bg-transparent"
+                type="text"
+                formControlName="dataPath"
+                placeholder="Nhập đường dẫn đến dữ liệu (data, data.items, e.g...)"
+                [ngClass]="{
+                  'is-invalid': sourceConfigControls['dataPath'].invalid,
+                  'is-valid': sourceConfigControls['dataPath'].valid
+                }"
+              />
+              <ng-container
+                [ngTemplateOutlet]="formError"
+                [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'Data Path là bắt buộc',
+                  control: sourceConfigControls['dataPath']
+                }"
+              ></ng-container>
+            </div>
+
+            <!-- Advanced Config -->
+            <!--begin::Accordion-->
+            <div class="accordion" id="kafka_advance_cfg">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="kafka_advance_cfg_heade">
+                  <button
+                    class="accordion-button fs-4 fw-semibold collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#kafka_advance_cfg_body_2"
+                    aria-expanded="false"
+                    aria-controls="kafka_advance_cfg_body_2"
+                  >
+                    Cài đặt nâng cao
+                  </button>
+                </h2>
+                <div
+                  id="kafka_advance_cfg_body_2"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="kafka_advance_cfg_heade"
+                  data-bs-parent="#kafka_advance_cfg"
+                >
+                  <div class="accordion-body">
+                    <!-- numberOfPartitions and replicationFactor -->
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label
+                            class="form-label fw-bolder text-gray-900 fs-6"
+                          >
+                            Number of Partitions
+                          </label>
+                          <input
+                            class="form-control bg-transparent"
+                            type="number"
+                            formControlName="numberOfPartitions"
+                            placeholder="Number of Partitions"
+                          />
+                          <ng-container
+                            *ngIf="
+                              sourceConfigForm.get('numberOfPartitions')
+                                ?.invalid &&
+                              (sourceConfigForm.get('numberOfPartitions')
+                                ?.dirty ||
+                                sourceConfigForm.get('numberOfPartitions')
+                                  ?.touched)
+                            "
+                          >
+                            <div class="fv-plugins-message-container">
+                              <div class="fv-help-block">
+                                <span role="alert">
+                                  Number of Partitions is required and must be a
+                                  positive number.
+                                </span>
+                              </div>
+                            </div>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label
+                            class="form-label fw-bolder text-gray-900 fs-6"
+                          >
+                            Replication Factor
+                          </label>
+                          <input
+                            class="form-control bg-transparent"
+                            type="number"
+                            formControlName="replicationFactor"
+                            placeholder="Replication Factor"
+                          />
+                          <ng-container
+                            *ngIf="
+                              sourceConfigForm.get('replicationFactor')
+                                ?.invalid &&
+                              (sourceConfigForm.get('replicationFactor')
+                                ?.dirty ||
+                                sourceConfigForm.get('replicationFactor')
+                                  ?.touched)
+                            "
+                          >
+                            <div class="fv-plugins-message-container">
+                              <div class="fv-help-block">
+                                <span role="alert">
+                                  Replication Factor is required and must be a
+                                  positive number.
+                                </span>
+                              </div>
+                            </div>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- cleanupPolicy and minInSyncReplicas -->
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label
+                            class="form-label fw-bolder text-gray-900 fs-6"
+                          >
+                            Cleanup Policy
+                          </label>
+                          <select
+                            class="form-control bg-transparent"
+                            formControlName="cleanupPolicy"
+                          >
+                            <option value="delete">delete</option>
+                            <option value="compact">compact</option>
+                          </select>
+                          <ng-container
+                            *ngIf="
+                              sourceConfigForm.get('cleanupPolicy')?.invalid &&
+                              (sourceConfigForm.get('cleanupPolicy')?.dirty ||
+                                sourceConfigForm.get('cleanupPolicy')?.touched)
+                            "
+                          >
+                            <div class="fv-plugins-message-container">
+                              <div class="fv-help-block">
+                                <span role="alert">
+                                  Cleanup Policy is required.
+                                </span>
+                              </div>
+                            </div>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label
+                            class="form-label fw-bolder text-gray-900 fs-6"
+                          >
+                            Min In Sync Replicas
+                          </label>
+                          <input
+                            class="form-control bg-transparent"
+                            type="number"
+                            formControlName="minInSyncReplicas"
+                            placeholder="Min In Sync Replicas"
+                          />
+                          <ng-container
+                            *ngIf="
+                              sourceConfigForm.get('minInSyncReplicas')
+                                ?.invalid &&
+                              (sourceConfigForm.get('minInSyncReplicas')
+                                ?.dirty ||
+                                sourceConfigForm.get('minInSyncReplicas')
+                                  ?.touched)
+                            "
+                          >
+                            <div class="fv-plugins-message-container">
+                              <div class="fv-help-block">
+                                <span role="alert">
+                                  Min In Sync Replicas is required and must be a
+                                  positive number.
+                                </span>
+                              </div>
+                            </div>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- retentionTimeMs and maxSizeOnDiskGB -->
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label
+                            class="form-label fw-bolder text-gray-900 fs-6"
+                          >
+                            Retention Time (ms)
+                          </label>
+                          <input
+                            class="form-control bg-transparent"
+                            type="number"
+                            formControlName="retentionTimeMs"
+                            placeholder="Retention Time (ms)"
+                          />
+                          <ng-container
+                            *ngIf="
+                              sourceConfigForm.get('retentionTimeMs')
+                                ?.invalid &&
+                              (sourceConfigForm.get('retentionTimeMs')?.dirty ||
+                                sourceConfigForm.get('retentionTimeMs')
+                                  ?.touched)
+                            "
+                          >
+                            <div class="fv-plugins-message-container">
+                              <div class="fv-help-block">
+                                <span role="alert">
+                                  Retention Time is required and must be a
+                                  positive number.
+                                </span>
+                              </div>
+                            </div>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label
+                            class="form-label fw-bolder text-gray-900 fs-6"
+                          >
+                            Max Size On Disk (GB)
+                          </label>
+                          <input
+                            class="form-control bg-transparent"
+                            type="number"
+                            formControlName="maxSizeOnDiskGB"
+                            placeholder="Max Size On Disk (GB)"
+                          />
+                          <ng-container
+                            *ngIf="
+                              sourceConfigForm.get('maxSizeOnDiskGB')
+                                ?.invalid &&
+                              (sourceConfigForm.get('maxSizeOnDiskGB')?.dirty ||
+                                sourceConfigForm.get('maxSizeOnDiskGB')
+                                  ?.touched)
+                            "
+                          >
+                            <div class="fv-plugins-message-container">
+                              <div class="fv-help-block">
+                                <span role="alert">
+                                  Max Size On Disk is required and must be a
+                                  positive number.
+                                </span>
+                              </div>
+                            </div>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- maxMessageSizeBytes -->
+                    <div class="row mb-5">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label
+                            class="form-label fw-bolder text-gray-900 fs-6"
+                          >
+                            Max Message Size Bytes
+                          </label>
+                          <input
+                            class="form-control bg-transparent"
+                            type="number"
+                            formControlName="maxMessageSizeBytes"
+                            placeholder="Max Message Size Bytes"
+                          />
+                          <ng-container
+                            *ngIf="
+                              sourceConfigForm.get('maxMessageSizeBytes')
+                                ?.invalid &&
+                              (sourceConfigForm.get('maxMessageSizeBytes')
+                                ?.dirty ||
+                                sourceConfigForm.get('maxMessageSizeBytes')
+                                  ?.touched)
+                            "
+                          >
+                            <div class="fv-plugins-message-container">
+                              <div class="fv-help-block">
+                                <span role="alert">
+                                  Max Message Size is required and must be a
+                                  positive number.
+                                </span>
+                              </div>
+                            </div>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--end::Accordion-->
+          </ng-container>
+
+          <ng-container *ngIf="ingestionForm.value.jobSrcType === 'FILE'">
+            <h4 class="form-section-title">Cấu hình File</h4>
+
+            <div class="row">
+              <div class="col-md-6">
+                <!-- File CSV -->
+                <div class="form-group">
+                  <label class="form-label fw-bolder text-gray-900 fs-6"
+                    >File CSV *</label
+                  >
+                  <input
+                    type="file"
+                    accept=".csv"
+                    (change)="onFileCsvChange($event)"
+                    class="form-control bg-transparent"
+                    id="fileCsv"
+                    [ngClass]="{
+                      'is-invalid':
+                        sourceConfigControls['fileName'].invalid &&
+                        (sourceConfigControls['fileName'].touched ||
+                          sourceConfigControls['fileName'].dirty),
+                      'is-valid': sourceConfigControls['fileName'].valid
+                    }"
+                  />
+                  <ng-container
+                    [ngTemplateOutlet]="formError"
+                    [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message:
+                        'File CSV là bắt buộc khi nguồn dữ liệu là File.',
+                      control: sourceConfigControls['fileName']
+                    }"
+                  ></ng-container>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <!-- Row chứa Ký tự phân cách và Has Header -->
+                <div
+                  class="form-group d-flex justify-content-between align-items-center"
+                >
+                  <!-- Ký tự phân cách -->
+                  <div class="w-50 pe-2">
+                    <label class="form-label fw-bolder text-gray-900 fs-6"
+                      >Ký tự phân cách</label
+                    >
+                    <input
+                      class="form-control bg-transparent"
+                      type="text"
+                      formControlName="fileDelimiter"
+                      placeholder="Nhập ký tự phân cách (e.g., ,)"
+                      [ngClass]="{
+                        'is-invalid':
+                          sourceConfigControls['fileDelimiter'].invalid &&
+                          (sourceConfigControls['fileDelimiter'].touched ||
+                            sourceConfigControls['fileDelimiter'].dirty),
+                        'is-valid': sourceConfigControls['fileDelimiter'].valid
+                      }"
+                    />
+                    <ng-container
+                      [ngTemplateOutlet]="formError"
+                      [ngTemplateOutletContext]="{
+                        validation: 'required',
+                        message: 'Ký tự phân cách là bắt buộc.',
+                        control: sourceConfigControls['fileDelimiter']
+                      }"
+                    ></ng-container>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <!-- Has Header -->
+                <div class="ps-2 form-group">
+                  <label class="form-label fw-bolder text-gray-900 fs-6"
+                    >Headers</label
+                  >
+                  <mat-slide-toggle
+                    class="form-control"
+                    formControlName="fileHasHeader"
+                    [ngClass]="{
+                      'is-invalid':
+                        sourceConfigControls['fileHasHeader'].invalid &&
+                        (sourceConfigControls['fileHasHeader'].touched ||
+                          sourceConfigControls['fileHasHeader'].dirty),
+                      'is-valid': sourceConfigControls['fileHasHeader'].valid
+                    }"
+                  >
+                    File có Header?
+                  </mat-slide-toggle>
+                  <ng-container
+                    [ngTemplateOutlet]="formError"
+                    [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message:
+                        'Vui lòng xác định xem file có Header hay không.',
+                      control: sourceConfigControls['fileHasHeader']
+                    }"
+                  ></ng-container>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hiển thị bảng cấu trúc file -->
+            <br />
+            <ng-container *ngIf="dataSource.length > 0">
+              <h4 class="form-section-title">Preview</h4>
+              <div style="max-height: 300px; overflow-y: auto">
+                <table
+                  mat-table
+                  [dataSource]="dataSource"
+                  class="mat-elevation-z8"
+                >
+                  <!-- Hiển thị tên cột -->
+                  <ng-container
+                    matColumnDef="{{ column }}"
+                    *ngFor="let column of csvCols; let i = index"
+                  >
+                    <th mat-header-cell *matHeaderCellDef>
+                      {{ column }} ({{ dataTypes[i] }})
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element[column] }}
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="csvCols"></tr>
+                  <tr mat-row *matRowDef="let row; columns: csvCols"></tr>
+                </table>
+              </div>
+            </ng-container>
+          </ng-container>
+          <!-- End file cfg -->
+
+          <div class="step-buttons">
+            <button matStepperPrevious class="btn btn-sm btn-secondary">
+              Quay lại
+            </button>
+            <button
+              matStepperNext
+              class="btn btn-sm btn-primary"
+              (click)="initializeMappingData()"
+            >
+              Tiếp
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- Step 3: Cấu hình đích -->
+      <mat-step
+        [stepControl]="destinationConfigForm"
+        label="Cấu hình lưu dữ liệu"
+      >
+        <form [formGroup]="destinationConfigForm">
+          <div class="form-check mb-5 mt-5">
+            <input
+              type="checkbox"
+              id="create-checkbox"
+              [(ngModel)]="isCreateNew"
+              [ngModelOptions]="{ standalone: true }"
+              (ngModelChange)="onCreateCheck(isCreateNew)"
+              class="form-check-input"
+            />
+            <label for="flexCheckChecked"> Sử dụng database có sẵn? </label>
+          </div>
+          <div class="row mb-4">
+            <div class="col-md-6" *ngIf="isCreateNew">
+              <div class="form-group">
+                <label class="form-label fw-bolder text-gray-900 fs-6"
+                  >Chọn database có sẵn</label
+                >
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3"
+                >
+                  <!-- Chọn Database -->
+                  <div class="w-50 pe-2">
+                    <select
+                      class="form-control bg-transparent"
+                      formControlName="userDatabaseId"
+                      (change)="userDatabaseChange()"
+                      [ngClass]="{
+                        'is-invalid':
+                          destinationConfigForm.hasError(
+                            'atLeastOneRequired'
+                          ) &&
+                          !destinationConfigControls['userDatabaseId'].value,
+                        'is-valid':
+                          destinationConfigControls['userDatabaseId'].valid
+                      }"
+                    >
+                      <option value="">Chọn Database</option>
+                      <option
+                        *ngFor="let db of databaseOptions"
+                        [value]="db.id"
+                      >
+                        {{ db.databaseName }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="w-50 pe-2">
+                    <select
+                      class="form-control bg-transparent"
+                      formControlName="userTableId"
+                      (change)="userTableChange()"
+                      [ngClass]="{
+                        'is-invalid':
+                          destinationConfigForm.hasError(
+                            'atLeastOneRequired'
+                          ) && !destinationConfigControls['userTableId'].value,
+                        'is-valid':
+                          destinationConfigControls['userTableId'].valid
+                      }"
+                    >
+                      <option value="">Chọn Table</option>
+                      <option
+                        *ngFor="let table of tableOptions"
+                        [value]="table.id"
+                      >
+                        {{ table.tableName }}
+                      </option>
+                    </select>
+                  </div>
+
+                  <!-- Tạo Database -->
+                </div>
+                <div
+                  class="fv-plugins-message-container"
+                  *ngIf="destinationConfigForm.hasError('atLeastOneRequired')"
+                >
+                  <div class="fv-help-block text-danger">
+                    Vui lòng chọn Database hoặc nhập tên Database mới.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6" *ngIf="!isCreateNew">
+              <div class="form-group">
+                <label class="form-label fw-bolder text-gray-900 fs-6"
+                  >Tạo database mới</label
+                >
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3"
+                >
+                  <!-- Chọn Table -->
+                  <div class="w-50 ps-2">
+                    <input
+                      class="form-control bg-transparent"
+                      type="text"
+                      formControlName="databaseName"
+                      placeholder="Tạo Database mới"
+                      [ngClass]="{
+                        'is-invalid':
+                          destinationConfigForm.hasError(
+                            'atLeastOneRequired'
+                          ) && !destinationConfigControls['databaseName'].value,
+                        'is-valid':
+                          destinationConfigControls['databaseName'].valid
+                      }"
+                    />
+                  </div>
+
+                  <!-- Tạo Table -->
+                  <div class="w-50 ps-2">
+                    <input
+                      class="form-control bg-transparent"
+                      type="text"
+                      formControlName="tableName"
+                      placeholder="Tạo Table mới"
+                      [ngClass]="{
+                        'is-invalid':
+                          destinationConfigForm.hasError(
+                            'atLeastOneRequired'
+                          ) && !destinationConfigControls['tableName'].value,
+                        'is-valid': destinationConfigControls['tableName'].valid
+                      }"
+                    />
+                  </div>
+                </div>
+
+                <!-- Thông báo lỗi -->
+                <div
+                  class="fv-plugins-message-container"
+                  *ngIf="destinationConfigForm.hasError('atLeastOneRequired')"
+                >
+                  <div class="fv-help-block text-danger">
+                    Vui lòng chọn Table hoặc nhập tên Table mới.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end cfg -->
+
+          <h4 class="form-section-title">Field Mapping Configuration</h4>
+          <div class="form-group">
+            <div class="form-group">
+              <div class="d-flex align-items-center mb-3">
+                <!-- Nút thêm -->
+                <button
+                  class="btn btn-sm btn-icon btn-primary me-3"
+                  (click)="addMappingRow()"
+                  matTooltip="Thêm hàng mới"
+                >
+                  <i class="bi bi-plus"></i>
+                </button>
+                <!-- Download avsc  -->
+                <button
+                  class="btn btn-sm btn-icon btn-secondary me-3"
+                  (click)="downloadAvroSchema()"
+                  matTooltip="Tải xuống avro schema"
+                >
+                  <i class="bi bi-download"></i>
+                </button>
+
+                <!-- Nút tải file schema -->
+                <button
+                  class="btn btn-sm btn-icon btn-secondary"
+                  (click)="fileInputAvsc.click()"
+                  matTooltip="Tải lên avro schema (.avsc)"
+                >
+                  <i class="bi bi-upload"></i>
+                </button>
+
+                <input
+                  type="file"
+                  #fileInputAvsc
+                  accept=".avsc"
+                  (change)="onAvroSchemaChange($event)"
+                  hidden
+                />
+              </div>
+
+              <!-- Bảng cấu hình -->
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Field Name</th>
+                    <th>Field Type</th>
+                    <th>Column Name</th>
+                    <th>Required</th>
+                    <th>Primary Key</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody formArrayName="mappingConfig">
+                  <tr
+                    *ngFor="let row of mappingConfig.controls; let i = index"
+                    [formGroupName]="i"
+                  >
+                    <!-- Field Name -->
+                    <td>
+                      <input
+                        class="form-control bg-transparent"
+                        formControlName="fieldName"
+                        placeholder="Field Name"
+                      />
+                    </td>
+
+                    <!-- Field Type -->
+                    <td>
+                      <select
+                        class="form-control bg-transparent"
+                        formControlName="fieldType"
+                      >
+                        <option *ngFor="let type of fieldTypes" [value]="type">
+                          {{ type }}
+                        </option>
+                      </select>
+                    </td>
+
+                    <!-- Column Name -->
+                    <td>
+                      <ng-container
+                        *ngIf="destinationConfigForm.value.userTableId"
+                      >
+                        <select
+                          class="form-control bg-transparent"
+                          formControlName="columnName"
+                        >
+                          <option
+                            *ngFor="let column of tableColumns"
+                            [value]="column.colName"
+                          >
+                            {{ column.colName }}
+                          </option>
+                        </select>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="!destinationConfigForm.value.userTableId"
+                      >
+                        <td>
+                          <input
+                            class="form-control bg-transparent"
+                            formControlName="columnName"
+                            placeholder="Column Name"
+                            [ngClass]="{
+                              'is-invalid': controlHasError(
+                                row.get('columnName')
+                              ),
+                              'is-valid': controlIsValid(row.get('columnName'))
+                            }"
+                          />
+                          <ng-container
+                            [ngTemplateOutlet]="formError"
+                            [ngTemplateOutletContext]="{
+                              control: row.get('columnName'),
+                              messages: {
+                                required: 'Tên cột không được để trống',
+                                invalidColumnName: 'Tên cột không hợp lệ'
+                              }
+                            }"
+                          ></ng-container>
+                        </td>
+                      </ng-container>
+                    </td>
+
+                    <!-- Required -->
+                    <td class="text-center">
+                      <mat-checkbox formControlName="required"></mat-checkbox>
+                    </td>
+
+                    <!-- Primary Key -->
+                    <td class="text-center">
+                      <mat-checkbox formControlName="primaryKey"></mat-checkbox>
+                    </td>
+
+                    <!-- description -->
+                    <td>
+                      <input
+                        class="form-control bg-transparent"
+                        formControlName="description"
+                        placeholder="Description"
+                      />
+                    </td>
+
+                    <!-- Actions -->
+                    <td class="text-center">
+                      <button
+                        class="btn btn-sm btn-sm btn-icon btn-light-hover-danger"
+                        (click)="removeMappingRow(i)"
+                      >
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- end table mapping cfg -->
+          <div class="step-buttons">
+            <button matStepperPrevious class="btn btn-sm btn-secondary">
+              Quay lại
+            </button>
+            <button class="btn btn-sm btn-primary" (click)="submit()">
+              Lưu
+            </button>
+          </div>
+        </form>
+      </mat-step>
+    </mat-stepper>
+  </div>
+</div>
+
+<ng-template
+  #formError
+  let-control="control"
+  let-message="message"
+  let-validation="validation"
+>
+  <ng-container
+    *ngIf="control.hasError(validation) && (control.dirty || control.touched)"
+  >
+    <div class="fv-plugins-message-container">
+      <div class="fv-help-block">
+        <span role="alert">
+          {{ message }}
+        </span>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>

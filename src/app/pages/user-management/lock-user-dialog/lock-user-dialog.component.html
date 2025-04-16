@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>Xác nhận khóa tài khoản</h2>
+<div mat-dialog-content>
+  <form [formGroup]="lockForm">
+    <!-- Dropdown for predefined reasons -->
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Lý do khóa tài khoản</mat-label>
+      <mat-select formControlName="reason" required>
+        <mat-option *ngFor="let option of reasons" [value]="option">
+          {{ option }}
+        </mat-option>
+        <mat-option value="Khác">Khác</mat-option>
+      </mat-select>
+      <mat-error *ngIf="lockForm.controls['reason'].hasError('required')">
+        Vui lòng chọn lý do
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Input for custom reason -->
+    <mat-form-field
+      *ngIf="lockForm.controls['reason'].value === 'Khác'"
+      appearance="fill"
+      style="width: 100%; margin-top: 16px;"
+    >
+      <mat-label>Nhập lý do</mat-label>
+      <textarea
+        matInput
+        formControlName="customReason"
+        placeholder="Nhập lý do"
+        rows="3"
+      ></textarea>
+      <mat-error *ngIf="lockForm.controls['customReason'].hasError('required')">
+        Vui lòng nhập lý do
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Đóng</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="lockForm.invalid"
+    (click)="onConfirm()"
+  >
+    Xác nhận
+  </button>
+</div>

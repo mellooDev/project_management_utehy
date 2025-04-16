@@ -1,0 +1,18 @@
+
+.input-calendar {
+  position: relative;
+}
+
+.calendar-btn {
+  position: absolute;
+  top: 11px;
+  right: 8px;
+  font-size: 1.2rem;
+  border: none;
+  background: transparent;
+}
+
+.required-input::after {
+  content: ' *';
+  color: #dc3545;
+}

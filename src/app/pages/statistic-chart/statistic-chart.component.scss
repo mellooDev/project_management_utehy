@@ -1,0 +1,161 @@
+.chart-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px; /* Khoảng cách giữa các biểu đồ */
+}
+
+.chart-item {
+  flex: 1 1 calc(33.33% - 20px); /* Mặc định: 3 biểu đồ trên 1 hàng */
+  box-sizing: border-box;
+}
+
+@media (max-width: 1200px) {
+  .chart-item {
+    flex: 1 1 calc(50% - 20px); /* 2 biểu đồ trên 1 hàng cho màn hình medium */
+  }
+}
+
+@media (max-width: 768px) {
+  .chart-item {
+    flex: 1 1 100%; /* 1 biểu đồ trên 1 hàng cho màn hình nhỏ */
+  }
+}
+
+.chart1-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px; /* Khoảng cách giữa các biểu đồ */
+}
+
+.chart1-item {
+  flex: 1 1 calc(50% - 20px); /* Mặc định: 2 biểu đồ trên 1 hàng */
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .chart1-item {
+    flex: 1 1 100%; /* 1 biểu đồ trên 1 hàng cho màn hình nhỏ */
+  }
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 100px; /* Khoảng cách giữa các biểu đồ */
+  margin-top: 20px;
+  height: 120px;
+}
+
+.card-item {
+  flex: 1 1 calc(33.33% - 70px); /* Mặc định: 3 biểu đồ trên 1 hàng */
+  box-sizing: border-box;
+  padding: 15px;
+}
+
+@media (max-width: 768px) {
+  .card-item {
+    flex: 1 1 100%; /* 1 biểu đồ trên 1 hàng cho màn hình nhỏ */
+  }
+}
+
+.card1-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Khoảng cách giữa các biểu đồ */
+  height: 120px;
+}
+
+.card1-item {
+  flex: 1 1 calc(20% - 25px); /* Mặc định: 3 biểu đồ trên 1 hàng */
+  box-sizing: border-box;
+  padding: 15px;
+}
+
+@media (max-width: 768px) {
+  .card1-item {
+    flex: 1 1 100%; /* 1 biểu đồ trên 1 hàng cho màn hình nhỏ */
+  }
+}
+
+#dateRange:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.custom-row {
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  margin-left: 10px;
+}
+
+.custom-row1 {
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  margin-left: 5px;
+}
+
+.centered-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 46px;
+}
+
+.amount-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.amount-container1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-size: 20px;
+}
+
+.currency {
+  font-size: 20px;
+  margin-top: -10px;
+}
+
+.currency1 {
+  font-size: 15px;
+  margin-top: -10px;
+}
+
+.custom-percent {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 46px;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  margin-bottom: -16px;
+  color: #19f588;
+}
+
+.custom-percent1 {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 46px;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  margin-bottom: -16px;
+  color: #ff0000;
+}

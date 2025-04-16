@@ -1,0 +1,383 @@
+<div class="card" [ngClass]="{ container: !isLogin }">
+  <!-- Tiêu đề trang -->
+  <div class="card-header">
+    <h3 class="card-title">
+      <img
+        src="assets/media/logos/DEP_icon.ico"
+        alt="Icon"
+        class="me-3"
+        style="width: 50px; height: 50px"
+      />
+      <h2 class="mb-1">{{ dataProduct?.description?.name }}</h2>
+    </h3>
+    <div class="card-toolbar" style="margin-left: auto; margin-right: 0">
+      <!-- Nếu isBought là ! true -->
+      <button
+        class="btn btn-primary btn-sm"
+        *ngIf="!isBought && !isOwner && !isFREE"
+        (click)="clickBuyData(id)"
+      >
+        Mua dữ liệu
+      </button>
+      <button
+        class="btn btn-primary btn-sm"
+        *ngIf="isBought && !isOwner && !isFREE"
+        (click)="getData(id)"
+      >
+        Tải về
+      </button>
+      <button
+        class="btn btn-primary btn-sm"
+        *ngIf="isFREE && !isBought && !isOwner"
+        (click)="openTermsPopup()"
+      >
+        Sử dụng dữ liệu
+      </button>
+    </div>
+  </div>
+
+  <!-- Bộ lọc và nút Tạo -->
+  <div class="card-body">
+    <div [ngClass]="{ container: !isLogin }">
+      <!-- Header Section -->
+      <div class="d-flex align-items-start justify-content-between mb-4">
+        <div class="d-flex align-items-start">
+          <div style="margin-left: 10px" *ngIf="dataProduct">
+            <span>{{ dataProduct.description.short_description }}</span>
+
+            <div class="text-muted">
+              <span>Nhà cung cấp: {{ dataProduct.provider_name }}</span
+              ><br />
+              <span>Phiên bản: {{ dataProduct.version }}</span
+              ><br />
+              <span>Lĩnh vực: {{ dataProduct.category_name }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 10px; margin-left: 10px">
+        <ngb-rating [rate]="ratingAverage">
+          <ng-template let-fill="fill">
+            <span class="custom-star star-header" [class.filled]="fill === 100"
+              >★</span
+            >
+          </ng-template>
+        </ngb-rating>
+      </div>
+      <br />
+      <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
+        <li class="nav-item">
+          <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1"
+            >Thông tin chung</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_2"
+            >Cấu trúc & dữ liệu mẫu</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_3"
+            >Ứng dụng của dữ liệu</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_4"
+            >Sản phẩm cùng nhà cung cấp</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_5"
+            >Sản phẩm cùng danh mục</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_6"
+            >Đánh giá sản phẩm từ người dùng</a
+          >
+        </li>
+      </ul>
+
+      <div
+        class="tab-content"
+        id="myTabContent"
+        style="min-height: 600px; padding: 0"
+      >
+        <div
+          class="tab-pane fade show active"
+          id="kt_tab_pane_1"
+          role="tabpanel"
+        >
+          <span [innerHTML]="truncateText"></span>
+        </div>
+        <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
+          <div *ngIf="dataProduct?.data_type === 0">
+            <div class="row">
+              <!--begin::Col-->
+              <div class="col-lg-4" *ngFor="let tab of productImages">
+                <div class="d-flex flex-center">
+                  <img
+                    [src]="urlImage + tab.product_image_id"
+                    class="lozad rounded mw-100"
+                    style="max-height: 160px"
+                    alt=""
+                    data-loaded="true"
+                  />
+                </div>
+              </div>
+              <!--end::Col-->
+            </div>
+          </div>
+          <div class="tab-container" *ngIf="dataProduct?.data_type === 1">
+            <!-- Tabs -->
+            <div class="tab-header">
+              <button
+                *ngFor="let tab of dataProductItems"
+                [class.active]="activeTabPreview === tab.id"
+                (click)="switchTabPreview(tab.id)"
+              >
+                <i class="fas fa-box"></i> &nbsp; {{ tab.name }}
+              </button>
+            </div>
+            <!-- Tab content -->
+            <div class="tab-content">
+              <ng-container *ngFor="let tab of dataProductItems">
+                <div *ngIf="activeTabPreview === tab.id">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h2>Cấu trúc dữ liệu</h2>
+                      <div class="separator my-5"></div>
+                      <table
+                        class="table custom-bordered"
+                        style="min-height: 200px"
+                      >
+                        <thead class="custom-header">
+                          <tr>
+                            <th style="width: 20%">Column</th>
+                            <th style="width: 40%">Data Type</th>
+                            <th style="width: 40%">Description</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr
+                            *ngFor="
+                              let item of tab.table_structure.fields;
+                              let i = index
+                            "
+                          >
+                            <td class="pl-5">{{ item.name }}</td>
+                            <td class="pl-5">{{ item.type }}</td>
+                            <td class="pl-5">
+                              {{ item.type?.doc?.description }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-md-6">
+                      <h2>Dữ liệu mẫu</h2>
+                      <div class="separator my-5"></div>
+                      <pre style="min-height: 400px">{{
+                        tab.example_json | json
+                      }}</pre>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="kt_tab_pane_3" role="tabpanel">
+          <span [innerHTML]="dataProduct?.description?.use_guide"></span>
+          <p></p>
+        </div>
+        <div class="tab-pane fade" id="kt_tab_pane_4" role="tabpanel">
+          <div [ngClass]="{ container: !isLogin }">
+            <div class="row" *ngIf="listProductByCategory.length > 0">
+              <div
+                class="col-md-4 mb-4"
+                *ngFor="let item of listProductByCategory"
+                style="cursor: pointer"
+              >
+                <div class="card h-100">
+                  <div
+                    class="card-body"
+                    (click)="navigateToDetailProduct(item.product_id)"
+                  >
+                    <h5 class="card-title">{{ item.description?.name }}</h5>
+                    <p class="card-text">
+                      {{ item.description?.short_description }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="kt_tab_pane_5" role="tabpanel">
+          <div [ngClass]="{ container: !isLogin }">
+            <div class="row" *ngIf="listProductByCategory.length > 0">
+              <div
+                class="col-md-4 mb-4"
+                *ngFor="let item of listProductByCategory"
+                style="cursor: pointer"
+              >
+                <div class="card h-100">
+                  <div
+                    class="card-body"
+                    (click)="navigateToDetailProduct(item.product_id)"
+                  >
+                    <h5 class="card-title">{{ item.description?.name }}</h5>
+                    <p class="card-text">
+                      {{ item.description?.short_description }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- tab 6 -->
+        <div class="tab-pane fade" id="kt_tab_pane_6" role="tabpanel">
+          <div class="d-flex justify-content-between align-items-center">
+            <h3>Đánh giá sản phẩm dữ liệu</h3>
+            <div ngbDropdown class="d-inline-block">
+              <button
+                type="button"
+                class="btn-secondary button-action"
+                id="dropdownBasic1"
+                ngbDropdownToggle
+              >
+                Sắp xếp theo
+              </button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button ngbDropdownItem (click)="sortRating(1)">
+                  Mới nhất
+                </button>
+                <button ngbDropdownItem (click)="sortRating(2)">Cũ nhất</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- button filter by star number -->
+          <div class="d-flex gap-3 align-items-center" style="margin-top: 10px">
+            <button
+              *ngFor="let btn of buttonRatingArray; let i = index"
+              (click)="setActiveButtonRating(i)"
+              class="btn-primary button-filter-rating"
+              [ngClass]="{ active: selectedButtonFilter === i }"
+            >
+              {{ btn.label }}
+              <span *ngIf="btn.count !== null">({{ btn.count }})</span>
+            </button>
+          </div>
+
+          <div
+            *ngIf="ratingDatas?.length === 0; else dataAvailable"
+            class="mt-5"
+          >
+            Chưa có đánh giá nào về sản phẩm.
+          </div>
+
+          <!-- rating content block -->
+          <ng-template #dataAvailable>
+            <div *ngFor="let rating of ratingDatas">
+              <div style="margin-top: 30px">
+                <!-- header -->
+                <div class="d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center gap-4">
+                    <div class="avatar">
+                      <img
+                        [src]="
+                          rating.image
+                            ? 'data: image/jpeg;base64,' + rating.image
+                            : defaultImage
+                        "
+                        width="35"
+                        height="35"
+                        class=""
+                        style="
+                          object-fit: contain;
+                          object-position: center;
+                          border-radius: 50%;
+                        "
+                        alt=""
+                      />
+                    </div>
+                    <span style="font-weight: bold">{{ rating.fullName }}</span>
+                    <span>•</span>
+                    <span>{{
+                      rating.createAt | date : "dd-MM-yyyy HH:mm:ss"
+                    }}</span>
+                  </div>
+
+                  <ngb-rating [rate]="rating.rate">
+                    <ng-template let-fill="fill">
+                      <span class="custom-star" [class.filled]="fill === 100"
+                        >★</span
+                      >
+                    </ng-template>
+                  </ngb-rating>
+                </div>
+
+                <!-- content -->
+                <span
+                  style="
+                    padding: 15px 0 25px;
+                    display: inline-block;
+                    line-height: 1.6;
+                  "
+                  >{{ rating.content }}</span
+                >
+
+                <hr style="border: none; border-top: 2px solid #000" />
+              </div>
+            </div>
+          </ng-template>
+
+          <!-- pagination -->
+          <div
+            *ngIf="ratingDatas && ratingDatas.length > 0"
+            class="pagination-container d-flex justify-content-end mt-3"
+          >
+            <ngb-pagination
+              [collectionSize]="recordsTotal"
+              [(page)]="currentPage"
+              [pageSize]="pageSize"
+              (pageChange)="onPageChange($event)"
+            ></ngb-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div *ngIf="isTermsModalOpen" class="custom-modal">
+    <div class="custom-modal-content">
+      <div class="custom-modal-header">
+        <h5>Điều khoản sử dụng</h5>
+        <button (click)="closeTermsPopup()" class="close-btn">&times;</button>
+      </div>
+      <div class="custom-modal-body">
+        <p>
+          Dữ liệu được cung cấp miễn phí chỉ mang tính tham khảo và sử dụng cho
+          mục đích phi thương mại. Chúng tôi không đảm bảo tính chính xác, đầy
+          đủ hoặc cập nhật của dữ liệu. Người dùng tự chịu trách nhiệm về mọi
+          rủi ro khi sử dụng. Chúng tôi không chịu trách nhiệm về bất kỳ tổn
+          thất nào phát sinh từ việc sử dụng dữ liệu này.
+        </p>
+      </div>
+      <div class="custom-modal-footer">
+        <button
+          (click)="yesTermsPopup()"
+          class="btn btn-inline btn-sm btn-primary"
+        >
+          Đồng ý
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,742 @@
+<div class="card">
+  <!-- Tiêu đề trang -->
+  <div class="card-header pt-3">
+    <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
+      <li class="nav-item">
+        <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1"
+          >Thông tin sản phẩm dữ liệu</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_2"
+          >Đánh giá từ người dùng</a
+        >
+      </li>
+    </ul>
+  </div>
+
+  <!-- Bộ lọc và nút Tạo -->
+  <div class="card-body pt-0">
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
+        <div class="mt-4">
+          <div class="progress-container">
+            <div class="stepper">
+              <!-- version -->
+              <div class="stepData">
+                <!-- Tiêu đề chính -->
+                <div class="d-flex align-items-center justify-content-between">
+                  <h2 class="">Thông tin phiên bản</h2>
+                  <button
+                    class="btn btn-primary"
+                    (click)="toggleForm()"
+                    *ngIf="!isFormNewVersionAvailable"
+                  >
+                    <i
+                      class="bi bi-plus"
+                      style="font-size: 2rem; margin-right: 0"
+                    ></i>
+                    Thêm phiên bản
+                  </button>
+                </div>
+                <div class="data-exchange-container">
+                  <div *ngIf="!isFormNewVersionAvailable">
+                    <table
+                      class="table table-striped mt-3 custom-bordered text-center"
+                    >
+                      <thead class="custom-header">
+                        <tr>
+                          <th>STT</th>
+                          <th>Phiên bản</th>
+                          <th>Ngày cập nhật</th>
+                          <th>Ngày duyệt</th>
+                          <th>Nội dung cập nhật</th>
+                          <th>Trạng thái</th>
+                          <th>Thao tác</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <tr
+                          style="vertical-align: middle"
+                          *ngFor="let version of listVersion; let i = index"
+                        >
+                          <td>{{ i + 1 }}</td>
+                          <td>{{ version.version }}</td>
+                          <td>{{ version.updatedAt | date : "dd-MM-yyyy" }}</td>
+                          <td>
+                            {{ version.approvedDate | date : "dd-MM-yyyy" }}
+                          </td>
+                          <td>{{ version.versionDescription }}</td>
+                          <td>
+                            @if (version.isBusiness === 1) {
+                            <span class="badge badge-success"
+                              >Đang kinh doanh</span
+                            >
+                            } @else if (version.approvalStatus === 0) {
+                            <span class="badge badge-warning">Chờ duyệt</span>
+                            } @else if(version.approvalStatus === 1) {
+                            <span class="badge badge-secondary">Đã duyệt</span>
+                            }
+                          </td>
+                          <td>
+                            <button
+                              class="button-action-version"
+                              [ngClass]="{
+                                'btn-primary': version.isBusiness === 0,
+                                'btn-disabled': version.isBusiness === 1
+                              }"
+                              [disabled]="version.isBusiness === 1"
+                            >
+                              Kinh doanh
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div
+                    [@toggleForm]="
+                      isFormNewVersionAvailable ? 'visible' : 'hidden'
+                    "
+                  >
+                    <form
+                      [formGroup]="newVersionForm"
+                      (ngSubmit)="onRequestVersion()"
+                    >
+                      <div class="mb-3">
+                        <div style="width: 100%">
+                          <label
+                            for="updateDate"
+                            class="form-label"
+                            style="font-weight: bold"
+                            >Ngày cập nhật</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="updateDate"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label
+                          for="description"
+                          class="form-label"
+                          style="font-weight: bold"
+                          >Nội dung cập nhật phiên bản</label
+                        >
+                        <textarea
+                          name="description"
+                          id=""
+                          formControlName="description"
+                          class="form-control"
+                          rows="6"
+                        ></textarea>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="stepData">
+                <!-- Tiêu đề chính -->
+                <h2 class="">Thông tin chung</h2>
+                <div class="data-exchange-container">
+                  <div class="row">
+                    <!-- Cột 8 -->
+                    <div class="col-8">
+                      <!-- Dòng 1 -->
+                      <div class="form-row">
+                        <div class="form-group col-6">
+                          <label for="dataName">Tên dữ liệu (*)</label>
+                          <input
+                            type="text"
+                            id="dataName"
+                            class="form-control"
+                            [(ngModel)]="dataName"
+                            (ngModelChange)="onInputChange('dataName')"
+                            placeholder="Tên dữ liệu"
+                            required
+                          />
+                          <span class="text-danger" *ngIf="isDataNameInvalid">
+                            {{ messageStep2Name.dataName }}
+                          </span>
+                        </div>
+
+                        <div class="form-group col-6">
+                          <label for="dataField">Lĩnh vực(*)</label>
+                          <select
+                            id="dataField"
+                            class="form-control"
+                            [(ngModel)]="dataField"
+                            (ngModelChange)="onInputChange('dataField')"
+                          >
+                            <option
+                              value=""
+                              disabled
+                              selected
+                              class="placeholder"
+                            >
+                              Chọn lĩnh vực
+                            </option>
+                            <option
+                              *ngFor="let field of dataAPIField"
+                              [value]="
+                                field.description.category_description_id
+                              "
+                            >
+                              {{ field.description.name }}
+                            </option>
+                          </select>
+                          <span *ngIf="isDataFieldInvalid" class="text-danger">
+                            {{ messageStep2Name.dataField }}
+                          </span>
+                        </div>
+                      </div>
+                      <!-- Dòng 2 -->
+                      <div class="form-row">
+                        <div class="form-group col-6">
+                          <label for="shortDescription">Mô tả ngắn (*)</label>
+                          <input
+                            placeholder="Nhập mô tả ngắn"
+                            type="text"
+                            id="shortDescription"
+                            class="form-control"
+                            [(ngModel)]="shortDescription"
+                            (ngModelChange)="onInputChange('shortDescription')"
+                            required
+                          />
+
+                          <span
+                            class="text-danger"
+                            *ngIf="isShortDescriptionInvalid"
+                          >
+                            {{ messageStep2Name.shortDescription }}
+                          </span>
+                        </div>
+                        <div class="form-group col-6">
+                          <label>Logo</label>
+                          <div class="image-upload-container">
+                            <label for="logoUpload" class="upload-icon">
+                              <i
+                                class="fa fa-upload"
+                                style="font-size: 25px"
+                              ></i>
+                              Tải lên file
+                            </label>
+                            <input
+                              type="file"
+                              id="logoUpload"
+                              accept="image/png, image/jpeg"
+                              style="display: none"
+                              (change)="onFileUpload($event)"
+                            />
+                          </div>
+                          <!-- <label for="logoUpload">Logo tải lên</label>
+                      <input type="file" id="logoUpload" class="form-control" (change)="onFileUpload($event)" /> -->
+                        </div>
+                      </div>
+                      <!-- Dòng 3 -->
+                      <div class="form-row">
+                        <div class="form-group col-12">
+                          <label for="dataDescription">Mô tả dữ liệu(*)</label>
+                          <angular-editor
+                            [(ngModel)]="htmlContentDes"
+                            [config]="editorConfig"
+                            [(ngModel)]="longDescription"
+                            (ngModelChange)="onInputChange('longDescription')"
+                          ></angular-editor>
+                          <span
+                            class="text-danger"
+                            *ngIf="isLongDescriptionInvalid"
+                          >
+                            {{ messageStep2Name.longDescription }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Cột 4 -->
+                    <div class="col-4">
+                      <!-- Dòng 1 -->
+                      <div class="form-group">
+                        <label for="version">Phiên bản (*)</label>
+                        <input
+                          placeholder="Nhập phiên bản, ví dụ: 1.1.1"
+                          type="text"
+                          id="version"
+                          class="form-control"
+                          [(ngModel)]="version"
+                          (ngModelChange)="onInputChange('version')"
+                          required
+                          readonly
+                        />
+                        <span class="text-danger" *ngIf="isVersionInvalid">
+                          {{ messageStep2Name.version }}
+                        </span>
+                      </div>
+                      <!-- Dòng 2 -->
+                      <div class="form-group">
+                        <label class="mt-6">Hiển thị</label>
+                        <div class="data-check mt-3">
+                          <input
+                            type="radio"
+                            id="displayYes"
+                            value="hiển thị"
+                            [(ngModel)]="displayOption"
+                            [checked]="displayOption === 'hiển thị'"
+                          />
+                          <label for="displayYes">Hiển thị</label>
+                          <input
+                            type="radio"
+                            id="displayNo"
+                            value="ẩn"
+                            [(ngModel)]="displayOption"
+                            [checked]="displayOption === 'ẩn'"
+                          />
+                          <label for="displayNo">Ẩn</label>
+                        </div>
+                      </div>
+
+                      <!-- Dòng 3 -->
+                      <div class="form-group2">
+                        <label class="mt-6">Sở hữu dữ liệu</label>
+                        <div class="data-check mt-3">
+                          <input
+                            type="radio"
+                            id="ownerManager"
+                            value="Chủ quản"
+                            [(ngModel)]="ownershipOption"
+                            [checked]="ownershipOption === 'Chủ quản'"
+                          />
+                          <label for="ownerManager">Chủ quản</label>
+                          <input
+                            type="radio"
+                            id="ownerHolder"
+                            value="Chủ sở hữu"
+                            [(ngModel)]="ownershipOption"
+                            [checked]="ownershipOption === 'Chủ sở hữu'"
+                          />
+                          <label for="ownerHolder">Chủ sở hữu</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="stepData">
+                <!-- Tiêu đề chính -->
+                <h2 class="">Tài liệu</h2>
+                <div class="data-exchange-container">
+                  <div class="row">
+                    <!-- Cột 8 -->
+                    <div class="col-8">
+                      <div class="form-row">
+                        <div class="form-group col-12">
+                          <label for="dataDescription"
+                            >Ứng dụng của dữ liệu</label
+                          >
+                          <angular-editor
+                            [(ngModel)]="htmlContentApp"
+                            [config]="editorConfig"
+                          ></angular-editor>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-12">
+                          <label for="dataDescription">Ví dụ sử dụng</label>
+                          <angular-editor
+                            [(ngModel)]="htmlContentExample"
+                            [config]="editorConfig"
+                          ></angular-editor>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Cột 4 -->
+                    <div class="col-4">
+                      <!-- Dòng 1 -->
+                      <div class="form-group">
+                        <label>Dữ liệu mẫu</label>
+                        <div class="image-upload-container">
+                          <label for="imageUpload" class="upload-icon">
+                            <i class="fa fa-upload" style="font-size: 25px"></i>
+                            Tải lên file
+                          </label>
+                          <input
+                            type="file"
+                            id="imageUpload"
+                            accept="image/png, image/jpeg"
+                            style="display: none"
+                            (change)="onImageUpload($event, selectedImageIndex)"
+                          />
+
+                          <div class="uploaded-images">
+                            <div
+                              *ngFor="let image of uploadedImages; index as i"
+                              class="image-frame"
+                              [class.selected]="selectedImageIndex === i"
+                              (click)="selectedImageIndex = i"
+                            >
+                              <img [src]="image" alt="Uploaded Image" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Dòng 2 -->
+                      <div class="form-group">
+                        <label class="mt-6">Chứng chỉ dữ liệu</label>
+                        <div class="pdf-upload-container">
+                          <label for="pdfUpload" class="upload-icon">
+                            <i class="fa fa-upload" style="font-size: 25px"></i>
+                            Tải lên file
+                          </label>
+                          <input
+                            type="file"
+                            id="pdfUpload"
+                            accept="application/pdf"
+                            style="display: none"
+                            (change)="onPdfUpload($event)"
+                          />
+
+                          <div class="uploaded-pdfs">
+                            <div
+                              *ngFor="let pdf of uploadedPdfs; index as i"
+                              class="pdf-item"
+                            >
+                              <a [href]="pdf.url" target="_blank">{{
+                                pdf.name
+                              }}</a>
+                              <button
+                                class="delete-btn"
+                                (click)="removePdf(i, pdf.url)"
+                              >
+                                X
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stepData">
+                <!-- Tiêu đề chính -->
+                <h2 class="">Chi phí</h2>
+                <div class="data-selection-container">
+                  <div style="display: flex; gap: 15px">
+                    <div class="payment-action">
+                      <div
+                        class="payment-option"
+                        [ngClass]="{ selected: isSelected === 'free' }"
+                        (click)="selectPayment('free')"
+                      >
+                        <span class="icon">🆓</span>
+                        <span class="text">Miễn phí</span>
+                        <span *ngIf="isSelected === 'free'" class="checkmark"
+                          >✔</span
+                        >
+                      </div>
+
+                      <div
+                        class="payment-option"
+                        [ngClass]="{ selected: isSelected === 'paid' }"
+                        (click)="selectPayment('paid')"
+                      >
+                        <span class="icon">💵</span>
+                        <span class="text">Trả phí</span>
+                        <span *ngIf="isSelected === 'paid'" class="checkmark"
+                          >✔</span
+                        >
+                      </div>
+                    </div>
+                    <div class="payment-content-right">
+                      <div *ngIf="isSelected === 'free'" class="notification">
+                        <div class="free-payment-notification">
+                          <p>Dữ liệu được chia sẻ không tính phí</p>
+                          <p>
+                            Bất kì cá nhân/ tổ chức/ người sử dụng dữ liệu đều
+                            có thể truy cập và sử dụng dữ liệu
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        *ngIf="isSelected === 'paid'"
+                        class="payment-content"
+                      >
+                        <div
+                          class="create-package"
+                          *ngIf="paymentDataLocal.length < 4"
+                        >
+                          <button
+                            class="btn btn-success"
+                            (click)="openCreate()"
+                          >
+                            <i class="fas fa-plus"></i>Thêm gói cước
+                          </button>
+                        </div>
+                        <table class="table table-striped custom-bordered">
+                          <thead class="custom-header">
+                            <tr>
+                              <th>Tên gói cước</th>
+                              <th>Loại gói</th>
+                              <th>Đơn giá</th>
+                              <th>Đơn vị</th>
+                              <th>Thao tác</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr
+                              *ngFor="
+                                let item of paymentDataLocal;
+                                let i = index
+                              "
+                            >
+                              <td>{{ item.planName }}</td>
+                              <td>{{ item.planType }}</td>
+                              <td>{{ item.basePrice }}</td>
+                              <td>{{ item.optionMount }}</td>
+                              <td style="text-align: center">
+                                <button
+                                  class="action-button"
+                                  (click)="openUpdate(item.id)"
+                                >
+                                  Sửa
+                                </button>
+                                <button
+                                  class="action-button"
+                                  (click)="openDelete(item.id)"
+                                >
+                                  Xóa
+                                </button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="stepData">
+                <!-- Tiêu đề chính -->
+                <h2 class="">Chọn dữ liệu</h2>
+                <div class="data-selection-container">
+                  <!-- Khu vực tải file -->
+                  <div class="upload-section">
+                    <label for="file-upload" class="upload-title">
+                      <i class="fa fa-upload"></i>
+                    </label>
+                    <input
+                      type="file"
+                      id="file-upload"
+                      class="file-input"
+                      accept=".csv,.json,.xml,.xlsx"
+                      (change)="onDataUpload($event)"
+                    />
+                  </div>
+                  <label> Tải dữ liệu lên (csv/json/xml/xlsx) </label>
+                </div>
+                <div class="data-exchange-container">
+                  <div class="data-lists">
+                    <!-- Danh sách bên trái -->
+                    <div class="list-container">
+                      <h4 class="list-title">Dữ liệu đã tải lên</h4>
+                      <ul class="data-list">
+                        <li
+                          *ngFor="let item of dataFiles"
+                          style="text-align: left"
+                        >
+                          <label>
+                            <input
+                              type="checkbox"
+                              [checked]="selectedLeftItems.includes(item)"
+                              (change)="toggleSelection(item, 'left')"
+                            />
+                            {{ item.fileName }}
+                          </label>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <!-- Nút điều khiển -->
+                    <div class="controlsData">
+                      <button class="control-btn" (click)="moveToRight()">
+                        &gt;
+                      </button>
+                      <button class="control-btn" (click)="moveToLeft()">
+                        &lt;
+                      </button>
+                    </div>
+
+                    <!-- Danh sách bên phải -->
+                    <div class="list-container">
+                      <h4 class="list-title">Dữ liệu đã chọn</h4>
+                      <ul class="data-list">
+                        <li
+                          *ngFor="let item of selectedDataDone"
+                          style="text-align: left"
+                        >
+                          <label>
+                            <input
+                              type="checkbox"
+                              [checked]="selectedRightItems.includes(item)"
+                              (change)="toggleSelection(item, 'right')"
+                            />
+                            {{ item?.fileName }}
+                          </label>
+                        </li>
+                      </ul>
+                      <span class="text-danger">{{ messageStep1File }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="controls container mt-5 d-flex ">
+            <button class="btn btn-inline btn-sm btn-primary pull-right" style="margin-left: auto; margin-right: 0;" (click)="nextStep()">Lưu</button>
+          </div> -->
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
+        <div class="d-flex justify-content-between align-items-center mt-4">
+          <h3>Danh sách các đánh giá</h3>
+          <div class="d-flex gap-3 align-items-center">
+            <div ngbDropdown class="d-inline-block">
+              <button
+                type="button"
+                class="btn-secondary button-action"
+                id="dropdownBasic1"
+                ngbDropdownToggle
+              >
+                Trạng thái
+              </button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button ngbDropdownItem>Ẩn</button>
+                <button ngbDropdownItem>Hiện</button>
+              </div>
+            </div>
+
+            <div ngbDropdown class="d-inline-block">
+              <button
+                type="button"
+                class="btn-secondary button-action"
+                id="dropdownBasic2"
+                ngbDropdownToggle
+              >
+                Sắp xếp theo
+              </button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                <button ngbDropdownItem>Mới nhất</button>
+                <button ngbDropdownItem>Cũ nhất</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- button filter by star number -->
+        <div class="d-flex gap-3 align-items-center" style="margin-top: 10px">
+          <button
+            *ngFor="let btn of buttonRatingArray; let i = index"
+            (click)="setActiveButtonRating(i)"
+            class="btn-primary button-filter-rating"
+            [ngClass]="{ active: selectedButtonFilter === i }"
+          >
+            {{ btn.label }}
+            <span *ngIf="btn.count !== null">({{ btn.count }})</span>
+          </button>
+        </div>
+
+        <!-- rating content block -->
+
+        <div *ngIf="ratingDatas.length === 0; else dataAvailable" class="mt-5">
+          Chưa có đánh giá nào về sản phẩm.
+        </div>
+
+        <ng-template #dataAvailable>
+          <div *ngFor="let rating of ratingDatas">
+            <div style="margin-top: 30px">
+              <!-- header -->
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-4">
+                  <div class="avatar">
+                    <img
+                      [src]="
+                        rating.image
+                          ? 'data: image/jpeg;base64,' + rating.image
+                          : defaultImage
+                      "
+                      width="35"
+                      height="35"
+                      class=""
+                      style="
+                        object-fit: contain;
+                        object-position: center;
+                        border-radius: 50%;
+                      "
+                      alt=""
+                    />
+                  </div>
+                  <span style="font-weight: bold">{{ rating.fullName }}</span>
+                  <span>•</span>
+                  <span>{{
+                    rating.createAt | date : "dd-MM-yyyy HH:mm:ss"
+                  }}</span>
+                </div>
+
+                <ngb-rating [rate]="rating.rate">
+                  <ng-template let-fill="fill">
+                    <span class="custom-star" [class.filled]="fill === 100"
+                      >★</span
+                    >
+                  </ng-template>
+                </ngb-rating>
+              </div>
+
+              <!-- content -->
+              <span
+                style="
+                  padding: 15px 0 25px;
+                  display: inline-block;
+                  line-height: 1.6;
+                "
+                >{{ rating.content }}</span
+              >
+
+              <hr style="border: none; border-top: 2px solid #000" />
+            </div>
+          </div>
+        </ng-template>
+
+        <!-- pagination -->
+        <div
+          *ngIf="ratingDatas.length > 0"
+          class="pagination-container d-flex justify-content-end mt-3"
+        >
+          <ngb-pagination
+            [collectionSize]="recordsTotal"
+            [(page)]="currentPage"
+            [pageSize]="pageSize"
+            (pageChange)="onPageChange($event)"
+          ></ngb-pagination>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="d-flex justify-content-center align-items-center gap-3 mt-4"
+      *ngIf="isFormNewVersionAvailable"
+    >
+      <button class="btn btn-primary">Gửi duyệt</button>
+      <button class="btn btn-secondary" (click)="toggleForm()">Hủy</button>
+    </div>
+  </div>
+</div>

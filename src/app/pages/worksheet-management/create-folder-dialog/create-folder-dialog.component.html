@@ -1,0 +1,12 @@
+<div class="dialog-container">
+  <h2 class="dialog-title">Tạo Folder</h2>
+  <form (ngSubmit)="saveFolder()">
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Tên</mat-label>
+      <input matInput [(ngModel)]="folderName" name="folderName" placeholder="Nhập tên Folder" />
+    </mat-form-field>
+    <button type="submit" class="btn btn-primary save-button">
+      Lưu
+    </button>
+  </form>
+</div>

@@ -1,0 +1,792 @@
+<!--&lt;!&ndash; Dashboard&ndash;&gt;-->
+<!--<div class="menu-item me-lg-1">-->
+<!--  <a class="menu-link py-3" routerLinkActive="active menu-here" routerLink="/dashboard">-->
+<!--    <span class="menu-title"-->
+<!--          translate="MENU.DASHBOARD"></span>-->
+<!--  </a>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Layout Builder&ndash;&gt;-->
+<!--<div class="menu-item me-lg-1">-->
+<!--  <a class="menu-link py-3" routerLinkActive="active menu-here" routerLink="/builder">-->
+<!--    <span class="menu-title">Layout-->
+<!--      Builder-->
+<!--    </span>-->
+<!--  </a>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Crafted&ndash;&gt;-->
+<!--<div class="menu-item menu-lg-down-accordion me-lg-1 menu-dropdown"-->
+<!--     data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start">-->
+<!--  <span class="menu-link py-3" [ngClass]="calculateMenuItemCssClass('/crafted')">-->
+<!--    <span class="menu-title">Crafted</span>-->
+<!--    <span class="menu-arrow d-lg-none"></span>-->
+<!--  </span>-->
+<!--  <div class="-->
+<!--      menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0-->
+<!--      py-lg-4-->
+<!--      w-lg-225px-->
+<!--    " data-kt-menu-dismiss="true" data-popper-placement="bottom-start">-->
+<!--    <div class="menu-item menu-lg-down-accordion me-lg-1" data-kt-menu-trigger="{default:'click', lg: 'hover'}"-->
+<!--         data-kt-menu-placement="right-start">-->
+<!--      <span class="menu-link py-3" [ngClass]="calculateMenuItemCssClass('/crafted/pages')">-->
+<!--        <span class="menu-icon"><i-->
+<!--          class="bi fs-3 bi-archive"></i></span>-->
+<!--        <span class="menu-title">Pages</span>-->
+<!--        <span-->
+<!--          class="menu-arrow"></span>-->
+<!--      </span>-->
+<!--      <div class="-->
+<!--          menu-sub-->
+<!--          menu-sub-lg-down-accordion-->
+<!--          menu-sub-lg-dropdown-->
+<!--          menu-rounded-0-->
+<!--          py-lg-4-->
+<!--          w-lg-225px-->
+<!--        " data-kt-menu-dismiss="true">-->
+<!--        <div class="menu-item menu-lg-down-accordion me-lg-1" data-kt-menu-trigger="{default:'click', lg: 'hover'}"-->
+<!--             data-kt-menu-placement="right-start">-->
+<!--          <span class="menu-link py-3" [ngClass]="calculateMenuItemCssClass('/crafted/pages/profile')">-->
+<!--            <span-->
+<!--              class="menu-bullet">-->
+<!--              <span class="bullet bullet-dot"></span>-->
+<!--            </span>-->
+<!--            <span class="menu-title"-->
+<!--                  data-link="/crafted/pages/profile">Profile-->
+<!--            </span>-->
+<!--            <span class="menu-arrow"></span>-->
+<!--          </span>-->
+<!--          <div class="-->
+<!--              menu-sub-->
+<!--              menu-sub-lg-down-accordion-->
+<!--              menu-sub-lg-dropdown-->
+<!--              menu-rounded-0-->
+<!--              py-lg-4-->
+<!--              w-lg-225px-->
+<!--            " data-kt-menu-dismiss="true">-->
+<!--            <div class="menu-item me-lg-1">-->
+<!--              <a class="menu-link py-3" routerLinkActive="active" routerLink="/crafted/pages/profile/overview">-->
+<!--                <span-->
+<!--                  class="menu-bullet">-->
+<!--                  <span class="bullet bullet-dot"></span>-->
+<!--                </span>-->
+<!--                <span-->
+<!--                  class="menu-title">Overview-->
+<!--                </span>-->
+<!--              </a>-->
+<!--            </div>-->
+<!--            <div class="menu-item me-lg-1">-->
+<!--              <a class="menu-link py-3" routerLinkActive="active" routerLink="/crafted/pages/profile/projects">-->
+<!--                <span-->
+<!--                  class="menu-bullet">-->
+<!--                  <span class="bullet bullet-dot"></span>-->
+<!--                </span>-->
+<!--                <span-->
+<!--                  class="menu-title">Projects-->
+<!--                </span>-->
+<!--              </a>-->
+<!--            </div>-->
+
+<!--            <div class="menu-item me-lg-1">-->
+<!--              <a class="menu-link py-3" routerLinkActive="active" routerLink="/crafted/pages/profile/campaigns">-->
+<!--                <span-->
+<!--                  class="menu-bullet">-->
+<!--                  <span class="bullet bullet-dot"></span>-->
+<!--                </span>-->
+<!--                <span-->
+<!--                  class="menu-title">Campaigns-->
+<!--                </span>-->
+<!--              </a>-->
+<!--            </div>-->
+
+<!--            <div class="menu-item me-lg-1">-->
+<!--              <a class="menu-link py-3" routerLinkActive="active" routerLink="/crafted/pages/profile/documents">-->
+<!--                <span-->
+<!--                  class="menu-bullet">-->
+<!--                  <span class="bullet bullet-dot"></span>-->
+<!--                </span>-->
+<!--                <span-->
+<!--                  class="menu-title">Documents-->
+<!--                </span>-->
+<!--              </a>-->
+<!--            </div>-->
+
+<!--            <div class="menu-item me-lg-1">-->
+<!--              <a class="menu-link py-3" routerLinkActive="active" routerLink="/crafted/pages/profile/connections">-->
+<!--                <span-->
+<!--                  class="menu-bullet">-->
+<!--                  <span class="bullet bullet-dot"></span>-->
+<!--                </span>-->
+<!--                <span-->
+<!--                  class="menu-title">Connections-->
+<!--                </span>-->
+<!--              </a>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="menu-item menu-lg-down-accordion me-lg-1" data-kt-menu-trigger="{default:'click', lg: 'hover'}"-->
+<!--             data-kt-menu-placement="right-start">-->
+<!--          <span class="menu-link py-3" [ngClass]="calculateMenuItemCssClass('/crafted/pages/wizards')">-->
+<!--            <span-->
+<!--              class="menu-bullet">-->
+<!--              <span class="bullet bullet-dot"></span>-->
+<!--            </span>-->
+<!--            <span class="menu-title"-->
+<!--                  data-link="/crafted/pages/wizards">Wizards-->
+<!--            </span>-->
+<!--            <span class="menu-arrow"></span>-->
+<!--          </span>-->
+<!--          <div class="-->
+<!--              menu-sub-->
+<!--              menu-sub-lg-down-accordion-->
+<!--              menu-sub-lg-dropdown-->
+<!--              menu-rounded-0-->
+<!--              py-lg-4-->
+<!--              w-lg-225px-->
+<!--            " data-kt-menu-dismiss="true">-->
+<!--            <div class="menu-item me-lg-1">-->
+<!--              <a class="menu-link py-3" routerLinkActive="active" routerLink="/crafted/pages/wizards/horizontal">-->
+<!--                <span-->
+<!--                  class="menu-bullet">-->
+<!--                  <span class="bullet bullet-dot"></span>-->
+<!--                </span>-->
+<!--                <span-->
+<!--                  class="menu-title">Horizontal-->
+<!--                </span>-->
+<!--              </a>-->
+<!--            </div>-->
+<!--            <div class="menu-item me-lg-1">-->
+<!--              <a class="menu-link py-3" routerLinkActive="active" routerLink="/crafted/pages/wizards/vertical">-->
+<!--                <span-->
+<!--                  class="menu-bullet">-->
+<!--                  <span class="bullet bullet-dot"></span>-->
+<!--                </span>-->
+<!--                <span-->
+<!--                  class="menu-title">Vertical-->
+<!--                </span>-->
+<!--              </a>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="menu-item menu-lg-down-accordion me-lg-1" data-kt-menu-trigger="{default:'click', lg: 'hover'}"-->
+<!--         data-kt-menu-placement="right-start">-->
+<!--      <span class="menu-link py-3" [ngClass]="calculateMenuItemCssClass('/crafted/account')">-->
+<!--        <span class="menu-icon"><i-->
+<!--          class="bi fs-3 bi-person"></i></span>-->
+<!--        <span class="menu-title"-->
+<!--              data-link="/crafted/account">Accounts-->
+<!--        </span>-->
+<!--        <span class="menu-arrow"></span>-->
+<!--      </span>-->
+<!--      <div class="-->
+<!--          menu-sub-->
+<!--          menu-sub-lg-down-accordion-->
+<!--          menu-sub-lg-dropdown-->
+<!--          menu-rounded-0-->
+<!--          py-lg-4-->
+<!--          w-lg-225px-->
+<!--        " data-kt-menu-dismiss="true">-->
+<!--        <div class="menu-item me-lg-1">-->
+<!--          <a class="menu-link py-3" routerLinkActive="active" routerLink="/crafted/account/overview">-->
+<!--            <span-->
+<!--              class="menu-bullet">-->
+<!--              <span class="bullet bullet-dot"></span>-->
+<!--            </span>-->
+<!--            <span-->
+<!--              class="menu-title">Overview-->
+<!--            </span>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--        <div class="menu-item me-lg-1">-->
+<!--          <a class="menu-link py-3" routerLinkActive="active" routerLink="/crafted/account/settings">-->
+<!--            <span-->
+<!--              class="menu-bullet">-->
+<!--              <span class="bullet bullet-dot"></span>-->
+<!--            </span>-->
+<!--            <span-->
+<!--              class="menu-title">Settings-->
+<!--            </span>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="menu-item menu-lg-down-accordion me-lg-1" data-kt-menu-trigger="{default:'click', lg: 'hover'}"-->
+<!--         data-kt-menu-placement="right-start">-->
+<!--      <span class="menu-link py-3" [ngClass]="calculateMenuItemCssClass('/error')">-->
+<!--        <span class="menu-icon"><i-->
+<!--          class="bi fs-3 bi-sticky"></i></span>-->
+<!--        <span class="menu-title" data-link="/error">Errors</span>-->
+<!--        <span-->
+<!--          class="menu-arrow"></span>-->
+<!--      </span>-->
+<!--      <div class="-->
+<!--          menu-sub-->
+<!--          menu-sub-lg-down-accordion-->
+<!--          menu-sub-lg-dropdown-->
+<!--          menu-rounded-0-->
+<!--          py-lg-4-->
+<!--          w-lg-225px-->
+<!--        " data-kt-menu-dismiss="true">-->
+<!--        <div class="menu-item me-lg-1">-->
+<!--          <a class="menu-link py-3" routerLinkActive="active" routerLink="/error/404">-->
+<!--            <span class="menu-bullet">-->
+<!--              <span-->
+<!--                class="bullet bullet-dot"></span>-->
+<!--            </span>-->
+<!--            <span class="menu-title">Error 404</span>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--        <div class="menu-item me-lg-1">-->
+<!--          <a class="menu-link py-3" routerLinkActive="active" routerLink="/error/500">-->
+<!--            <span class="menu-bullet">-->
+<!--              <span-->
+<!--                class="bullet bullet-dot"></span>-->
+<!--            </span>-->
+<!--            <span class="menu-title">Error 500</span>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="menu-item menu-lg-down-accordion me-lg-1" data-kt-menu-trigger="{default:'click', lg: 'hover'}"-->
+<!--         data-kt-menu-placement="right-start">-->
+<!--      <span class="menu-link py-3" [ngClass]="calculateMenuItemCssClass('/error')">-->
+<!--        <span class="menu-icon"><i-->
+<!--          class="bi fs-3 bi-sticky"></i></span>-->
+<!--        <span class="menu-title" data-link="/error">System Management</span>-->
+<!--        <span-->
+<!--          class="menu-arrow"></span>-->
+<!--      </span>-->
+<!--      <div class="-->
+<!--          menu-sub-->
+<!--          menu-sub-lg-down-accordion-->
+<!--          menu-sub-lg-dropdown-->
+<!--          menu-rounded-0-->
+<!--          py-lg-4-->
+<!--          w-lg-225px-->
+<!--        " data-kt-menu-dismiss="true">-->
+<!--        <div class="menu-item me-lg-1">-->
+<!--          <a class="menu-link py-3" routerLinkActive="active" routerLink="/error/404">-->
+<!--            <span class="menu-bullet">-->
+<!--              <span-->
+<!--                class="bullet bullet-dot"></span>-->
+<!--            </span>-->
+<!--            <span class="menu-title">User Management</span>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--        <div class="menu-item me-lg-1">-->
+<!--          <a class="menu-link py-3" routerLinkActive="active" routerLink="/error/500">-->
+<!--            <span class="menu-bullet">-->
+<!--              <span-->
+<!--                class="bullet bullet-dot"></span>-->
+<!--            </span>-->
+<!--            <span class="menu-title">Role Management</span>-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="menu-item menu-lg-down-accordion me-lg-1" data-kt-menu-trigger="{default:'click', lg: 'hover'}"-->
+<!--         data-kt-menu-placement="right-start">-->
+<!--      <span class="menu-link py-3" [ngClass]="calculateMenuItemCssClass('/crafted/widgets')">-->
+<!--        <span class="menu-icon"><i-->
+<!--          class="bi fs-3 bi-layers"></i></span>-->
+<!--        <span class="menu-title"-->
+<!--              data-link="/crafted/widgets">Widgets-->
+<!--        </span>-->
+<!--        <span class="menu-arrow"></span>-->
+<!--      </span>-->
+<!--      <div class="-->
+<!--          menu-sub-->
+<!--          menu-sub-lg-down-accordion-->
+<!--          menu-sub-lg-dropdown-->
+<!--          menu-rounded-0-->
+<!--          py-lg-4-->
+<!--          w-lg-225px-->
+<!--        " data-kt-menu-dismiss="true">-->
+<!--        <div class="menu-item me-lg-1">-->
+<!--          <a class="menu-link py-3" routerLinkActive="active" routerLink="/crafted/widgets/lists">-->
+<!--            <span-->
+<!--              class="menu-bullet">-->
+<!--              <span class="bullet bullet-dot"></span>-->
+<!--            </span>-->
+<!--            <span-->
+<!--              class="menu-title">Lists-->
+<!--            </span>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--        <div class="menu-item me-lg-1">-->
+<!--          <a class="menu-link py-3" routerLinkActive="active" routerLink="/crafted/widgets/statistics">-->
+<!--            <span-->
+<!--              class="menu-bullet">-->
+<!--              <span class="bullet bullet-dot"></span>-->
+<!--            </span>-->
+<!--            <span-->
+<!--              class="menu-title">Statistics-->
+<!--            </span>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--        <div class="menu-item me-lg-1">-->
+<!--          <a class="menu-link py-3" routerLinkActive="active" routerLink="/crafted/widgets/charts">-->
+<!--            <span-->
+<!--              class="menu-bullet">-->
+<!--              <span class="bullet bullet-dot"></span>-->
+<!--            </span>-->
+<!--            <span-->
+<!--              class="menu-title">Charts-->
+<!--            </span>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--        <div class="menu-item me-lg-1">-->
+<!--          <a class="menu-link py-3" routerLinkActive="active" routerLink="/crafted/widgets/mixed">-->
+<!--            <span-->
+<!--              class="menu-bullet">-->
+<!--              <span class="bullet bullet-dot"></span>-->
+<!--            </span>-->
+<!--            <span-->
+<!--              class="menu-title">Mixed-->
+<!--            </span>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--        <div class="menu-item me-lg-1">-->
+<!--          <a class="menu-link py-3" routerLinkActive="active" routerLink="/crafted/widgets/tables">-->
+<!--            <span-->
+<!--              class="menu-bullet">-->
+<!--              <span class="bullet bullet-dot"></span>-->
+<!--            </span>-->
+<!--            <span-->
+<!--              class="menu-title">Tables-->
+<!--            </span>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--        <div class="menu-item me-lg-1">-->
+<!--          <a class="menu-link py-3" routerLinkActive="active" routerLink="/crafted/widgets/feeds">-->
+<!--            <span-->
+<!--              class="menu-bullet">-->
+<!--              <span class="bullet bullet-dot"></span>-->
+<!--            </span>-->
+<!--            <span-->
+<!--              class="menu-title">Feeds-->
+<!--            </span>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Apps&ndash;&gt;-->
+<!--<div class="menu-item menu-lg-down-accordion me-lg-1" data-kt-menu-trigger="{default: 'click', lg: 'hover'}"-->
+<!--  data-kt-menu-placement="bottom-start">-->
+<!--  <span class="menu-link py-3" [ngClass]="calculateMenuItemCssClass('/apps')">-->
+<!--    <span class="menu-title">Apps</span>-->
+<!--    <span class="menu-arrow d-lg-none"></span>-->
+<!--  </span>-->
+<!--  <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px" data-kt-menu-dismiss="true">-->
+<!--    <div class="menu-item menu-lg-down-accordion me-lg-1" data-kt-menu-trigger="{default:'click', lg: 'hover'}"-->
+<!--      data-kt-menu-placement="right-start">-->
+<!--      <span class="menu-link py-3" [ngClass]="calculateMenuItemCssClass('/apps/chat')"><span class="menu-icon">-->
+<!--        <app-keenicon name="element-plus" class="fs-md- text-white"></app-keenicon>-->
+<!--      </span>-->
+<!--      <span class="menu-title" data-link="/apps/chat">Chat</span><span class="menu-arrow"></span></span>-->
+<!--      <div class="-->
+<!--          menu-sub-->
+<!--          menu-sub-lg-down-accordion-->
+<!--          menu-sub-lg-dropdown-->
+<!--          menu-rounded-0-->
+<!--          py-lg-4-->
+<!--          w-lg-225px-->
+<!--        " data-kt-menu-dismiss="true">-->
+<!--        <div class="menu-item me-lg-1">-->
+<!--          <a class="menu-link py-3" routerLinkActive="active" routerLink="/apps/chat/private-chat"><span-->
+<!--              class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Private-->
+<!--              Chat</span></a>-->
+<!--        </div>-->
+<!--        <div class="menu-item me-lg-1">-->
+<!--          <a class="menu-link py-3" routerLinkActive="active" routerLink="/apps/chat/group-chat"><span-->
+<!--              class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Group-->
+<!--              Chart</span></a>-->
+<!--        </div>-->
+<!--        <div class="menu-item me-lg-1">-->
+<!--          <a class="menu-link py-3" routerLinkActive="active" routerLink="/apps/chat/drawer-chat"><span-->
+<!--              class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Drawer-->
+<!--              Chart</span></a>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash;   MegaMenu&ndash;&gt;-->
+<!--<div class="menu-item menu-lg-down-accordion me-lg-1" data-kt-menu-trigger="{default: 'click', lg: 'hover'}"-->
+<!--       data-kt-menu-placement="bottom-start">-->
+<!--    <span class="menu-link py-3">-->
+<!--      <span class="menu-title">Mega menu</span>-->
+<!--      <span class="menu-arrow d-lg-none"></span>-->
+<!--    </span>-->
+<!--    <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0 w-100 w-lg-850px">-->
+<!--      &lt;!&ndash;begin:Dashboards menu&ndash;&gt;-->
+<!--      <div class="menu-active-bg pt-1 pb-3 px-3 py-lg-6 px-lg-6" data-kt-menu-dismiss="true">-->
+<!--        &lt;!&ndash;begin:Row&ndash;&gt;-->
+<!--        <div class="row">-->
+<!--          &lt;!&ndash;begin:Col&ndash;&gt;-->
+<!--          <div class="col-lg-6">-->
+<!--            &lt;!&ndash;begin:Row&ndash;&gt;-->
+<!--            <div class="row">-->
+<!--              &lt;!&ndash;begin:Col&ndash;&gt;-->
+<!--              <div class="col-lg-6 mb-3">-->
+<!--                &lt;!&ndash;begin:Heading&ndash;&gt;-->
+<!--                <h4 class="fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4">Layouts</h4>-->
+<!--                &lt;!&ndash;end:Heading&ndash;&gt;-->
+<!--                &lt;!&ndash;begin:Menu item&ndash;&gt;-->
+<!--                <div class="menu-item p-0 m-0">-->
+<!--                  &lt;!&ndash;begin:Menu link&ndash;&gt;-->
+<!--                  <a (click)="setBaseLayoutType('light-sidebar')" class="menu-link">-->
+<!--                    <span class="menu-bullet">-->
+<!--                      <span class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>-->
+<!--                    </span>-->
+<!--                    <span class="menu-title">Light Sidebar</span>-->
+<!--                  </a>-->
+<!--                  &lt;!&ndash;end:Menu link&ndash;&gt;-->
+<!--                </div>-->
+<!--                &lt;!&ndash;end:Menu item&ndash;&gt;-->
+<!--                &lt;!&ndash;begin:Menu item&ndash;&gt;-->
+<!--                <div class="menu-item p-0 m-0">-->
+<!--                  &lt;!&ndash;begin:Menu link&ndash;&gt;-->
+<!--                  <a (click)="setBaseLayoutType('dark-sidebar')" class="menu-link">-->
+<!--                    <span class="menu-bullet">-->
+<!--                      <span class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>-->
+<!--                    </span>-->
+<!--                    <span class="menu-title">Dark Sidebar</span>-->
+<!--                  </a>-->
+<!--                  &lt;!&ndash;end:Menu link&ndash;&gt;-->
+<!--                </div>-->
+<!--                &lt;!&ndash;end:Menu item&ndash;&gt;-->
+<!--                &lt;!&ndash;begin:Menu item&ndash;&gt;-->
+<!--                <div class="menu-item p-0 m-0">-->
+<!--                  &lt;!&ndash;begin:Menu link&ndash;&gt;-->
+<!--                  <a (click)="setBaseLayoutType('light-header')" class="menu-link">-->
+<!--                    <span class="menu-bullet">-->
+<!--                      <span class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>-->
+<!--                    </span>-->
+<!--                    <span class="menu-title">Light Header</span>-->
+<!--                  </a>-->
+<!--                  &lt;!&ndash;end:Menu link&ndash;&gt;-->
+<!--                </div>-->
+<!--                &lt;!&ndash;end:Menu item&ndash;&gt;-->
+<!--                &lt;!&ndash;begin:Menu item&ndash;&gt;-->
+<!--                <div class="menu-item p-0 m-0">-->
+<!--                  &lt;!&ndash;begin:Menu link&ndash;&gt;-->
+<!--                  <a (click)="setBaseLayoutType('dark-header')" class="menu-link">-->
+<!--                    <span class="menu-bullet">-->
+<!--                      <span class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>-->
+<!--                    </span>-->
+<!--                    <span class="menu-title">Dark Header</span>-->
+<!--                  </a>-->
+<!--                  &lt;!&ndash;end:Menu link&ndash;&gt;-->
+<!--                </div>-->
+<!--                &lt;!&ndash;end:Menu item&ndash;&gt;-->
+<!--              </div>-->
+<!--              &lt;!&ndash;end:Col&ndash;&gt;-->
+<!--              &lt;!&ndash;begin:Col&ndash;&gt;-->
+<!--              <div class="col-lg-6 mb-3">-->
+<!--                &lt;!&ndash;begin:Heading&ndash;&gt;-->
+<!--                <h4 class="fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4">Toolbars</h4>-->
+<!--                &lt;!&ndash;end:Heading&ndash;&gt;-->
+<!--                &lt;!&ndash;begin:Menu item&ndash;&gt;-->
+<!--                <div class="menu-item p-0 m-0">-->
+<!--                  &lt;!&ndash;begin:Menu link&ndash;&gt;-->
+<!--                  <a (click)="setToolbar('classic')" class="menu-link">-->
+<!--                    <span class="menu-bullet">-->
+<!--                      <span class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>-->
+<!--                    </span>-->
+<!--                    <span class="menu-title">Classic</span>-->
+<!--                  </a>-->
+<!--                  &lt;!&ndash;end:Menu link&ndash;&gt;-->
+<!--                </div>-->
+<!--                &lt;!&ndash;end:Menu item&ndash;&gt;-->
+<!--                &lt;!&ndash;begin:Menu item&ndash;&gt;-->
+<!--                <div class="menu-item p-0 m-0">-->
+<!--                  &lt;!&ndash;begin:Menu link&ndash;&gt;-->
+<!--                  <a (click)="setToolbar('saas')" class="menu-link">-->
+<!--                    <span class="menu-bullet">-->
+<!--                      <span class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>-->
+<!--                    </span>-->
+<!--                    <span class="menu-title">SaaS</span>-->
+<!--                  </a>-->
+<!--                  &lt;!&ndash;end:Menu link&ndash;&gt;-->
+<!--                </div>-->
+<!--                &lt;!&ndash;end:Menu item&ndash;&gt;-->
+<!--                &lt;!&ndash;begin:Menu item&ndash;&gt;-->
+<!--                <div class="menu-item p-0 m-0">-->
+<!--                  &lt;!&ndash;begin:Menu link&ndash;&gt;-->
+<!--                  <a (click)="setToolbar('accounting')" class="menu-link">-->
+<!--                    <span class="menu-bullet">-->
+<!--                      <span class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>-->
+<!--                    </span>-->
+<!--                    <span class="menu-title">Accounting</span>-->
+<!--                  </a>-->
+<!--                  &lt;!&ndash;end:Menu link&ndash;&gt;-->
+<!--                </div>-->
+<!--                &lt;!&ndash;end:Menu item&ndash;&gt;-->
+<!--                &lt;!&ndash;begin:Menu item&ndash;&gt;-->
+<!--                <div class="menu-item p-0 m-0">-->
+<!--                  &lt;!&ndash;begin:Menu link&ndash;&gt;-->
+<!--&lt;!&ndash;                  <a (click)="setToolbar('extended')" class="menu-link">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <span class="menu-bullet">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <span class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </span>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <span class="menu-title">Extended</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                  </a>&ndash;&gt;-->
+<!--                  &lt;!&ndash;end:Menu link&ndash;&gt;-->
+<!--                </div>-->
+<!--                &lt;!&ndash;end:Menu item&ndash;&gt;-->
+<!--                &lt;!&ndash;begin:Menu item&ndash;&gt;-->
+<!--                <div class="menu-item p-0 m-0">-->
+<!--                  &lt;!&ndash;begin:Menu link&ndash;&gt;-->
+<!--                  <a (click)="setToolbar('reports')" class="menu-link">-->
+<!--                    <span class="menu-bullet">-->
+<!--                      <span class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>-->
+<!--                    </span>-->
+<!--                    <span class="menu-title">Reports</span>-->
+<!--                  </a>-->
+<!--                  &lt;!&ndash;end:Menu link&ndash;&gt;-->
+<!--                </div>-->
+<!--                &lt;!&ndash;end:Menu item&ndash;&gt;-->
+<!--              </div>-->
+<!--              &lt;!&ndash;end:Col&ndash;&gt;-->
+<!--            </div>-->
+<!--            &lt;!&ndash;end:Row&ndash;&gt;-->
+<!--            <div class="separator separator-dashed mx-lg-5 mt-2 mb-6"></div>-->
+<!--            &lt;!&ndash;begin:Layout Builder&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="d-flex flex-stack flex-wrap flex-lg-nowrap gap-2 mb-5 mb-lg-0 mx-lg-5">&ndash;&gt;-->
+<!--&lt;!&ndash;              <div class="d-flex flex-column me-5">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="fs-6 fw-bold text-gray-800">Layout Builder</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="fs-7 fw-semibold text-muted">Customize view</div>&ndash;&gt;-->
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--&lt;!&ndash;              <a routerLink="/builder" class="btn btn-sm btn-primary fw-bold">Try&ndash;&gt;-->
+<!--&lt;!&ndash;                Builder</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--            &lt;!&ndash;end:Layout Builder&ndash;&gt;-->
+<!--          </div>-->
+<!--          &lt;!&ndash;end:Col&ndash;&gt;-->
+<!--          &lt;!&ndash;begin:Col&ndash;&gt;-->
+<!--&lt;!&ndash;          <div class="col-lg-6 mb-3 py-lg-3 pe-lg-8 d-flex align-items-center">&ndash;&gt;-->
+<!--&lt;!&ndash;            <img src="./assets/media/stock/900x600/45.jpg" class="rounded mw-100" alt="">&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--          &lt;!&ndash;end:Col&ndash;&gt;-->
+<!--        </div>-->
+<!--        &lt;!&ndash;end:Row&ndash;&gt;-->
+<!--      </div>-->
+<!--      &lt;!&ndash;end:Dashboards menu&ndash;&gt;-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+<!--&lt;!&ndash;Logo-&#45;&#45;!&ndash;&gt;-->
+<!--<div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">-->
+<!--  <div class="align-items-center">-->
+<!--    <a routerLink="/dashboard">-->
+<!--      <ng-container *ngIf="currentLayoutType === 'dark-header'">-->
+<!--        <img alt="Logo" src="./assets/media/logos/default-dark.svg"-->
+<!--             class="h-20px h-lg-30px app-sidebar-logo-default" />-->
+<!--      </ng-container>-->
+<!--      <ng-container *ngIf="currentLayoutType !== 'dark-header'">-->
+<!--        <img alt="Logo" src="./assets/media/logos/default.svg"-->
+<!--             class="h-20px h-lg-30px app-sidebar-logo-default theme-light-show" />-->
+<!--        <img alt="Logo" src="./assets/media/logos/default-dark.svg"-->
+<!--             class="h-20px h-lg-30px app-sidebar-logo-default theme-dark-show" />-->
+<!--      </ng-container>3-->
+<!--    </a>-->
+<!--  </div>-->
+<!--  <div>-->
+<!--    <form data-kt-search-element="form" class="w-100 position-relative mb-5" autocomplete="off">-->
+<!--      &lt;!&ndash;begin::Hidden input(Added to disable form autocomplete)&ndash;&gt;-->
+<!--      <input type="hidden"/>-->
+<!--      &lt;!&ndash;end::Hidden input&ndash;&gt;-->
+
+<!--      &lt;!&ndash;begin::Icon&ndash;&gt;-->
+<!--      &lt;!&ndash;begin::Svg Icon | path: magnifier&ndash;&gt;-->
+<!--      &lt;!&ndash;end::Icon&ndash;&gt;-->
+
+<!--      &lt;!&ndash;begin::Input&ndash;&gt;-->
+<!--      <input type="text" class="form-control form-control-lg form-control-solid px-15"-->
+<!--             name="search"-->
+<!--             value=""-->
+<!--             placeholder="Search by username, full name or email..."-->
+<!--             data-kt-search-element="input"/>-->
+<!--      &lt;!&ndash;end::Input&ndash;&gt;-->
+
+<!--      &lt;!&ndash;begin::Spinner&ndash;&gt;-->
+<!--      <span class="position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-5" data-kt-search-element="spinner">-->
+<!--            <span class="spinner-border h-15px w-15px align-middle text-gray-500"></span>-->
+<!--        </span>-->
+<!--      &lt;!&ndash;end::Spinner&ndash;&gt;-->
+
+<!--      &lt;!&ndash;begin::Reset&ndash;&gt;-->
+<!--      <span class="btn btn-flush btn-active-color-primary position-absolute top-50 end-0 translate-middle-y lh-0 me-5 d-none"-->
+<!--            data-kt-search-element="clear">-->
+
+<!--            &lt;!&ndash;begin::Svg Icon | path: cross&ndash;&gt;-->
+<!--        </span>-->
+<!--      &lt;!&ndash;end::Reset&ndash;&gt;-->
+<!--    </form>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--begin::Main wrapper-->
+<div class="container bg-white" *ngIf="!isLogin">
+  <!--begin::Logo-->
+  <div routerLink="/marketplace" style="cursor: pointer">
+    <ng-container *ngIf="currentLayoutType === 'dark-sidebar'">
+      <div class="app-sidebar-logo-default">
+        <img alt="Logo" src="./assets/media/logos/dep-logo-default.svg" />
+      </div>
+    </ng-container>
+    <ng-container *ngIf="currentLayoutType !== 'dark-sidebar'">
+      <div class="app-sidebar-logo-default theme-light-show pt-5">
+        <img alt="Logo" src="./assets/media/logos/dep-logo-default.svg" style="width: 150px;"/>
+      </div>
+      <div class="h-25px app-sidebar-logo-default theme-dark-show pt-4">
+        <svg width="100" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 390.66 174.99">
+          <defs>
+            <style>
+              .cls-1 {
+                fill: #0066b3;
+              }
+
+              .cls-2 {
+                fill: url(#linear-gradient);
+              }
+
+              .cls-3 {
+                fill: url(#linear-gradient-2);
+              }
+            </style>
+            <linearGradient id="linear-gradient" x1="78.22" y1="298.66" x2="236.94" y2="298.66"
+              gradientUnits="userSpaceOnUse">
+              <stop offset="0.05" stop-color="#0066b3" />
+              <stop offset="0.95" stop-color="#0080c7" />
+            </linearGradient>
+            <linearGradient id="linear-gradient-2" x1="78.22" y1="374.12" x2="236.94" y2="374.12"
+              gradientUnits="userSpaceOnUse">
+              <stop offset="0.05" stop-color="#f26623" />
+              <stop offset="0.95" stop-color="#f99d2a" />
+            </linearGradient>
+          </defs>
+          <path class="cls-1"
+            d="M137.15,345.67a5.62,5.62,0,0,1,8.52-.09,9,9,0,0,0,1.92,2.17,8.62,8.62,0,1,0-1.9-11.23c-.09.1-.17.2-.26.29a5.66,5.66,0,0,1-7.5.4,5.07,5.07,0,0,1-.67-.64A8.6,8.6,0,1,0,136,347.1,9.17,9.17,0,0,0,137.15,345.67Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1"
+            d="M181.84,345.9l.06,0a5.54,5.54,0,0,1-.27-9.44h0a8.46,8.46,0,0,0,2.41-2.69,8.6,8.6,0,0,0-11.45-11.9,5.63,5.63,0,0,1-7.45-4.16,8.41,8.41,0,0,0-.58-2.84,8.61,8.61,0,1,0-3.93,10.7l.37-.12a5.63,5.63,0,0,1,6.71,3.37,4.76,4.76,0,0,1,.26.89,8.62,8.62,0,0,0,3.45,6.68l-.06.06a5.82,5.82,0,0,1,.91.73,5.52,5.52,0,0,1,.41,7.4,5.78,5.78,0,0,1-.94.91l-.41.28-.25.16,0,0a8.54,8.54,0,0,0-2.94,4.44,9,9,0,0,0-.29,1.8,5.62,5.62,0,0,1-7.38,4.27A8.59,8.59,0,0,0,148,361.65a8.51,8.51,0,0,0,.8,6.51,8.6,8.6,0,0,0,16.09-3.87c0-.12,0-.25.09-.38a5.63,5.63,0,0,1,6.33-4,6,6,0,0,1,.9.23A8.6,8.6,0,0,0,184,348.38,8.36,8.36,0,0,0,181.84,345.9Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1"
+            d="M275.83,393.1V382.62h3.67a4.33,4.33,0,0,1,3.18,1.23,4.24,4.24,0,0,1,1.25,3.15v1.73a4.21,4.21,0,0,1-1.25,3.15,4.37,4.37,0,0,1-3.18,1.22Zm2.11-8.86v7.25h1.56a2.08,2.08,0,0,0,1.68-.78,3,3,0,0,0,.63-2V387a3,3,0,0,0-.63-2,2.1,2.1,0,0,0-1.68-.77Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1"
+            d="M291,390.84h-3.41l-.71,2.26h-2.21l3.55-10.48h2.16l3.54,10.48h-2.21Zm-2.89-1.65h2.38l-1.17-3.69h0Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1" d="M301.59,384.24h-3v8.86h-2.11v-8.86h-3v-1.62h8.09Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1"
+            d="M307.45,390.84H304l-.71,2.26h-2.2l3.55-10.48h2.16l3.54,10.48h-2.21Zm-2.9-1.65h2.38l-1.16-3.69h0Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1" d="M321.08,388.49h-3.9v3h4.64v1.61h-6.75V382.62h6.73v1.62h-4.62v2.63h3.9Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1"
+            d="M327,386.33l2-3.71h2.46l-3.13,5.2,3.31,5.28h-2.55l-2-3.78-2,3.78h-2.46l3.2-5.28-3.12-5.2h2.44Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1"
+            d="M340.44,389.63v0a3.28,3.28,0,0,1-1,2.63,4.24,4.24,0,0,1-2.92.95,4.05,4.05,0,0,1-3.06-1.21,4.38,4.38,0,0,1-1.16-3.14v-2.08a4.44,4.44,0,0,1,1.13-3.13,3.9,3.9,0,0,1,3-1.22,4.41,4.41,0,0,1,3,.94,3.21,3.21,0,0,1,1.06,2.63l0,0H338.4a1.75,1.75,0,0,0-2-2,1.68,1.68,0,0,0-1.47.76,3.29,3.29,0,0,0-.54,2v2.09a3.29,3.29,0,0,0,.56,2,1.86,1.86,0,0,0,1.56.76,1.91,1.91,0,0,0,1.42-.49,2.16,2.16,0,0,0,.46-1.52Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1" d="M350.47,393.1h-2.11v-4.35h-4.28v4.35H342V382.62h2.12v4.51h4.28v-4.51h2.11Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1"
+            d="M358,390.84h-3.41l-.71,2.26H351.7l3.55-10.48h2.17L361,393.1h-2.2Zm-2.89-1.65h2.38l-1.17-3.69h0Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1" d="M370.47,393.1h-2.11L364.12,386h0v7.06H362V382.62h2.12l4.24,7.06h0v-7.05h2.11Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1"
+            d="M380.48,391.67a4.17,4.17,0,0,1-1.47,1.11,5.85,5.85,0,0,1-2.51.47,4.29,4.29,0,0,1-3.13-1.19,4.17,4.17,0,0,1-1.21-3.11v-2.18a4.22,4.22,0,0,1,1.18-3.1,4,4,0,0,1,3-1.2,4.29,4.29,0,0,1,2.95.91,3,3,0,0,1,1,2.43l0,0h-2a1.74,1.74,0,0,0-.48-1.3,2,2,0,0,0-1.41-.46,1.9,1.9,0,0,0-1.56.74,3,3,0,0,0-.6,1.92V389a3,3,0,0,0,.61,1.94,2,2,0,0,0,1.63.75,3.79,3.79,0,0,0,1.19-.15,1.84,1.84,0,0,0,.67-.38v-2h-2v-1.46h4.14Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1" d="M388.29,388.49h-3.9v3H389v1.61h-6.75V382.62H389v1.62h-4.62v2.63h3.9Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1"
+            d="M396.31,389.3v3.8H394.2V382.62h4a4.16,4.16,0,0,1,2.85.92,3.35,3.35,0,0,1,0,4.85,4.2,4.2,0,0,1-2.85.91Zm0-1.62h1.92a1.75,1.75,0,0,0,1.33-.48A1.67,1.67,0,0,0,400,386a1.79,1.79,0,0,0-.45-1.25,1.72,1.72,0,0,0-1.34-.49h-1.92Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1" d="M405.75,391.49h4.71v1.61h-6.83V382.62h2.12Z" transform="translate(-78.22 -251.38)" />
+          <path class="cls-1"
+            d="M417.49,390.84h-3.41l-.71,2.26h-2.21l3.55-10.48h2.16l3.54,10.48H418.2Zm-2.89-1.65H417l-1.16-3.69h0Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1" d="M428.12,384.24h-3v8.86H423v-8.86h-3v-1.62h8.09Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1" d="M435.43,388.75h-4.05v4.35h-2.11V382.62h6.9v1.62h-4.79v2.89h4.05Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1"
+            d="M446,388.8a4.39,4.39,0,0,1-1.22,3.19,4.26,4.26,0,0,1-3.19,1.26,4.19,4.19,0,0,1-3.16-1.26,4.41,4.41,0,0,1-1.22-3.19v-1.88a4.46,4.46,0,0,1,1.21-3.19,4.19,4.19,0,0,1,3.16-1.26,4.26,4.26,0,0,1,3.19,1.26,4.39,4.39,0,0,1,1.23,3.19Zm-2.11-1.9a3.14,3.14,0,0,0-.61-2,2,2,0,0,0-1.7-.79,2,2,0,0,0-1.67.79,3.19,3.19,0,0,0-.59,2v1.9a3.24,3.24,0,0,0,.6,2,2,2,0,0,0,1.67.79,2,2,0,0,0,1.7-.79,3.24,3.24,0,0,0,.6-2Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1"
+            d="M449.81,388.91v4.19H447.7V382.62h3.64a4.36,4.36,0,0,1,2.82.82,2.74,2.74,0,0,1,1,2.28,2.27,2.27,0,0,1-.43,1.39,2.93,2.93,0,0,1-1.25.94,2.29,2.29,0,0,1,1.34.92,2.9,2.9,0,0,1,.41,1.58v.77a3.81,3.81,0,0,0,.12.92,1.25,1.25,0,0,0,.41.71v.15h-2.18a1.14,1.14,0,0,1-.37-.76,6.24,6.24,0,0,1-.09-1v-.74a1.5,1.5,0,0,0-1.64-1.66Zm0-1.62h1.5a2,2,0,0,0,1.32-.37,1.38,1.38,0,0,0,.43-1.11,1.51,1.51,0,0,0-.44-1.15,1.76,1.76,0,0,0-1.28-.42h-1.53Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1"
+            d="M462.58,390.34h0l2.71-7.72h2.75V393.1H466V386h0l-2.61,7.16h-1.43l-2.6-7.18h0v7.17h-2.12V382.62h2.77Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1"
+            d="M274.86,364.31V303.73a4.94,4.94,0,0,1,4.95-4.94h23.77q13.86,0,23.18,7.94a25.58,25.58,0,0,1,9.32,20.38v12.43a25.55,25.55,0,0,1-9.32,20.4q-9.33,7.92-23.18,7.92H278.41A3.55,3.55,0,0,1,274.86,364.31Zm18.21-53.19v44.41h10.51a13.17,13.17,0,0,0,10.22-4.46q4-4.45,4-11.53V327a16.45,16.45,0,0,0-4-11.43,13.17,13.17,0,0,0-10.22-4.46Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1"
+            d="M392.83,338.31H365.18v17.22h33.15v12.33H350.52a3.55,3.55,0,0,1-3.55-3.55V303.73a4.94,4.94,0,0,1,4.95-4.94h46.46v12.33h-33.2V326h27.65Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-1"
+            d="M426.78,344.19v18.72a4.94,4.94,0,0,1-4.95,4.95h-9.71a3.55,3.55,0,0,1-3.55-3.55V298.79h30q14,0,22.15,6.26a20.6,20.6,0,0,1,0,32.9q-8.19,6.24-22.15,6.24Zm0-12.34h11.75c4,0,7-1,9.06-2.87a9.56,9.56,0,0,0,3.12-7.37,9.94,9.94,0,0,0-3.1-7.55q-3.09-2.94-9.08-2.94H426.78Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-2"
+            d="M223.54,285.32,171,255a26.79,26.79,0,0,0-26.8,0L91.62,285.32a26.81,26.81,0,0,0-13.4,23.21v37.41l39.58-31.29H98.58v-9.83l45.69-26.38a26.6,26.6,0,0,1,26.62,0l45.69,26.38v25.93l20.36-16.1v-6.12A26.81,26.81,0,0,0,223.54,285.32Z"
+            transform="translate(-78.22 -251.38)" />
+          <path class="cls-3"
+            d="M197.36,353.16h19.22v4.41a26.62,26.62,0,0,1-13.31,23.05L157.58,407l-45.69-26.38a26.62,26.62,0,0,1-13.31-23.05v-18l-20.36,16.1v13.54a26.82,26.82,0,0,0,13.4,23.22l52.56,30.34a26.79,26.79,0,0,0,26.8,0l52.56-30.34a26.82,26.82,0,0,0,13.4-23.22V321.86Z"
+            transform="translate(-78.22 -251.38)" />
+        </svg>
+      </div>
+    </ng-container>
+  </div>
+  <!--end::Logo-->
+  <!--begin::Input Form-->
+  <div class="form-group">
+    <div class="input-group">
+      <span class="input-group-text">
+        <i class="la la-search"></i>
+      </span>
+      <input type="text" class="form-control form-control-flush ps-10" name="search" [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearch()" placeholder="Tìm kiếm dữ liệu, nhà cung cấp" data-kt-search-element="input" />
+    </div>
+  </div>
+  <!--end::Input Form-->
+  <!--begin::Input Form-->
+  <div style="display: flex; padding-left: 20px;">
+    <div class="menu-item me-lg-1" style="padding-left: 20px; padding-top: 15px; " *ngIf="!isLogin">
+      <a class="menu-link py-3" routerLinkActive="active menu-here" routerLink="/products" style="cursor: pointer;">
+        <span class="menu-title">Sản phẩm dữ liệu</span>
+      </a>
+    </div>
+    <div class="menu-item me-lg-1" style="padding-left: 20px; padding-top: 15px; " *ngIf="!isLogin">
+      <a class="menu-link py-3" routerLinkActive="active menu-here" routerLink="/auth/register"
+        style="cursor: pointer;">
+        <span class="menu-title">Nhà cung cấp</span>
+      </a>
+    </div>
+    <div class="menu-item me-lg-1" style="padding-left: 20px; padding-top: 15px; " *ngIf="!isLogin">
+      <a class="menu-link py-3" (click)="clickLogin()" routerLinkActive="active menu-here" routerLink="/auth/login" style="cursor: pointer;">
+        <span class="menu-title">Đăng nhập</span>
+      </a>
+    </div>
+    <div class="menu-item me-lg-1" style="padding-left: 20px; padding-top: 15px; " *ngIf="!isLogin">
+      <a class="menu-link py-3" routerLinkActive="active menu-here" routerLink="/auth/registration"
+        style="cursor: pointer;">
+        <span class="menu-title">Đăng ký miễn phí</span>
+      </a>
+    </div>
+  </div>
+</div>

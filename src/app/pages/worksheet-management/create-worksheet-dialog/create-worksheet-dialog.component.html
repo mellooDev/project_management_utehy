@@ -1,0 +1,33 @@
+<div class="dialog-container">
+  <h2 class="dialog-title">Tạo Worksheet</h2>
+  <form (ngSubmit)="saveWorksheet()">
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Tên</mat-label>
+      <input matInput [(ngModel)]="worksheetName" name="worksheetName" maxlength="255" placeholder="Nhập tên Worksheet" />
+    </mat-form-field>
+
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Chọn Folder lưu trữ</mat-label>
+      <mat-select id="folderId" style="" placeholder="Chọn Folder lưu trữ" (selectionChange)="onSelectFolderId($event)">
+        <mat-option value="">Không chọn</mat-option>
+        <mat-option *ngFor="let option of listFolders" [value]="option.id">{{ option.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="full-width" appearance="outline" >
+      <mat-label> Nội dung </mat-label>
+      <textarea
+        matInput
+        [(ngModel)]="worksheetContent"
+        name="worksheetContent"
+        placeholder="Nhập nội dung Worksheet"
+        rows="5"
+        cdkTextareaAutosize>
+      </textarea>
+    </mat-form-field>
+    <button type="submit" class="btn btn-primary save-button">
+      Lưu
+    </button>
+  </form>
+</div>
+

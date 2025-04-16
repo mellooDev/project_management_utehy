@@ -1,0 +1,457 @@
+<div class="card">
+  <!-- Tiêu đề trang -->
+  <div class="card-header">
+    <h3 class="card-title">
+      <h1>Hồ sơ cá nhân</h1>
+    </h3>
+  </div>
+
+  <!-- Bộ lọc và nút Tạo -->
+  <div class="card-body pt-0">
+    <div class="container mt-5" style="margin-left: 0; justify-content: center">
+      <div class="row">
+        <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6 col-10">
+          <li class="nav-item">
+            <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_4"
+              [class.active]="activeTab === 'profile-info'" [routerLink]="'/profile'"
+              [queryParams]="{ tab: 'profile-info' }" routerLinkActive="active">Thông tin cá nhân</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_5"
+              [class.active]="activeTab === 'change-password'" [routerLink]="'/profile'"
+              [queryParams]="{ tab: 'change-password' }" routerLinkActive="active">Đổi mật khẩu</a>
+          </li>
+          <li class=""></li>
+        </ul>
+        @if (this.profileDetail.account != null &&
+        (this.profileDetail.account.payment_approve_status == "" ||
+        this.profileDetail.account.payment_approve_status == "REJECTED")) {
+        <button (click)="openModalRegisterPostpaid()" type="button"
+          class="btn btn-icon btn-light btn-sm ml-2 btn-primary" style="min-width: 160px">
+          <span>Đăng ký tài khoản trả sau</span>
+        </button>
+        } @else if (this.profileDetail.account != null &&
+        this.profileDetail.account.payment_approve_status == "PENDING") {
+        <button type="button" class="btn btn-icon btn-light btn-sm ml-2 btn-secondary" style="min-width: 160px">
+          <span>Chờ phê duyệt tài khoản trả sau</span>
+        </button>
+        }@else if (this.profileDetail.account != null &&
+        this.profileDetail.account.payment_approve_status == "APPROVED") {
+        <button type="button" class="btn btn-icon btn-light btn-sm ml-2 btn-success" style="min-width: 160px">
+          <span>Đã duyệt tài khoản trả sau</span>
+        </button>
+        } @else {
+        <button (click)="openModalRegisterPostpaid()" type="button"
+          class="btn btn-icon btn-light btn-sm ml-2 btn-primary" style="min-width: 160px"><span>Đăng ký tài khoản trả
+            sau</span>
+        </button>
+        }
+      </div>
+
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="kt_tab_pane_4" role="tabpanel" *ngIf="activeTab === 'profile-info'">
+          <div class="show-info">
+            <img class="avatar" [src]="uploadedImageUrl || avatar?.image" alt="Avatar" />
+            <div style="margin: 30px 0px 0px 15px" class="confirm-avt">
+              <input class="form-control" type="file" (change)="onFileChange($event)" />
+              <button type="button" class="btn-delete" (click)="openModalDeleteAvt(deleteAvt)">
+                Xóa
+              </button>
+            </div>
+          </div>
+
+          <div class="row" style="width: 100%">
+            <div class="line-1">
+              <div class="form-group" style="width: 50%" [(ngModel)]="profileDetail">
+                <label for="dataName" class="mb-2 required-input">Họ và tên</label>
+                <input type="text" id="dataName" [value]="dataName" name="dataName" [(ngModel)]="dataName"
+                  (ngModelChange)="onInputChange('dataName')" class="form-control" required />
+                <span class="text-danger" *ngIf="isDataNameInvalid">
+                  {{ message.dataName }}
+                </span>
+              </div>
+
+              <div class="form-group" style="width: 50%" [(ngModel)]="profileDetail">
+                <label for="dataEmail" class="mb-2 required-input">Email</label>
+                <input type="text" [value]="dataEmail" name="dataEmail" [(ngModel)]="dataEmail"
+                  (ngModelChange)="onInputChange('dataEmail')" id="dataEmail" class="form-control" required />
+                <span class="text-danger" *ngIf="isDataEmailInvalid">
+                  {{ message.dataEmail }}
+                </span>
+              </div>
+            </div>
+
+            <div class="line-2">
+              <div class="form-group" style="width: 50%">
+                <label for="dataPhonenumber" class="mb-2 required-input">Số điện thoại</label>
+                <input type="text" [value]="dataPhonenumber" id="dataPhonenumber" name="dataPhonenumber"
+                  class="form-control" [(ngModel)]="dataPhonenumber" (ngModelChange)="onInputChange('dataPhonenumber')"
+                  required />
+                <span class="text-danger" *ngIf="isDataPhonenumberInvalid">
+                  {{ message.dataPhonenumber }}
+                </span>
+              </div>
+
+              <div class="form-group" style="width: 50%">
+                <label for="dataTaxCode" class="mb-2 required-input">Mã số thuế
+                </label>
+                <input type="text" [value]="dataTaxCode" id="dataTaxCode" name="dataTaxCode" class="form-control"
+                  [(ngModel)]="dataTaxCode" (ngModelChange)="onInputChange('dataTaxCode')" required />
+                <span class="text-danger" *ngIf="isDataTaxCodeInvalid">
+                  {{ message.dataTaxCode }}
+                </span>
+              </div>
+            </div>
+
+            <div class="line-3">
+              <div class="form-group" style="width: 48.5%">
+                <label for="dataIdCard" class="mb-2 required-input">Căn cước công dân</label>
+                <input type="text" id="dataIdCard" class="form-control" name="dataIdCard" placeholder="Tên dữ liệu"
+                  [value]="dataIdCard" [(ngModel)]="dataIdCard" (ngModelChange)="onInputChange('dataIdCard')"
+                  required />
+                <span class="text-danger" *ngIf="isIdCardInvalid">
+                  {{ message.dataIdCard }}
+                </span>
+              </div>
+              <div class="form-group" style="width: 48.5%">
+                <label for="dataAddress" class="mb-2">Địa chỉ</label>
+                <input type="text" id="dataAddress" name="dataAddress" class="form-control" placeholder="Địa chỉ"
+                  [value]="dataAddress" [(ngModel)]="dataAddress" (ngModelChange)="onInputChange('dataAddress')" />
+                {{ message.dataAddress }}
+              </div>
+            </div>
+
+            <div class="line-3">
+              <div class="form-group" style="width: 48.5%">
+                <label for="dataWebsite">Website</label>
+                <input type="text" id="dataWebsite" name="dataWebsite" class="form-control" placeholder="Website"
+                  [value]="dataWebsite" [(ngModel)]="dataWebsite" (ngModelChange)="onInputChange('dataWebsite')"
+                  required />
+                <span class="text-danger" *ngIf="isIdCardInvalid">
+                  {{ message.dataWebsite }}
+                </span>
+              </div>
+            </div>
+
+            <div class="line-2">
+              <!-- Ảnh 1 -->
+              <div class="form-group image-container">
+                <img *ngIf="uploadedImageCardFrontUrl || imageCardFront?.image"
+                  [src]="uploadedImageCardFrontUrl || imageCardFront.image" alt="Front ID Image" class="img-profile" />
+                <input #fileInputFront type="file" accept="image/*" (change)="onFileSelected($event, true)"
+                  class="file-input" style="display: none" />
+
+                <div class="overlay">
+                  <i class="fas fa-upload upload-icon" (click)="onUploadClick(fileInputFront)"></i>
+                  <i class="fas fa-trash delete-icon" (click)="openModalDeleteImgFront(deleteImgFront)"></i>
+                </div>
+              </div>
+
+              <!-- Ảnh 2 -->
+              <div class="form-group image-container">
+                <img *ngIf="uploadedImageCardBackUrl || imageCardBack?.image"
+                  [src]="uploadedImageCardBackUrl || imageCardBack?.image" alt="Back ID Image" class="img-profile" />
+                <input #fileInputBack type="file" accept="image/*" (change)="onFileSelected($event, false)"
+                  class="file-input" style="display: none" />
+                <div class="overlay">
+                  <i class="fas fa-upload upload-icon" (click)="onUploadClick(fileInputBack)"></i>
+                  <i class="fas fa-trash delete-icon" (click)="openModalDeleteImgBack(deleteImgBack)"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: end">
+            <p-toast position="bottom-right" key="br" />
+            <button type="button" class="btn btn-primary" (click)="openModalUpdate(updateInfo)" [disabled]="
+                !dataName ||
+                !dataPhonenumber ||
+                !dataEmail ||
+                !dataIdCard ||
+                !dataTaxCode
+              ">
+              Lưu
+            </button>
+          </div>
+        </div>
+        <div class="tab-pane fade show active" id="kt_tab_pane_5" role="tabpanel"
+          *ngIf="activeTab === 'change-password'">
+          <div class="form-change-pass">
+            <!-- Mật khẩu hiện tại -->
+            <div class="fv-row mb-8 input-container">
+              <label class="form-label fw-bolder text-gray-900 fs-6">Mật khẩu hiện tại</label>
+              <div class="position-relative">
+                <input [type]="currentPasswordVisible ? 'text' : 'password'"
+                  class="form-control bg-transparent pass-input" maxlength="20" [(ngModel)]="currentPassword" name="currentPassword"
+                  [value]="currentPassword" required (ngModelChange)="onPasswordChange('currentPassword')" />
+                <i class="fas eye-icon position-absolute" (click)="togglePasswordVisibility('currentPassword')"
+                  [ngClass]="currentPasswordVisible ? 'fa-eye' : 'fa-eye-slash'"></i>
+              </div>
+              <!-- Thông báo lỗi Mật khẩu hiện tại -->
+              <div *ngIf="errorMessages.currentPassword" class="text-danger">
+                {{ errorMessages.currentPassword }}
+              </div>
+            </div>
+
+            <!-- Mật khẩu mới -->
+            <div class="fv-row mb-8 input-container">
+              <label class="form-label fw-bolder text-gray-900 fs-6">Mật khẩu mới</label>
+              <div class="position-relative">
+                <input [type]="newPasswordVisible ? 'text' : 'password'"
+                  class="form-control bg-transparent new-pass-input" [(ngModel)]="newPassword" name="newPassword"
+                  [value]="newPassword" minlength="8" maxlength="20" title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ cái và số"
+                  (ngModelChange)="onPasswordChange('newPassword')" required />
+                <i class="fas eye-icon position-absolute" (click)="togglePasswordVisibility('newPassword')"
+                  [ngClass]="newPasswordVisible ? 'fa-eye' : 'fa-eye-slash'"></i>
+              </div>
+              <!-- Thông báo lỗi Mật khẩu mới -->
+              <div *ngIf="errorMessages.newPassword" class="text-danger">
+                {{ errorMessages.newPassword }}
+              </div>
+            </div>
+
+            <!-- Xác nhận mật khẩu -->
+            <div class="fv-row mb-8 input-container">
+              <label class="form-label fw-bolder text-gray-900 fs-6">Xác nhận mật khẩu</label>
+              <div class="position-relative">
+                <input [type]="confirmPasswordVisible ? 'text' : 'password'"
+                  class="form-control bg-transparent confirm-pass-input"  maxlength="20" [(ngModel)]="confirmPassword"
+                  [value]="confirmPassword" name="confirmPassword" minlength="8"
+                  title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ cái và số"
+                  (ngModelChange)="onPasswordChange('confirmPassword')" required />
+                <i class="fas eye-icon position-absolute" (click)="togglePasswordVisibility('confirmPassword')"
+                  [ngClass]="confirmPasswordVisible ? 'fa-eye' : 'fa-eye-slash'"></i>
+              </div>
+              <!-- Thông báo lỗi Xác nhận mật khẩu -->
+              <div *ngIf="errorMessages.confirmPassword" class="text-danger">
+                {{ errorMessages.confirmPassword }}
+              </div>
+            </div>
+
+            <!-- Thông báo thành công -->
+            <div *ngIf="successMessage" class="alert alert-success text-center">
+              {{ successMessage }}
+            </div>
+
+            <!-- Nút Đổi mật khẩu -->
+            <div class="d-flex flex-wrap justify-content-center pb-lg-0">
+              <p-toast position="bottom-right" key="br" />
+              <button type="button" id="kt_password_reset_submit" class="btn btn-primary btn-change-password"
+                (click)="onOpenModal(modalChangePass)">
+                <span class="indicator-label">Đổi mật khẩu</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="loading" class="loading-overlay">
+      <div class="spinner"></div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalChangePass let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Xác nhận</h4>
+  </div>
+
+  <div class="modal-body">
+    <div>
+      <p>Bạn có chắc chắn đổi mật khẩu không?</p>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <p-toast />
+    <button class="btn btn-danger" type="button" (click)="onCloseModal()">
+      Hủy
+    </button>
+    <button class="btn btn-secondary" type="button" (click)="onChangePassword()">
+      Lưu
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #updateInfo let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Xác nhận</h4>
+  </div>
+
+  <div class="modal-body">
+    <div>
+      <span>Bạn có chắc chắn thay đổi không?</span>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <p-toast />
+    <button class="btn btn-light" type="button" (click)="onCloseModalDelete()">
+      Hủy
+    </button>
+    <button class="btn btn-primary" type="button" (click)="onSubmit()">
+      Lưu
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #deleteAvt let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Xác nhận</h4>
+  </div>
+
+  <div class="modal-body">
+    <div>
+      <p>Bạn có chắc chắn xóa không?</p>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <p-toast></p-toast>
+    <button class="btn btn-secondary" type="button" (click)="onCloseModalDelete()">
+      Hủy
+    </button>
+    <button class="btn btn-danger" type="button" (click)="onSubmitDeleteAvt()">
+      Xóa
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #deleteImgFront let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Xác nhận</h4>
+  </div>
+
+  <div class="modal-body">
+    <div>
+      <p>Bạn có chắc chắn xóa không?</p>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <p-toast></p-toast>
+    <button class="btn btn-secondary" type="button" (click)="onCloseModalDelete()">
+      Hủy
+    </button>
+    <button class="btn btn-danger" type="button" (click)="onSubmitDeleteAvt()">
+      Xóa
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #deleteImgBack let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Xác nhận</h4>
+  </div>
+
+  <div class="modal-body">
+    <div>
+      <p>Bạn có chắc chắn xóa không?</p>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <p-toast></p-toast>
+    <button class="btn btn-secondary" type="button" (click)="onCloseModalDelete()">
+      Hủy
+    </button>
+    <button class="btn btn-danger" type="button" (click)="onSubmitDeleteAvt()">
+      Xóa
+    </button>
+  </div>
+</ng-template>
+
+<p-toast />
+<!--<ng-template #registerPostpaid>-->
+<!--  <div class="modal-header">-->
+<!--    <div class="modal-title" id="postpaid-register">-->
+<!--      <h3>Thông tin đăng kí tài khoản trả sau</h3>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="modal-body" [formGroup]="formGroupRegisterPostpaid">-->
+<!--    <div class="d-flex justify-content-center align-items-start mb-3 gap-4">-->
+<!--      <div class="form-group w-100">-->
+<!--        <label for="contractNumber" class="mb-2 required-input">-->
+<!--          Số hợp đồng-->
+<!--        </label>-->
+<!--        <input type="text" class="form-control" id="contractNumber" [(ngModel)]="contractNumber" [ngModelOptions]="{standalone: true}"-->
+<!--          (ngModelChange)="onInputRegisterChange('contractNumber')" name="contractNumber" />-->
+
+<!--        <span class="text-danger mt-2 d-block" *ngIf="isContractNumberInvalid">-->
+<!--          {{ messageRegisterError.contractNumber }}-->
+<!--        </span>-->
+<!--        <span *ngIf="!isContractNumberInvalid" class="d-block" style="min-height: 24px;"></span>-->
+<!--      </div>-->
+<!--      <div class="form-group w-100">-->
+<!--        <label for="file" class="mb-2">File đính kèm</label>-->
+<!--        <input formControlName="fileInput" type="file" class="form-control" id="file" (change)="onFileRegisterSelected($event)" />-->
+<!--        &lt;!&ndash; <div class="d-block" style="min-height: 24px;"></div> &ndash;&gt;-->
+<!--        <div *ngIf="formGroupRegisterPostpaid.controls['fileInput']?.hasError('required')-->
+<!--         || formGroupRegisterPostpaid.controls['fileInput']?.errors?.inValidExt-->
+<!--         || formGroupRegisterPostpaid.controls['fileInput']?.errors?.fileSize-->
+<!--">-->
+<!--          <span class="text-danger mt-2 d-block">Vui lòng chọn file đính kèm (File định dạng PNG, JPG, JPEG, pdf. Tối đa 2Mb)</span>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="d-flex justify-content-center align-items-start mb-3 gap-4">-->
+<!--      <div class="form-group w-100">-->
+<!--        <label for="startDate" class="mb-2 required-input">Ngày bắt đầu</label>-->
+<!--        <div class="input-group">-->
+<!--          <input id="startDate" class="form-control input-calendar" placeholder="dd-mm-yyyy" ngbDatepicker name="startDate"-->
+<!--            [(ngModel)]="startDate" #startDatepicker="ngbDatepicker" [ngModelOptions]="{standalone: true}"-->
+<!--            (ngModelChange)="onInputRegisterChange('startDate')" />-->
+<!--          <button class="calendar-btn bi bi-calendar3" (click)="startDatepicker.toggle()" type="button"></button>-->
+<!--        </div>-->
+<!--        <span class="text-danger mt-2 d-block" *ngIf="isStartDateInvalid">{{-->
+<!--          messageRegisterError.startDate-->
+<!--          }}</span>-->
+<!--      </div>-->
+<!--      <div class="form-group w-100">-->
+<!--        <label for="endDate" class="mb-2 required-input">Ngày kết thúc</label>-->
+<!--        <div class="input-group">-->
+<!--          <input id="endDate" class="form-control input-calendar" placeholder="dd-mm-yyyy" ngbDatepicker name="endDate"-->
+<!--            [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}" #endDatepicker="ngbDatepicker" (ngModelChange)="onInputRegisterChange('endDate')" />-->
+<!--          <button class="calendar-btn bi bi-calendar3" (click)="endDatepicker.toggle()" type="button"></button>-->
+<!--        </div>-->
+<!--        <span class="text-danger mt-2 d-block" *ngIf="isEndDateInvalid">{{-->
+<!--          messageRegisterError.endDate-->
+<!--          }}</span>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="form-group mb-3 w-100">-->
+<!--      <label for="content" class="mb-2">Nội dung</label>-->
+<!--      <textarea formControlName="content" type="text" name="content" class="form-control" id="content"-->
+<!--                 (input)="onInputRegisterChange('content')" rows="5"></textarea>-->
+<!--      <div *ngIf="formGroupRegisterPostpaid.controls['content'].errors?.maxLength !== null">-->
+<!--        <span class="text-danger mt-2 d-block">Nội dung không được vượt quá 255 ký tự</span>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="modal-footer">-->
+<!--    {{'1' + formGroupRegisterPostpaid.controls['content'].errors?.length}}-->
+
+<!--    {{'2' +  formGroupRegisterPostpaid.controls['fileInput'].errors?.length}}-->
+
+<!--    <button class="btn btn-primary" (click)="onRegisterPostpaid()"-->
+<!--      [disabled]="!contractNumber || !startDate || !endDate-->
+<!--      // || formGroupRegisterPostpaid.controls['content'].errors?.length > 0 || formGroupRegisterPostpaid.controls['fileInput'].errors?.length > 0"-->
+<!--    >-->
+<!--      <ng-container *ngIf="isLoading">-->
+<!--        <span class="">-->
+<!--          Đang lưu...<span class="spinner-border spinner-border-sm align-middle ms-2"></span>-->
+<!--        </span>-->
+<!--      </ng-container>-->
+<!--      <ng-container *ngIf="!isLoading">-->
+<!--        <span class="indicator-label">Lưu</span>-->
+<!--      </ng-container>-->
+<!--    </button>-->
+<!--    <button class="btn btn-secondary" (click)="onCloseModalRegisterPostpaid()">-->
+<!--      Hủy-->
+<!--    </button>-->
+<!--  </div>-->
+<!--</ng-template>-->

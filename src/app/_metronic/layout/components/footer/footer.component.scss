@@ -1,0 +1,48 @@
+.footer {
+  background-color: #212121;
+  color: #ffffff;
+
+  a {
+    text-decoration: none;
+    color: #a9a9a9;
+
+    &:hover {
+      color: #ffffff;
+    }
+  }
+
+  h6 {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    padding: 0;
+    list-style: none;
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .btn {
+    border-radius: 50px;
+  }
+
+  .footer-logo {
+    img {
+      max-width: 150px;
+    }
+  }
+}
+
+footer {
+  z-index: 5;
+  clear: both;
+  position: relative;
+  width: 100%;
+  background-color: #212121; /* màu tối cho footer */
+  color: #fff;
+  padding: 40px 0;
+}

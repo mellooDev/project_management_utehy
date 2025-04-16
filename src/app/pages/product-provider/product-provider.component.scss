@@ -1,0 +1,25 @@
+.search-container {
+  max-width: 400px;
+  margin-bottom: 15px;
+  padding: 20px 0px;
+}
+.table {
+  margin-top: 20px;
+}
+.pagination-container {
+  display: flex;
+  justify-content: center;
+}
+
+.custom-header th {
+  font-weight: bold; /* Làm chữ đậm */
+}
+
+
+.custom-bordered tbody tr:nth-child(odd) {
+  background-color: #f2f2f2; /* Màu nền nhạt cho dòng lẻ */
+}
+
+.custom-bordered tbody tr:nth-child(even) {
+  background-color: #ffffff; /* Màu nền trắng cho dòng chẵn */
+}

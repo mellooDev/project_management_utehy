@@ -1,0 +1,82 @@
+.custom-tabs {
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+}
+.search-container{
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tab-header {
+  display: flex;
+}
+
+.tab-label {
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #666;
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+.tab-label.active {
+  color: #1976d2;
+  font-weight: bold;
+  border-bottom: 2px solid #1976d2;
+}
+
+.tab-content {
+  padding: 20px;
+  font-size: 14px;
+}
+
+.card-custom {
+  border: 1px solid #e1e4e8;
+  border-radius: 10px;
+}
+
+textarea {
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #e1e4e8;
+  padding: 10px;
+
+}
+
+node-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+}
+
+.item-tree{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  border-radius: 5px;
+  width: 300px;
+  cursor: pointer;
+}
+
+
+.item-tree:hover{
+  background-color: #3177FF8F;
+}
+
+.item-tree-text{
+  margin-left: 2%;
+  margin-top: 2%;
+  font-size: 12px;
+  flex-grow: 1;
+}
+
+
+.action-dropdown {
+  display: flex;
+  align-items: center;
+}

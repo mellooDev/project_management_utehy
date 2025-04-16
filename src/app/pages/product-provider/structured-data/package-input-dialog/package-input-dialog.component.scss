@@ -1,0 +1,126 @@
+.label-block {
+  margin-bottom: 12px;
+}
+
+.modal-content {
+  padding: 20px;
+  //max-width: 600px;
+  margin: 0 auto;
+  overflow: scroll;
+}
+
+::ng-deep .cdk-global-overlay-wrapper {
+  overflow: scroll;
+}
+
+.modal-header {
+  padding-bottom: 10px;
+  display: block;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.divider {
+  border: 1px solid #000;
+  margin-top: 5px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  font-size: 1rem;
+}
+
+.modal-content {
+  overflow-y: auto;
+}
+
+.package-options {
+  margin-top: 15px;
+}
+
+.subscription-payment-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+
+  .subscription-period, .subscription-price {
+    width: 100%;
+  }
+}
+
+
+
+.attribute-block {
+  display: flex;
+  justify-content: space-between;
+
+  p {
+    margin: 0;
+  }
+
+  .more-att-label {
+    text-decoration: underline;
+
+    &:hover {
+      color: #007BFF;
+      cursor: pointer;
+    }
+  }
+}
+
+.attribute-block-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  .remove-attribute-button {
+    border-radius: 50%;
+    background-color: #E4003A;
+    color: #fff;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 3px;
+    cursor: pointer;
+  }
+}
+.remove-attribute-button {
+  border: none;
+  border-radius: 50%;
+  background-color: #E4003A;
+  color: #fff;
+  width: 34px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.add-attribute-button {
+  border: none;
+  border-radius: 50%;
+  background-color: #007BFF;
+  color: #fff;
+  width: 34px;
+  height: 30px;
+
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.packageType-unitType{
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+

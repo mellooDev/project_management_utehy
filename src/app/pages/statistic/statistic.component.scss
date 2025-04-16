@@ -1,0 +1,51 @@
+.statistic-overview-header {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  min-height: 50px;
+  padding: 0 2.25rem;
+  background-color: transparent;
+  border-bottom: 1px solid #f1f1f4;
+}
+
+.statistic-overview-header .card-title {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem;
+  margin-left: 0;
+}
+
+.icon-up-down {
+  color: #04B440;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.overview-card {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.statistic-overview-body {
+  padding: 1.5rem 2rem;
+}
+
+.statistic-overview-body1 {
+  padding: 1.63rem 1.4rem;
+}
+
+.filter-button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.7rem;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.card-chart {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.custom-dropdown {
+  width: 250px;
+}

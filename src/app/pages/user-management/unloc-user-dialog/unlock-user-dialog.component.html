@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Xác nhận mở khóa tài khoản</h2>
+<div mat-dialog-content>
+  <p>
+    Tài khoản <strong>{{ accountName }}</strong> sẽ được mở khóa.
+  </p>
+  <p>Bạn có chắc chắn không?</p>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-stroked-button (click)="onCancel()">Đóng</button>
+  <button mat-raised-button color="primary" (click)="onConfirm()">Xác nhận</button>
+</div>

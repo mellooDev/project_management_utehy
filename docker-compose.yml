@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+    dx-marketplace-portal:
+        restart: always
+        build:
+              context: .
+              dockerfile: Dockerfile
+        image: crelease.devops.vnpt.vn:10102/repository/dxp/market-portal:${BUILD_VERSION}
+        environment:
+            - TZ=Asia/Ho_Chi_Minh
+        expose:
+            - 8005
+        ports:
+            - 8005:80
+        networks:
+            - dx_network
+
+networks:
+  dx_network:
+        driver: bridge

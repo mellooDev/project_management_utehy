@@ -1,0 +1,90 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title font-weight-bolder text-dark">File của tôi</h3>
+  </div>
+
+  <div class="card-body pt-0">
+    <div class="mt-4">
+      <div class="search-container mt-4">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm..." [(ngModel)]="searchTerm" (input)="onSearchTermChange()" (keyup.enter)="onSearch()" />
+          <i class="bi bi-x-circle-fill delete-input" *ngIf="searchTerm" (click)="clearSearch()"></i>
+          <span class="input-group-text" (click)="onSearch()" style="cursor: pointer;">
+            <i class="bi bi-search"></i> <!-- Biểu tượng kính lúp -->
+          </span>
+        </div>
+      </div>
+      <table class="table table-striped mt-3 custom-bordered">
+        <thead class="custom-header">
+          <tr>
+            <th style="text-align: center">STT</th>
+            <th>Tên file</th>
+            <th>Loại File</th>
+            <th>Kích thước</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of pagedData; let i = index">
+            <td style="text-align: center;">{{ (currentPage - 1) * pageSize + (i + 1) }}</td>
+            <td>{{item.fileName}}</td>
+            <td>{{item.fileType}}</td>
+            <td>{{item.fileSize}}</td>
+            <td>
+              <ng-container *ngIf="isImageFile(item.fileName)">
+                <button class="btn-view button-action btn btn-sm" placement="top" ngbTooltip="Xem ảnh" (click)="open(previewImage, item.id)">
+                  <i i-bs name="eye-fill"></i>
+                </button>
+              </ng-container>
+              <button class="button-action btn-download btn btn-sm" placement="top" ngbTooltip="Download file" (click)="onDownloadFile(item.id)">
+                  <i i-bs name="download"></i>
+              </button>
+              <ng-container *ngIf="item.isOwned">
+                <button class="button-action btn-delete  btn btn-sm" placement="top" ngbTooltip="Xóa file" (click)="openDeleteDialog(deleteFile)">
+                  <i i-bs name="trash3-fill"></i>
+                </button>
+              </ng-container>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <div class="pagination-container mt-3">
+      <ngb-pagination
+        [collectionSize]="filteredData.length"
+        [(page)]="currentPage"
+        [pageSize]="pageSize"
+        (pageChange)="onPageChange($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+
+
+  <ng-template #previewImage let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Preview Image</h4>
+    </div>
+
+    <div class="modal-body">
+      <div style="display: flex; align-items: center; justify-content: center;">
+        <img [src]="selectedFilePath" *ngIf="selectedFilePath" alt="" style="width: 50%; object-fit: contain;">
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #deleteFile let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Xóa file</h4>
+    </div>
+
+    <div class="modal-body">
+      <p>Bạn có chắc chắn muốn xóa file không?</p>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary-outline">Cancel</button>
+      <button class="btn btn-danger">Delete</button>
+    </div>
+  </ng-template>

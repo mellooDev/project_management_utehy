@@ -1,0 +1,156 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title font-weight-bolder text-dark">Dữ liệu của tôi</h3>
+    <div class="card-toolbar" style="margin-left: auto;margin-right: 0;">
+      <!-- Buttons -->
+      <div class="dropdown">
+        <!-- Tab Button with Inline Circle and Text -->
+        <button class="btn btn-inline btn-sm btn-primary" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"
+        style="min-width: 150px;">
+          <span class="text">Đăng bán dữ liệu </span>
+          <i class="fas fa-chevron-down" [class.rotate-down]="!showMore" [class.rotate-up]="showMore"></i>
+        </button>
+
+        <!-- Dropdown Menu -->
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <div class="separator"></div>
+          <li>
+            <a class="dropdown-item" href="/product-provider/structured-data">
+              <i class="bi-database-check ms-2 mr-5"></i>  Dữ liệu có cấu trúc
+            </a>
+          </li>
+          <div class="separator"></div>
+          <li>
+            <a class="dropdown-item" href="/product-provider/unstructured-data">
+              <i class="bi bi-file-earmark-image ms-2"></i>  Dữ liệu phi cấu trúc
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- Tiêu đề trang -->
+
+
+  <!-- Bộ lọc và nút Tạo -->
+  <div class="card-body pt-0">
+    <div class="mt-4">
+      <div class="search-container mt-4">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm..." [(ngModel)]="searchTerm"
+            (keyup.enter)="onSearch()" />
+          <span class="input-group-text" (click)="onSearch()" style="cursor: pointer;">
+            <i class="bi bi-search"></i> <!-- Biểu tượng kính lúp -->
+          </span>
+        </div>
+
+        <!--
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Tìm kiếm dữ liệu hoặc nhà cung cấp..."
+    [(ngModel)]="searchTerm"
+    (keyup.enter)="onSearch()"
+  /> -->
+      </div>
+      <table class="table table-striped mt-3 custom-bordered">
+        <thead class="custom-header">
+          <tr>
+            <th>STT</th>
+            <th>Tên sản phẩm</th>
+            <th>Trạng thái</th>
+            <th>Ngày tạo</th>
+            <th>Ngày cập nhật phiên bản</th>
+            <th>Ngày kiểm duyệt</th>
+            <th>Lượt mua</th>
+            <th>Lượt xem</th>
+            <th>Phiên bản</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let item of pagedData; let i = index">
+            <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+            <td>
+              <a  (click)="navigateToComponent(item)"
+              style="cursor: pointer;color: #007bff;">{{ item.description.name }}</a>
+            </td>
+
+            <td>@switch (item.approval_status) {
+              @case(0) {
+                <span class="badge badge-warning">Chờ kiểm duyệt</span>
+              }
+              @case(1) {
+                <span class="badge badge-success">Đã kiểm duyệt</span>
+              }
+              @case(2) {
+                <span class="badge badge-danger">Từ chối</span>
+              }
+              @case(4) {
+                <span class="badge badge-secondary">Tạm dừng</span>
+              }
+              @default {
+                <span class="badge badge-warning">Chờ kiểm duyệt</span>
+              }
+            }
+            </td>
+            <td>{{ item.created_at | date:'dd/MM/yyyy'}}</td>
+
+
+            <td [title]="item.description.short_description">
+              <span *ngIf="item.description?.short_description">
+                {{ item.description.short_description | slice:0:50 }}<span
+                  *ngIf="item.description.short_description.length > 50">...</span>
+              </span>
+            </td>
+
+
+            <td>{{ item.approved_date | date:'dd/MM/yyyy'}}</td>
+            <td> {{ item.performance?.buy }}</td>
+            <td>{{ item.performance?.view }}</td>
+            <td>{{ item.version }}</td>
+            <td>
+              <!-- <input
+              type="checkbox"
+              [checked]="item.visibility"
+              (change)="changeVisibility(item, $event)"
+            /> -->
+              <p-inputSwitch (onChange)="onSwitchChange($event, item, productVisibility)" [(ngModel)]="item.visibility" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="pagination-container mt-3 d-flex justify-content-end">
+        <ngb-pagination [collectionSize]="filteredData.length" [(page)]="currentPage" [pageSize]="pageSize"
+          (pageChange)="onPageChange($event)"></ngb-pagination>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template let-modal #productVisibility>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      Xác nhận {{ pendingValue ? 'hiển thị' : 'ẩn' }} dữ liệu
+    </h4>
+  </div>
+
+  <div class="modal-body text-center">
+    <p>
+      Dữ liệu <span style="font-weight: bold;">{{ selectedItem?.description?.name }}</span> sẽ được
+      {{ pendingValue ? 'hiển thị' : 'ẩn' }} trên Marketplace.<br>
+      Bạn có chắc chắn muốn thực hiện không?
+    </p>
+  </div>
+
+  <div class="modal-footer">
+    <p-toast />
+    <button class="btn btn-primary" (click)="onVisibleSubmit()" [disabled]="loading">
+      <span *ngIf="!loading">Xác nhận</span>
+      <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    </button>
+    <button class="btn btn-secondary" (click)="closeModal()">Hủy</button>
+  </div>
+</ng-template>

@@ -1,0 +1,30 @@
+<div class="card" [ngClass]="{'container': !isLogin}">
+  <!-- Tiêu đề trang -->
+  <div class="card-header">
+    <h3 class="card-title">
+      <h1>Sản phẩm dữ liệu</h1>
+    </h3>
+  </div>
+  <!-- Bộ lọc và nút Tạo -->
+  <div class="m-5" [ngClass]="{'container': !isLogin}">
+    <div [ngClass]="isLogin ? 'justify-left' : 'justify-center'">
+      <!-- Header Section -->
+      <h3 class="text-muted" style="padding-left: 10px;" *ngIf="dataProducts">{{ dataProducts.length }} Sản
+        phẩm dữ liệu</h3>
+      <div class="row" *ngIf="dataProducts">
+        <div class="col-md-4 mb-4" *ngFor="let item of dataProducts" style="cursor: pointer;">
+          <label class="btn btn-outline btn-active-light-primary p-7 d-flex align-items-center mb-5"
+            for="kt_radio_buttons_2_option_1" (click)="navigateToDetail(item.product_id)">
+            <img class="fs-4x me-4" src="./assets/media/logos/DEP_icon.ico" style="max-width: 50px;" />
+            <span class="d-block fw-semibold text-start">
+              <span class="text-gray-900 fw-bold d-block ">{{ item.description?.name }}</span>
+              <span class="text-muted fw-semibold fs-6">
+                {{ item.description?.short_description }}
+              </span>
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

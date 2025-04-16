@@ -1,0 +1,312 @@
+<div class="card">
+  <!-- Tiêu đề trang -->
+  <div class="card-header">
+    <h3 class="card-title">
+      <h1>Truy cập dữ liệu</h1>
+    </h3>
+  </div>
+  <!-- Bộ lọc và nút Tạo -->
+  <div class="card-body">
+    <!--<p>data-management works!</p>-->
+    <div class="row mb-8">
+      <div class="col-md-3">
+        <mat-tab-group>
+          <!-- Tab 1 -->
+          <mat-tab label="Databases">
+            <div class="card">
+              <div class="card-header border-0 pt-6">
+                <h3 class="card-title">Schemas</h3>
+              </div>
+              <div class="card-body pt-0">
+                <tree-root [nodes]="tree" (activate)="onNodeSelect($event)">
+                  <ng-template #treeNodeWrapperTemplate let-node let-index="index">
+                    <div
+                      class="node-wrapper"
+                      [style.padding-left]="node.getNodePadding()"
+                    >
+                      <tree-node-expander [node]="node"></tree-node-expander>
+                      <div
+                        class="node-content-wrapper"
+                        [class.node-content-wrapper-active]="node.isActive"
+                        [class.node-content-wrapper-focused]="node.isFocused"
+                        (click)="node.mouseAction('click', $event)"
+                        style="margin-bottom: 5px"
+                      >
+                        @if (node.data.table) {
+                          <div class="node-icon">
+                            <app-keenicon
+                              name="questionnaire-tablet"
+                              class="fs-2"
+                            ></app-keenicon>
+                            <span style="margin-left: 10px">{{
+                                node.data.name
+                              }}</span>
+                          </div>
+                        } @if (node.data.database) {
+                        <app-keenicon name="abstract-26" class="fs-2"></app-keenicon
+                        ><span style="margin-left: 10px"> {{ node.data.name }}</span
+                        >} @if (node.data.column) {
+                        <app-keenicon name="list" class="fs-2"></app-keenicon
+                        ><span style="margin-left: 10px"> {{ node.data.name }}</span
+                        >}
+                      </div>
+                    </div>
+                  </ng-template>
+                </tree-root>
+              </div>
+            </div>
+
+          </mat-tab>
+
+          <!-- Tab 2 -->
+          <mat-tab label="Worksheets">
+            <div class="card">
+
+              <div class="search-container">
+                <input type="text" class="form-control"
+                       style="width: 75%;"
+                       placeholder="Tìm kiếm Worksheet..." [(ngModel)]="searchKey"
+                       (keyup.enter)="onSearch()" />
+                <button class="btn btn-primary" type="button" style="margin-left: 10px" (click)="onAddWorksheet()">
+                  +
+                </button>
+              </div>
+
+
+              <div class="card-header border-0 pt-6">
+                <h3 class="card-title">Folders</h3>
+              </div>
+
+              <div class="card-body pt-0" style="margin-left: 10%"  >
+                <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                    <div class="item-tree"
+                         [style.background]="node.id === worksheetSelected ? '#3177FF8F' : 'transparent'"
+                         (click)="toggleNode(node)">
+                      <img *ngIf="node.type==='ws'" src="/assets/media/icons/duotune/worksheet/worksheet-icon.svg" alt="" />
+                      <img *ngIf="node.type==='fd'" src="/assets/media/icons/duotune/worksheet/folder-icon.svg" alt="" />
+                      <mat-list-item class="item-tree-text">
+                        {{ node.name }}
+                      </mat-list-item>
+
+                      <!-- Dropdown button -->
+                      <div class="action-dropdown" (click)="$event.stopPropagation()">
+                        <button
+                          mat-icon-button
+                          [matMenuTriggerFor]="menu"
+                          aria-label="Actions"
+                          style="align-items:center; display: flex;
+                          justify-content: center; width: 20px; height: 20px"
+                        >
+                          <p style="font-size: 16px; font-weight: bold;">...</p>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                          <button mat-menu-item (click)="onRename(node)">
+                            <mat-icon>edit</mat-icon>
+                            <span style="font-size: 14px">Rename</span>
+                          </button>
+                          <button mat-menu-item (click)="onDelete(node)">
+                            <mat-icon>delete</mat-icon>
+                            <span style="font-size: 14px">Delete</span>
+                          </button>
+                          <button *ngIf="node.type==='ws'" mat-menu-item [matMenuTriggerFor]="moveMenu">
+                            <mat-icon>drive_file_move</mat-icon>
+                            <span style="font-size: 14px">Move</span>
+                          </button>
+                        </mat-menu>
+
+                        <!-- Submenu for Move -->
+                        <mat-menu #moveMenu="matMenu">
+                          <ng-container *ngFor="let folder of this.listAllFolders">
+                            <button mat-menu-item (click)="onMove(node, folder )">
+                              <mat-icon>folder</mat-icon>
+                              <span style="font-size: 14px">{{ folder.name }}</span>
+                            </button>
+                          </ng-container>
+                        </mat-menu>
+
+                      </div>
+
+
+                    </div>
+                  </mat-tree-node>
+
+                  <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                    <mat-icon class="mat-icon-rtl-mirror" style="margin-top: 1%; margin-left: -7%">
+                      {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+                    </mat-icon>
+                    <div class="item-tree"
+                         [style.background]="node.id === worksheetSelected ? '#3177FF8F' : 'transparent'"
+                         (click)="toggleNode(node)">
+                      <img src="/assets/media/icons/duotune/worksheet/folder-icon.svg" alt="" />
+                      <mat-list-item class="item-tree-text" >
+                        {{ node.name }}
+                      </mat-list-item>
+                    </div>
+
+                    <!-- Dropdown button -->
+                    <div class="action-dropdown" (click)="$event.stopPropagation()">
+                      <button
+                        mat-icon-button
+                        [matMenuTriggerFor]="menu"
+                        aria-label="Actions"
+                        style="align-items:center; display: flex;
+                          justify-content: center; width: 20px; height: 20px"
+                      >
+                        <p style="font-size: 16px;font-weight: bold;">...</p>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="onRename(node)">
+                          <mat-icon>edit</mat-icon>
+                          <span style="font-size: 14px">Rename</span>
+                        </button>
+                        <button mat-menu-item (click)="onDelete(node)">
+                          <mat-icon>delete</mat-icon>
+                          <span style="font-size: 14px">Delete</span>
+                        </button>
+                        <button *ngIf="node.type==='ws'" mat-menu-item [matMenuTriggerFor]="moveMenu">
+                          <mat-icon>drive_file_move</mat-icon>
+                          <span style="font-size: 14px">Move</span>
+                        </button>
+                      </mat-menu>
+
+
+                      <!-- Submenu for Move -->
+                      <mat-menu #moveMenu="matMenu">
+                        <ng-container *ngFor="let folder of this.listAllFolders">
+                          <button mat-menu-item (click)="onMove(node, folder )">
+                            <mat-icon>folder</mat-icon>
+                            <span style="font-size: 14px">{{ folder.name }}</span>
+                          </button>
+                        </ng-container>
+                      </mat-menu>
+
+                    </div>
+
+                  </mat-tree-node>
+                </mat-tree>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+
+
+      </div>
+
+      <div class="col-md-9">
+        <h3 class="card-title font-weight-bolder text-dark">
+          Truy vấn dữ liệu
+        </h3>
+        <div class="card card-custom card-stretch gutter-b">
+          <!-- Card Header -->
+          <div class="card-header bg-gray-200 border-0">
+            <div
+              class="card-toolbar d-flex justify-content-start"
+              style="margin-right: 0"
+            >
+
+              <select class="form-select form-select-sm form-select-solid"
+                      data-control="select2" data-placeholder="Latest"
+                      [(ngModel)]="databaseSelected">
+                <option value="" selected>Chọn Database</option>
+                <option *ngFor="let db of listDatabases" value="{{db.id}}">{{db.databaseName}}</option>
+              </select>
+
+            </div>
+            <div
+              class="card-toolbar d-flex justify-content-start"
+              style="margin-right: 0"
+            >
+
+              <!-- Buttons -->
+              <button *ngIf="enableShare"
+                type="button"
+                class="btn btn-icon btn-light btn-sm"
+                style="margin-right: 10px; min-width: 150px"
+                      (click)="onSave()"
+              >
+                <app-keenicon
+                  name="arrow-down"
+                  class="fs-2 text-success"
+                ></app-keenicon>
+                <span style="margin-left: 10px">Save</span>
+              </button>
+              <button *ngIf="enableShare"
+                type="button"
+                class="btn btn-icon btn-light btn-sm ml-2"
+                style="margin-right: 10px; min-width: 150px"
+              >
+                <app-keenicon name="share" class="fs-2"></app-keenicon>
+                <span style="margin-left: 10px">Share</span>
+              </button>
+              <button
+                type="button"
+                class="btn btn-icon btn-light btn-sm ml-2 btn-primary"
+                style="min-width: 150px"
+                (click)="runSql()"
+              >
+                <app-keenicon
+                  name="double-right-arrow"
+                  class="fs-2 text-success"
+                ></app-keenicon>
+                <span style="margin-left: 10px">Run query</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card Body -->
+          <div class="card-body pt-4">
+            <textarea
+              class="form-control"
+              rows="6"
+              [(ngModel)]="querySql"
+              (ngModelChange)="onChangeQuery($event)"
+              placeholder="select * from [table_name]"
+            ></textarea>
+          </div>
+        </div>
+        <br />
+        <h3>Kết quả truy vấn</h3>
+        <div class="card card-custom card-stretch gutter-b">
+          <div class="card-header bg-gray-200 border-0">
+            <div
+              class="card-toolbar"
+              style="margin-left: auto; margin-right: 0"
+            >
+              <!-- Buttons -->
+              <button *ngIf="enableDownload"
+                type="button"
+                class="btn btn-icon btn-light btn-sm ml-2"
+                style="min-width: 150px"
+                (click)="exportToExcel()"
+              >
+                <app-keenicon
+                  name="cloud-download"
+                  class="fs-2 text-success"
+                ></app-keenicon>
+                <span style="margin-left: 10px">Download</span>
+              </button>
+              <!-- <button *ngIf="enableDownload"
+                type="button"
+                class="btn btn-icon btn-light btn-sm ml-2"
+                style="min-width: 150px"
+                (click)="insertDataToTable()"
+              >
+                <app-keenicon
+                  name="save-2"
+                  class="fs-2 text-success"
+                ></app-keenicon>
+                <span style="margin-left: 10px">Save</span>
+              </button> -->
+            </div>
+          </div>
+          <!-- Card Body -->
+          <div class="card-body pt-4">
+            <div style="overflow-x: auto" [innerHTML]="tableText"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-toast/>

@@ -1,0 +1,313 @@
+<div class="container mt-5" style="margin-left: 0; justify-content: center">
+  <!-- <div class="d-flex flex-wrap flex-stack mb-6">
+    <h2 class=""> Thông tin thanh toán</h2>
+  </div> -->
+  <div class="mb-6" style="    text-align: center;">
+    <h2 class=""  style="    font-weight: 700;
+    font-size: x-large;"> Thông tin thanh toán</h2>
+  </div>
+  <div *ngIf="planByProductIdData.length === 0">
+    <p>Không có dữ liệu để hiển thị.</p>
+  </div>
+  <div style="text-align: center; display: none;">
+    <div class="circle active">
+      1
+    </div>
+    <span style="color: #007bff;">----------------------------------------------</span>
+    <div class="circle" [ngClass]="{'active': status === 'active', 'inactive': status === 'inactive'}">
+      2
+    </div>
+
+  </div>
+
+  <div class="stepper">
+    <div>
+      <!-- Step 1 -->
+      <div class="step" [class.active]="activeStep === 1">
+        <div style="display: flex
+        ;
+            justify-content: center;
+            align-items: center;">
+          <div class="options-grid">
+            <div class="option" *ngFor="let paymentOption of planByProductIdData" [ngClass]="{
+        'selected-option': selectedOption === paymentOption.planType,
+        'disabled-option': !paymentOption.display
+      }" [style.pointerEvents]="paymentOption.display ? 'auto' : 'none'"
+              (click)="updateDetails(paymentOption.planType, paymentOption)">
+              <!-- <img src="./assets/media/misc/Container.png"> -->
+              <h5 style="color: #000;" >{{ paymentOption.label }}</h5>
+              <!-- <br> -->
+              <!-- <p>{{ paymentOption.des }}</p> -->
+            </div>
+          </div>
+        </div>
+        <!-- Thẻ hiển thị thông tin chi tiết -->
+        <div style="  display: flex;
+  justify-content: center; ">
+          <div style="width: 30%;border: 2px solid #007bff;" class="details-card"
+            *ngIf="selectedOptionplanByProductId && selectedOptionplanByProductId?.planType !== 'DURATION' ; else durationPlan">
+            <div class="mb-5">
+              <h5 style="color: #007bff;float: left;">{{selectedUpdateDetails.label}}</h5>
+              <select class="totalRight" *ngIf="selectedOptionplanByProductId?.planType === 'REQUEST'"
+                id="dynamic-select" [(ngModel)]="selectedRequestOption" (change)="onRequestOptionChange($event)">
+                <option *ngFor="let option of selectedOptionplanByProductId.planOptions" [value]="option.requestNumber">
+                  {{ option.requestNumber }} request
+                </option>
+              </select>
+
+            </div><br />
+            <div style="text-align: center;">
+              <h1 *ngIf="selectedRequestOptionObject; else basePriceTemplate">
+                {{ selectedRequestOptionObject.optionPrice | currency:'VND' }}
+              </h1>
+              <ng-template #basePriceTemplate>
+                <h1>{{ selectedOptionplanByProductId.basePrice | currency:'VND' }}</h1>
+              </ng-template>
+
+              <br />
+              <p>{{selectedUpdateDetails.des}}</p>
+              <br /><button type="button" (click)="goToNextStep()" style="width: 100%;"
+                class="btn btn-primary text-uppercase font-weight-bolder btn-sm">Thanh toán</button>
+            </div>
+            <br />
+            <div>
+              <ul class="checkmark-list">
+                <li *ngIf="selectedOptionplanByProductId?.planType === 'REQUEST'">Sử dụng {{selectedRequestOption}}
+                  request</li>
+                <li *ngIf="selectedOptionplanByProductId?.planType === 'FULLPURCHASE'">Tải về không giới hạn</li>
+                <li *ngIf="selectedOptionplanByProductId?.planType === 'PAYPERUSE'">Tải về 01 lượt duy nhất</li>
+                <li>Hỗ trợ 24/7</li>
+                <li>Truy vấn trực tiếp</li>
+                <li>Nguồn dữ liệu tin cậy</li>
+                <li>Độ chính xác cao</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+        <!---->
+        <!-- Fallback content for DURATION planType -->
+        <ng-template #durationPlan>
+          <div style="width: 100%;"
+            *ngIf="selectedOptionplanByProductId && selectedOptionplanByProductId?.planType === 'DURATION' ">
+            <!-- <div class="period-options">
+              <div *ngFor="let period of postpaidPeriods " class="period-option"
+                [ngClass]="{ 'selected-option': selectedPeriod === period.value }">
+                <input type="radio" [id]="period.value" [value]="period.value" name="paymentPeriod"
+                  [(ngModel)]="selectedPeriod" (change)="updatePackageDetails()" />
+                <label [for]="period.value">{{ period.label }}</label>
+              </div>
+            </div> -->
+
+            <div class="row justify-content-center">
+              <div class="col-12 col-lg-3 bg-white p-5 m-5 details-card"
+                *ngFor="let package of selectedOptionplanByProductId.planOptions"
+                [ngClass]="{ 'selected-option': optionChukyGiaodien?.optionDuration === package.optionDuration }">
+                <div>
+                  <h5 style="color: #007bff;" *ngIf="package?.optionDuration === 'DAILY'">01 ngày</h5>
+                  <h5 style="color: #007bff;" *ngIf="package?.optionDuration === 'MONTHLY'">01 tháng</h5>
+                  <h5 style="color: #007bff;" *ngIf="package?.optionDuration === 'YEARLY'">01 năm</h5>
+                </div><br />
+                <div (click)="updatePackageGiaoDien(package)">
+                  <div style="display: flex;">
+                    <h1>{{ package.optionPrice | currency:'VND' }}</h1>
+                    <label *ngIf="package?.optionDuration === 'DAILY'">/01 ngày</label>
+                    <label *ngIf="package?.optionDuration === 'MONTHLY'">/01 tháng</label>
+                    <label *ngIf="package?.optionDuration === 'YEARLY'">/01 năm</label>
+                  </div>
+                  <br />
+                  <p *ngIf="package?.optionDuration === 'DAILY'">Khách hàng sử dụng dữ liệu trong ngày, hết ngày hệ
+                    thống sẽ khóa sử dụng.</p>
+                  <p *ngIf="package?.optionDuration === 'MONTHLY'">Khách hàng sử dụng dữ liệu trong 01 tháng, hết thời
+                    gian hệ thống sẽ khóa sử dụng.</p>
+                  <p *ngIf="package?.optionDuration === 'YEARLY'">Khách hàng sử dụng dữ liệu trong 01 năm, hết thời gian
+                    hệ thống sẽ khóa sử dụng.</p>
+                  <br />
+                  <div style="text-align: center;">
+                    <button type="button" (click)="updatePackageChoose(package)" style="width: 100%;"
+                      *ngIf="optionChukyGiaodien?.optionDuration === package.optionDuration"
+                      class="btn btn-primary text-uppercase font-weight-bolder btn-sm">Thanh toán</button>
+                    <button type="button" style="width: 100%;    background: #000000;
+    color: white;" *ngIf="optionChukyGiaodien?.optionDuration !== package.optionDuration"
+                      class="btn text-uppercase font-weight-bolder btn-sm">Thanh toán</button>
+                  </div>
+                </div>
+                <br />
+                <div>
+                  <ul class="checkmark-list" *ngFor="let packageAtri of package.planAttributes">
+                    <li>{{ packageAtri.attrName }}: {{ packageAtri.attrDescription }}</li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <!-- Step 2 -->
+    <!-- Step 2 -->
+    <div class="step" [class.active]="activeStep === 2">
+      <div class="step-container">
+        <!-- Bên trái: Thông tin sản phẩm -->
+        <div class="left-column">
+          <!-- <div class="d-flex flex-wrap flex-stack mb-6">
+        <h2 class=""> Thông tin dữ liệu</h2>
+      </div> -->
+          <div class="product-info">
+            <!-- <img [src]="product.image" alt="Product Image" class="product-image" style="float: left;" />
+            <h3>{{ dataProduct?.name }}</h3>
+            <p>{{ dataProduct?.metaDescription }}</p> -->
+          </div>
+          <div class="payment-info">
+
+            <div class="details-card-step2">
+              <p-toast />
+              <div class="d-flex align-items-center">
+                  <img [src]="product.image" alt="Product Image" class="product-image" />
+                  <h3>Thành tiền</h3>
+              </div>
+              <div class="details-item">
+                <table>
+                  <tr *ngIf="isExtendOrder">
+                    <td>Tên sản phẩm</td>
+                    <td class="column-right">{{orderDetail.name}}</td>
+                  </tr>
+                  <tr *ngIf="!isWarehouseOrder && !isExtendOrder">
+                    <td>Tên sản phẩm</td>
+                    <td class="column-right">{{ ouputOrderAPI?.productName }}</td>
+                  </tr>
+                  <tr *ngIf="isWarehouseOrder">
+                    <td>Tên sản phẩm</td>
+                    <td class="column-right">{{ orderDetail.name }}</td>
+                  </tr>
+                  <tr *ngIf="isExtendOrder">
+                    <td>Gói cước:</td>
+                    <td class="column-right">{{extendPlanName}}</td>
+                  </tr>
+                  <tr *ngIf="isWarehouseOrder">
+                    <td>Cấu hình</td>
+                    <td class="column-right">{{ orderDetail.cpu }} - {{ orderDetail.ram }}</td>
+                  </tr>
+                  <tr *ngIf="isWarehouseOrder">
+                    <td>Số giờ</td>
+                    <td class="column-right">{{ orderDetail.hourOfUse }} giờ</td>
+                  </tr>
+                  <tr *ngIf="isExtendOrder">
+                    <td>Đơn giá</td>
+                    <td class="column-right">{{orderDetail.amount | currency:'VND':'symbol-narrow':'1.0-0'}}</td>
+                  </tr>
+                  <tr *ngIf="isWarehouseOrder">
+                    <td>Đơn giá</td>
+                    <td class="column-right">{{ orderDetail.amount | currency:'VND':'symbol-narrow':'1.0-0'
+                  }}</td>
+                  </tr>
+                  <tr *ngIf="!isWarehouseOrder && !isExtendOrder">
+                    <td>Đơn giá</td>
+                    <td class="column-right">{{ ouputOrderAPI?.amount | currency:'VND':'symbol-narrow':'1.0-0'
+                  }}</td>
+                  </tr>
+                </table>
+              </div>
+
+              <hr style="margin: 0 20px; border: none; border-bottom: 2px solid #000;">
+              <div class="details-item">
+                <table>
+                  <tr *ngIf="isExtendOrder">
+                    <td>Tổng tiền</td>
+                    <td class="column-right">{{ orderDetail.amount |  currency:'VND':'symbol-narrow':'1.0-0'}}</td>
+                  </tr>
+                  <tr *ngIf="isWarehouseOrder">
+                    <td>Tổng tiền</td>
+                    <td class="column-right">{{ orderDetail.amount |  currency:'VND':'symbol-narrow':'1.0-0'}}</td>
+                  </tr>
+                  <tr *ngIf="!isExtendOrder && !isWarehouseOrder">
+                    <td>Tổng tiền</td>
+                    <td class="column-right">{{ ouputOrderAPI?.amount | currency:'VND':'symbol-narrow':'1.0-0' }}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <!-- Thẻ hiển thị thông tin chi tiết -->
+            <!-- <div class="details-card">
+              <h3>Thành tiền</h3> -->
+
+              <!-- <p><strong>Tên sản phẩm:</strong> <span class="totalRight"> {{ ouputOrderAPI?.productName }}</span></p> -->
+              <!-- <p><strong>Đơn giá (VNĐ):</strong> <span class="totalRight"> {{ ouputOrderAPI?.amount | currency:'VND'
+                  }}</span></p>
+              <p><strong>Đơn giá (VNĐ):</strong> <span class="totalRight"> {{ ouputOrderAPI?.amount | currency:'VND'
+                  }}</span></p>
+              <p><strong>Thuế Vat:</strong> <span class="totalRight"> {{ ouputOrderAPI?.tax ? (ouputOrderAPI?.tax |
+                  number:'1.0-0') : '0' }}</span></p>
+              <hr>
+              <p><strong>Tổng tiền:</strong> <span class="totalRight"> {{ ouputOrderAPI?.amount | currency:'VND'
+                  }}</span></p>
+            </div> -->
+
+          </div>
+
+          <div class="payment-method">
+            <h4>Chọn phương thức thanh toán</h4>
+            <div class="payment-grid">
+              <div *ngFor="let option of paymentMethods" class="option-payment" [ngClass]="{ 'selected-option': selectedPaymentMethod === option.value ,
+          'disabled-option': option.disable}" (click)="confirmOrder(option.value)">
+
+                <img [src]="option.image" alt="option Image" class="methos-image" style="float: left;" width="50"
+                  height="50" />
+
+                <label [for]="option.value">{{ option.label }}</label>
+                <input type="radio" [id]="option.value" [value]="option.value" name="paymentMethod"
+                  [(ngModel)]="selectedPaymentMethod" (change)="confirmOrder(option.value)" />
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+        <!-- Bên phải: Quét mã QR -->
+        <div class="right-column">
+          <div class="qr-scanner" *ngIf="!outputStatusOrderAPI">
+            <h4>Quét mã QR</h4>
+            <p>Quét mã QR phía dưới để tiến hành thanh toán</p>
+            <div *ngIf="outputConfirmOrderAPI">
+              <img [src]="'data:image/png;base64,' + (outputConfirmOrderAPI?.PaymentQR || '')" alt="Payment QR Code"
+                style="width:300px; height:300px;">
+
+              <div>
+                <p>Thời gian còn lại: {{ countdownMinutes }}:{{ countdownSeconds | number: '2.0' }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="outputStatusOrderAPI && outputStatusOrderAPI?.PaymentStatus === 2" class="qr-result">
+            <h4>Thanh toán Thành công</h4>
+            <p><strong>Vui lòng không đóng trình duyệt hoặc thoát khỏi trang này cho đến khi hệ thống tự động điều
+                hướng</strong></p>
+            <div>
+              <div class="image-container">
+                <!-- Image 1 (Nền) -->
+                <img [src]="'data:image/png;base64,' + (outputConfirmOrderAPI?.PaymentQR || '')" alt="Payment QR Code"
+                  class="image-1">
+                <!-- Image 2 (Nằm trên) -->
+
+                <img src="./assets/media/misc/checkmark.png" alt="Image 2" class="image-2">
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+
+
+</div>
+<div *ngIf="loading" class="loading-overlay">
+  <div class="spinner"></div>
+</div>

@@ -1,0 +1,169 @@
+<div class="card">
+  <!-- Tiêu đề trang -->
+  <div class="card-header">
+    <h3 class="card-title">
+      <h1>Danh sách đồng bộ</h1>
+    </h3>
+  </div>
+
+  <!-- Bộ lọc và nút Tạo -->
+  <div class="card-body pt-0">
+    <div
+      class="d-flex flex-wrap justify-content-between align-items-center mb-5"
+    >
+      <!-- Bộ lọc -->
+      <div class="d-flex flex-wrap align-items-center">
+        <!-- Ô tìm kiếm -->
+        <div class="position-relative">
+          <input
+            type="text"
+            class="form-control form-control-solid ps-14"
+            placeholder="Tìm kiếm"
+            [(ngModel)]="searchText"
+            (ngModelChange)="onSearchChange()"
+          />
+        </div>
+
+        <!-- Bộ lọc Loại nguồn -->
+        <div class="position-relative">
+          <mat-select
+            class="form-control form-control-solid m-5"
+            placeholder="Loại nguồn"
+            [(value)]="selectedJobSrcType"
+            (selectionChange)="onFilterChange()"
+          >
+            <mat-option value="">Tất cả loại nguồn</mat-option>
+            <mat-option *ngFor="let type of jobSrcTypes" [value]="type">
+              {{ type }}
+            </mat-option>
+          </mat-select>
+        </div>
+
+        <!-- Bộ lọc Trạng thái -->
+        <div class="position-relative" style="margin-left: 15px">
+          <mat-select
+            class="form-control form-control-solid m-5"
+            placeholder="Trạng thái"
+            [(value)]="selectedJobState"
+            (selectionChange)="onFilterChange()"
+          >
+            <mat-option value="">Tất cả trạng thái</mat-option>
+            <mat-option *ngFor="let state of jobStates" [value]="state">
+              {{ state }}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+
+      <!-- Nút Tạo -->
+      <button class="btn btn-primary btn-sm" [routerLink]="['/ingest/create']">
+        <i class="bi bi-plus-lg"></i> Tạo mới
+      </button>
+    </div>
+
+    <!-- Bảng -->
+    <div class="table-responsive">
+      <table class="table align-middle table-row-dashed fs-6 gy-5">
+        <thead>
+          <tr class="text-start fw-bold fs-7 text-uppercase gs-0">
+            <th class="min-w-50px">#</th>
+            <th class="min-w-150px">Tên Job</th>
+            <th class="min-w-200px">Mô tả</th>
+            <th class="min-w-100px">Loại nguồn</th>
+            <th class="min-w-100px">Trạng thái</th>
+            <th class="min-w-125px">Thao tác</th>
+          </tr>
+        </thead>
+        <tbody class="fw-semibold">
+          <tr *ngFor="let job of jobs; let i = index">
+            <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+            <td>
+              <a [routerLink]="['/ingest/detail', job.id]" class="job-link">
+                {{ job.jobName }}
+              </a>
+            </td>
+
+            <td>{{ job.description }}</td>
+            <td>{{ job.jobSrcType }}</td>
+            <td>
+              <span [ngClass]="getBadgeClass(job.ingestionJobState)">
+                {{ job.ingestionJobState }}
+              </span>
+            </td>
+            <td>
+              <button
+                *ngIf="job.ingestionJobState !== 'RUNNING'"
+                class="btn btn-sm btn-icon btn-light-hover-primary"
+                (click)="onEdit(job.id)"
+                title="Chỉnh sửa"
+              >
+                <i class="bi bi-pencil"></i>
+              </button>
+
+              <button
+                *ngIf="job.jobSrcType != 'FILE'"
+                class="btn btn-sm btn-icon btn-light-hover-warning"
+                (click)="onToggleState(job)"
+                title="Bắt đầu/Dừng"
+              >
+                <i
+                  class="bi"
+                  [class.bi-pause-fill]="job.ingestionJobState === 'RUNNING'"
+                  [class.bi-play-fill]="job.ingestionJobState !== 'RUNNING'"
+                ></i>
+              </button>
+              <button
+                *ngIf="job.ingestionJobState !== 'RUNNING'"
+                class="btn btn-sm btn-icon btn-light-hover-danger"
+                (click)="confirmDelete(job.id)"
+                title="Xóa"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Phân trang -->
+    <div class="d-flex justify-content-between align-items-center mt-4">
+      <div>{{ totalRecords }} bản ghi</div>
+      <ul class="pagination">
+        <li
+          class="page-item"
+          [class.disabled]="currentPage === 1"
+          (click)="changePage(currentPage - 1)"
+        >
+          <a class="page-link">Trước</a>
+        </li>
+        <li
+          *ngFor="let page of getPaginationNumbers()"
+          class="page-item"
+          [class.active]="page === currentPage"
+          (click)="changePage(page)"
+        >
+          <a class="page-link">{{ page }}</a>
+        </li>
+        <li
+          class="page-item"
+          [class.disabled]="currentPage === getTotalPages()"
+          (click)="changePage(currentPage + 1)"
+        >
+          <a class="page-link">Sau</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Xác nhận Xóa -->
+<swal
+  #deleteSwal
+  title="Bạn có chắc chắn muốn xóa?"
+  text="Thao tác này không thể hoàn tác"
+  icon="warning"
+  [showCancelButton]="true"
+  (confirm)="triggerDelete()"
+  (cancel)="onCancelDelete()"
+></swal>

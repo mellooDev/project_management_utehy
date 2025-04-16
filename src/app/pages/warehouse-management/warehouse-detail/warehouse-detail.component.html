@@ -1,0 +1,78 @@
+<div class="card">
+  <div class="card-header" style="padding-top: 12px;">
+    <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
+      <li class="nav-item">
+        <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1">Lịch sử truy vấn</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " data-bs-toggle="tab" href="#kt_tab_pane_2">Lịch sử sao chép dữ liệu</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card-body">
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
+        <h4>Lịch sử các câu lệnh truy vấn</h4>
+        <div class="d-flex justify-content-between align-items-center" style="margin: 35px 0;">
+          <button class="btn btn-primary">
+            <i class="bi bi-arrow-clockwise"></i>
+            Làm mới
+          </button>
+          <div class="d-flex align-items-center">
+            <div class="select-box me-5">
+              <select class="form-control custom-width" >
+                <option value="" disabled selected>Database</option>
+                <option value="">abc</option>
+                <option value="">abc</option>
+              </select>
+              <i class="bi bi-chevron-down select-arrow"></i>
+            </div>
+
+            <div class="select-box me-2">
+              <select class="form-control custom-width" >
+                <option value="" disabled selected>Trạng thái</option>
+                <option value="">abc</option>
+                <option value="">abc</option>
+              </select>
+              <i class="bi bi-chevron-down select-arrow"></i>
+            </div>
+          </div>
+        </div>
+
+        <table class="table table-striped mt-3 custom-bordered">
+          <thead class="custom-header">
+            <tr>
+              <th style="text-align: center">STT</th>
+              <th>Tên database</th>
+              <th>Tên warehouse</th>
+              <th>Câu lệnh truy vấn</th>
+              <th>Thời gian bắt đầu</th>
+              <th>Thời gian thực hiện</th>
+              <th>Thời gian kết thúc</th>
+              <th>Thông báo lỗi</th>
+              <th>Trạng thái</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr >
+              <td>1</td>
+              <td>baop</td>
+              <td>WH-BAOP</td>
+              <td>SELECT column_list FROM table1 INNER JOIN table2 ON join_condition1 INNER JOIN table3 ON join_condition2</td>
+              <td>25/02/2025, 10:25:00 AM</td>
+              <td>20s</td>
+              <td>25/02/2025, 10:25:20 AM</td>
+              <td>Error</td>
+              <td>1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
+        <h4>Lịch sử sao chép dữ liệu</h4>
+      </div>
+    </div>
+  </div>
+</div>

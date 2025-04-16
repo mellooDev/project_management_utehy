@@ -1,0 +1,139 @@
+<div class="card">
+  <!-- Tiêu đề trang -->
+  <div class="card-header border-0 pt-6">
+    <h3 class="card-title">
+      <h1 style="margin-bottom: 38px">Đăng ký người bán</h1>
+    </h3>
+  </div>
+
+  <!-- Bộ lọc và nút Tạo -->
+  <div class="card-body pt-0">
+    <div>
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <!-- Chọn loại người dùng -->
+        <div class="form-group">
+          <div class="fv-row mb-4">
+            <label class="form-label fw-bolder text-gray-900 fs-6">
+              <h3>Loại tài khoản</h3>
+            </label>
+            <br>
+            <div class="form-check form-check-inline" style="margin-bottom: 20px; margin-top: 20px;">
+              <input class="form-check-input" type="radio" id="1" formControlName="userType" value="1">
+              <label class="form-check-label" for="1">Cá nhân</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="2" formControlName="userType" value="2">
+              <label class="form-check-label" for="2">Doanh nghiệp</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="fv-row mb-4">
+            <!-- Card ID Input -->
+            <label class="form-label fw-bolder text-gray-900 fs-6">Card ID</label>
+            <input class="form-control bg-transparent" type="text" name="cardId" formControlName="cardId"
+              placeholder="Card ID" autocomplete="off" [ngClass]="{
+            'is-invalid': registrationForm.controls['cardId'].invalid,
+            'is-valid': registrationForm.controls['cardId'].valid
+         }" />
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'Card ID không được để trống',
+            control: registrationForm.controls['cardId']
+          }"></ng-container>
+          </div>
+        </div>
+
+        <div class="row mb-8">
+          <!-- Căn cước mặt trước -->
+          <div class="col-md-6">
+            <div class="mt-3">
+              <!-- File Upload for Card ID Image -->
+              <label class="form-label fw-bolder text-gray-900 fs-6">Tải lên Card ID mặt trước</label>
+              <input type="file" accept="image/*" (change)="onFileChangeBefore($event)" class="form-control"
+                id="cardIdImageBefore" />
+            </div>
+
+            <!-- Image Preview -->
+            <div *ngIf="imagePreviewBefore" class="mt-3">
+              <!--      <label class="form-label fw-bolder text-gray-900 fs-6">Preview</label>-->
+              <img [src]="imagePreviewBefore" alt="Card ID Image" class="img-thumbnail"
+                style="max-width: 200px; max-height: 200px;" />
+            </div>
+
+          </div>
+
+          <div class="col-md-6">
+            <div class="mt-3">
+              <!-- Căn cước mặt sau -->
+              <label class="form-label fw-bolder text-gray-900 fs-6">Tải lên Card ID mặt sau</label>
+              <input type="file" accept="image/*" (change)="onFileChangeAfter($event)" class="form-control"
+                id="cardIdImageAfter" />
+            </div>
+
+            <!-- Image Preview -->
+            <div *ngIf="imagePreviewAfter" class="mt-3">
+              <!--      <label class="form-label fw-bolder text-gray-900 fs-6">Preview</label>-->
+              <img [src]="imagePreviewAfter" alt="Card ID Image" class="img-thumbnail"
+                style="max-width: 200px; max-height: 200px;" />
+            </div>
+          </div>
+        </div>
+        <!-- Address Field -->
+        <div class="fv-row mb-4" style="margin-top: 25px;">
+          <label class="form-label fw-bolder text-gray-900 fs-6">Địa chỉ</label>
+          <input class="form-control bg-transparent" type="text" name="address" formControlName="address"
+            placeholder="Địa chỉ" autocomplete="off" />
+        </div>
+        <div class="row mb-8">
+          <div class="col-md-6">
+            <div class="fv-row mb-4">
+              <label class="form-label fw-bolder text-gray-900 fs-6">Số điện thoại</label>
+              <input class="form-control bg-transparent" type="text" name="phoneNumber" formControlName="phoneNumber"
+                placeholder="Số điện thoại" autocomplete="off" [ngClass]="{
+                  'is-invalid': registrationForm.controls['phoneNumber'].invalid,
+                  'is-valid': registrationForm.controls['phoneNumber'].valid
+                }" />
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'Số điện thoại không được để trống',
+            control: registrationForm.controls['phoneNumber']
+          }"></ng-container>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="fv-row mb-4">
+              <label class="form-label fw-bolder text-gray-900 fs-6">Website</label>
+              <input class="form-control bg-transparent" type="text" name="website" formControlName="website"
+                placeholder="Website" autocomplete="off" [ngClass]="{
+                  'is-invalid': registrationForm.controls['website'].invalid,
+                  'is-valid': registrationForm.controls['website'].valid
+                }" />
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'Website không được để trống',
+            control: registrationForm.controls['website']
+          }"></ng-container>
+            </div>
+          </div>
+        </div>
+        <!-- Nút submit -->
+        <button type="submit" class="btn btn-primary" style="margin-bottom: 40px;">Đăng ký</button>
+      </form>
+      <ng-template #formError let-control="control" let-message="message" let-validation="validation">
+        <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+          <div class="fv-plugins-message-container">
+            <div class="fv-help-block">
+              <span role="alert">
+                {{ message }}
+              </span>
+            </div>
+          </div>
+        </ng-container>
+      </ng-template>
+    </div>
+  </div>
+</div>

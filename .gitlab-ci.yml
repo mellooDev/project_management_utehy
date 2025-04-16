@@ -1,0 +1,11 @@
+stages:
+  - trigger
+
+run_curl:
+  stage: trigger
+  script: |
+    curl --location --request POST 'https://auto.devops.vnpt.vn/job/SI.THS.DataExchange/job/develop/buildWithParameters?delay=0sec' \
+    --header 'Authorization: Basic dHVuZ2xldGhhbmg6MTE1OTAyOGRjM2Q1ZTY2Y2IxNmQ0MDdmMWY5N2UwYjY3OA=='
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "develop" && $CI_COMMIT_MESSAGE =~ /--build/'
+      when: always

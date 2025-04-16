@@ -1,0 +1,185 @@
+<div class="modal-content modal-lg modal-dialog-scrollable">
+  <div class="modal-header">
+    <h3>Thêm Gói Cước</h3>
+    <hr class="divider">
+  </div>
+  <div class="modal-body" style="overflow-y: visible;">
+    <div class="row">
+      <!-- Chọn loại gói cước -->
+      <div class="form-group col-md-6">
+        <label class="label-block" for="packageType">Chọn loại gói cước</label>
+        <select id="packageType" class="form-control" [(ngModel)]="selectPackageType">
+          <option value="">-- Chọn loại gói cước --</option>
+          <ng-container *ngFor="let packageType of packageTypesLoc">
+            <option [value]="packageType.value">{{ packageType.name }}</option>
+          </ng-container>
+        </select>
+      </div>
+      <!-- Note -->
+      <div class="form-group col-md-6" *ngIf="selectPackageType === 'FULLPURCHASE'">
+        <label class="label-block" for="packageName">Loại thanh toán 1 lần cho phép khách hàng trả tiền 01 lần duy nhất
+          để được sử dụng vĩnh viễn dữ liệu đã mua</label>
+      </div>
+      <div class="form-group col-md-6" *ngIf="selectPackageType === 'PAYPERUSE'">
+        <label class="label-block" for="packageName">Loại hình thanh toán theo lượt tải, cho phép khách hàng mua và tải
+          về dữ liệu đã mua 01 lần duy nhất, nếu khách hàng muốn mua thêm sẽ thực hiện mua mới gói dữ liệu ban
+          đầu.</label>
+      </div>
+      <!-- Tên gói cước -->
+      <div class="form-group col-md-6">
+        <label class="label-block" for="packageName">Tên gói cước</label>
+        <input type="text" [(ngModel)]="packageName" id="packageName" class="form-control"
+          placeholder="Nhập tên gói cước" />
+      </div>
+      <!--Đơn giá-->
+      <div class="form-group col-md-6"
+        *ngIf="selectPackageType === 'FULLPURCHASE' || selectPackageType === 'PAYPERUSE'">
+        <label for="oneTimePrice" class="label-block">Đơn giá</label>
+        <input type="text" class="form-control" placeholder="Nhập đơn giá" [(ngModel)]="basePrice" #priceInput="ngModel"
+          required pattern="^[0-9]+(\.[0-9]{1,2})?$" />
+        <!-- Hiển thị lỗi -->
+        <div *ngIf="priceInput.invalid && (priceInput.dirty || priceInput.touched)" class="text-danger">
+          <div *ngIf="priceInput.errors?.required">Đơn giá không được để trống.</div>
+          <div *ngIf="priceInput.errors?.pattern">Đơn giá phải là số và có thể có tối đa 2 chữ số thập phân.</div>
+        </div>
+      </div>
+    </div>
+    <!--gói cước list  goiCuocList: any[] = [];  -->
+    <form #packageForm="ngForm" *ngIf="selectPackageType === 'REQUEST'">
+      <div *ngFor="let item of goiCuocList; let i = index" class="row mb-3 align-items-center">
+        <!-- Số lượng request -->
+        <div class="form-group col-md-6">
+          <label for="soLuong-{{ i }}" class="label-block">Số lượng request</label>
+          <input id="soLuong-{{ i }}" type="number" class="form-control" placeholder="Nhập số lượng request"
+            [(ngModel)]="item.requestNumber" name="soLuong-{{ i }}" required min="1" #soLuongInput="ngModel" />
+          <div *ngIf="soLuongInput.invalid && soLuongInput.touched" class="text-danger">
+            <small *ngIf="soLuongInput.errors?.required">Số lượng không được để trống.</small>
+            <small *ngIf="soLuongInput.errors?.min">Số lượng phải lớn hơn 0.</small>
+          </div>
+        </div>
+
+        <!-- Đơn giá -->
+        <div class="form-group col-md-5">
+          <label for="donGia-{{ i }}" class="label-block">Đơn giá</label>
+          <input id="donGia-{{ i }}" type="number" class="form-control" placeholder="Nhập đơn giá"
+            [(ngModel)]="item.optionPrice" name="donGia-{{ i }}" required min="10001" #donGiaInput="ngModel" />
+          <div *ngIf="donGiaInput.invalid && donGiaInput.touched" class="text-danger">
+            <small *ngIf="donGiaInput.errors?.required">Đơn giá không được để trống.</small>
+            <small *ngIf="donGiaInput.errors?.min">Đơn giá phải lớn hơn 10,000.</small>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="col-md-1 d-flex justify-content-center align-items-center">
+          <!-- Remove Button/Icon for existing rows -->
+          <button *ngIf="i < goiCuocList.length - 1" class="remove-attribute-button" (click)="removeRow(i)"
+            title="Xóa">
+            <i i-bs name="trash3-fill"></i>
+          </button>
+
+          <!-- Add Button/Icon only for the last row -->
+          <button *ngIf="i === goiCuocList.length - 1" class="add-attribute-button"
+            [disabled]="!areAllRowsValid()" (click)="addRow()" title="Thêm">
+            <i i-bs name="plus-circle"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!--Chu kỳ-->
+    <div class="row">
+      <form #packageFormChuky="ngForm" *ngIf="selectPackageType === 'DURATION'">
+        <div *ngFor="let cycle of cycles; let i = index" class="border p-3 mb-3">
+          <div>
+            <div class="attribute-block">
+              <h5>Chu kỳ {{ i + 1 }}</h5>
+              <p class="more-att-label" (click)="addCycle()" style="color: #1d7eee;" *ngIf="i===cycles.length-1">Thêm
+                chu kỳ</p>
+              <p class="more-att-label" (click)="removeCycle(i)" style="color: red;" *ngIf="i<cycles.length-1">Xóa chu
+                kỳ</p>
+            </div>
+
+            <div class="row">
+              <!-- Chọn chu kỳ -->
+              <div class="form-group col-md-6">
+                <label for="subscriptionPeriod{{ i }}" class="label-block">Chu kỳ</label>
+                <select [id]="'subscriptionPeriod' + i" class="form-control" [(ngModel)]="cycle.period"
+                  name="subscriptionPeriod{{ i }}" (change)="onCycleSelected(i)">
+                  <option value="">-- Chọn chu kỳ --</option>
+                  <ng-container *ngFor="let packageType of postpaidPeriodsLoc">
+                    <option [value]="packageType.value">
+                      {{ packageType.label }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+
+              <!-- Nhập đơn giá -->
+              <div class="form-group col-md-6">
+                <label for="price{{ i }}" class="label-block">Đơn giá (VNĐ)</label>
+                <input type="text" [id]="'price' + i" class="form-control" [(ngModel)]="cycle.price" name="price{{ i }}"
+                  placeholder="Nhập đơn giá" required pattern="^[0-9]+(\\.[0-9]{1,2})?$" />
+                <div
+                  *ngIf="packageFormChuky.form.controls['price' + i]?.invalid &&
+                     (packageFormChuky.form.controls['price' + i]?.dirty || packageFormChuky.form.controls['price' + i]?.touched)"
+                  class="text-danger">
+                  <div *ngIf="packageFormChuky.form.controls['price' + i]?.errors?.required">
+                    Đơn giá không được để trống.
+                  </div>
+                  <div *ngIf="packageFormChuky.form.controls['price' + i]?.errors?.pattern">
+                    Đơn giá phải là số và có thể có tối đa 2 chữ số thập phân.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Danh sách thuộc tính -->
+            <div *ngFor="let attr of cycle.attributes; let j = index" class="row align-items-center mt-2">
+              <div class="form-group col-md-6">
+                <label>Tên thuộc tính</label>
+                <input type="text" class="form-control" [(ngModel)]="attr.attrName" [name]="'attrName' + i + '_' + j"
+                  placeholder="Nhập tên thuộc tính" />
+              </div>
+              <div class="form-group col-md-5">
+                <label>Giá trị</label>
+                <input type="text" class="form-control" [(ngModel)]="attr.attrDescription" [name]="'attrValue' + i + '_' + j"
+                  placeholder="Nhập giá trị" />
+              </div>
+              <div class="col-md-1 d-flex align-items-center ">
+                <!-- <button type="button" class="remove-attribute-button" (click)="removeAttribute(i, j)" *ngIf="j<cycle.attributes.length-1">
+                  <i i-bs name="trash3-fill"></i>
+                </button>
+                <button type="button" class="add-attribute-button" (click)="addAttribute(i)"  *ngIf="j===cycle.attributes.length-1">
+                  <i i-bs name="plus-circle"></i>
+                </button> -->
+                <button type="button" class="remove-attribute-button" (click)="removeAttribute(i, j)"
+                  *ngIf="j < cycle.attributes.length - 1; else addButton">
+                  <i i-bs name="trash3-fill"></i>
+                </button>
+
+                <ng-template #addButton>
+                  <button type="button" class="add-attribute-button" (click)="addAttribute(i)">
+                    <i i-bs name="plus-circle"></i>
+                  </button>
+                </ng-template>
+
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+
+  </div>
+
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" style="margin-right: 7px;" data-dismiss="modal"
+      (click)="onCloseModal()">Đóng</button>
+    <button type="button" class="btn btn-primary" (click)="onSaveModal()">Lưu</button>
+  </div>
+</div>

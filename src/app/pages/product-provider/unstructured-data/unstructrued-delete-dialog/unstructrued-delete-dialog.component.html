@@ -1,0 +1,13 @@
+<h3 mat-dialog-title>
+    Xóa gói cước
+  </h3>
+  <hr>
+  <mat-dialog-content>
+    <p>Bạn có chắc chắn muốn xóa gói cước <strong>{{ data.packageName }}</strong> không?</p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button class="mat-close-button" (click)="close()">Hủy</button>
+    <button class="mat-raised-button" mat-raised-button color="warn" (click)="confirm()">Xóa</button>
+  </mat-dialog-actions>
+  
+  

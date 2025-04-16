@@ -1,0 +1,285 @@
+<!--begin::Menu wrapper-->
+<div id="kt_app_sidebar_menu_scroll" class="scroll-y my-5 mx-3" data-kt-scroll="true" data-kt-scroll-activate="true"
+  data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer"
+  data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px" data-kt-scroll-save-state="true">
+  <!--begin::Menu-->
+  <div class="menu menu-column menu-rounded menu-sub-indention fw-semibold fs-6" id="#kt_app_sidebar_menu"
+    data-kt-menu="true" data-kt-menu-expand="false">
+    <!-- Dashboard -->
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLink="/marketplace" routerLinkActive="active">
+        <span class="menu-icon">
+          <app-keenicon name="shop" class="fs-2"></app-keenicon>
+        </span>
+        <span class="menu-title" translate="MENU.DASHBOARD"></span>
+      </a>
+    </div>
+
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLink="/project-management" routerLinkActive="active">
+        <span class="menu-icon">
+          <app-keenicon name="shop" class="fs-2"></app-keenicon>
+        </span>
+        <span class="menu-title" translate="MENU.PROJECT_MANAGEMENT"></span>
+      </a>
+    </div>
+
+    <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click">
+      <a href="#" class="menu-link py-3">
+        <span class="menu-icon">
+          <app-keenicon name="abstract-26" class="fs-2"></app-keenicon>
+        </span>
+        <span class="menu-title" translate="MENU.PROJECT_MANAGEMENT"></span>
+        <span class="menu-arrow"></span>
+      </a>
+      <!--begin::Menu sub-->
+      <div class="menu-sub menu-sub-accordion pt-3">
+        <!-- Sản phẩm -->
+        <div class="menu-item" >
+          <a class="menu-link without-sub" routerLink="/product-provider" routerLinkActive="active">
+            <span class="menu-icon">
+              <app-keenicon name="cloud" class="fs-2"></app-keenicon>
+            </span>
+            <span class="menu-title" translate="MENU.REGISTER_PROJECT"></span>
+          </a>
+        </div>
+
+        <!-- <div class="menu-item" >
+          <a class="menu-link without-sub" routerLink="/approve-product" routerLinkActive="active">
+            <span class="menu-icon">
+              <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
+            </span>
+            <span class="menu-title" translate="MENU.APPROVE_PROD"></span>
+          </a>
+        </div> -->
+
+        <!-- Quản lý dữ liệu đã mua -->
+        <!-- <div class="menu-item">
+          <a class="menu-link without-sub" routerLink="/buyed" routerLinkActive="active">
+            <span class="menu-icon">
+              <app-keenicon name="share" class="fs-2"></app-keenicon>
+            </span>
+            <span class="menu-title" translate="MENU.BUYED"></span>
+          </a>
+        </div> -->
+
+      </div>
+      <!--end::Menu sub-->
+    </div>
+
+    <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click">
+      <a href="#" class="menu-link py-3">
+        <span class="menu-icon">
+          <app-keenicon name="abstract-26" class="fs-2"></app-keenicon>
+        </span>
+        <span class="menu-title" translate="MENU.DATA_MNGT"></span>
+        <span class="menu-arrow"></span>
+      </a>
+      <!--begin::Menu sub-->
+      <div class="menu-sub menu-sub-accordion pt-3">
+        <!-- Sản phẩm -->
+        <div class="menu-item" >
+          <a class="menu-link without-sub" routerLink="/product-provider" routerLinkActive="active">
+            <span class="menu-icon">
+              <app-keenicon name="cloud" class="fs-2"></app-keenicon>
+            </span>
+            <span class="menu-title" translate="MENU.PRODUCT_MNGT"></span>
+          </a>
+        </div>
+
+        <div class="menu-item" >
+          <a class="menu-link without-sub" routerLink="/approve-product" routerLinkActive="active">
+            <span class="menu-icon">
+              <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
+            </span>
+            <span class="menu-title" translate="MENU.APPROVE_PROD"></span>
+          </a>
+        </div>
+
+        <!-- Quản lý dữ liệu đã mua -->
+        <div class="menu-item">
+          <a class="menu-link without-sub" routerLink="/buyed" routerLinkActive="active">
+            <span class="menu-icon">
+              <app-keenicon name="share" class="fs-2"></app-keenicon>
+            </span>
+            <span class="menu-title" translate="MENU.BUYED"></span>
+          </a>
+        </div>
+
+      </div>
+      <!--end::Menu sub-->
+    </div>
+    <!--end::Menu item-->
+    <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click">
+      <a href="#" class="menu-link py-3">
+        <span class="menu-icon">
+          <app-keenicon name="switch" class="fs-2"></app-keenicon>
+        </span>
+        <span class="menu-title" translate="MENU.WAREHOUSE_MNGT"></span>
+        <span class="menu-arrow"></span>
+      </a>
+      <!--begin::Menu sub-->
+      <div class="menu-sub menu-sub-accordion pt-3">
+        <!--Đồng bộ dữ liệu -->
+        <div class="menu-item" >
+          <a class="menu-link without-sub" routerLink="/ingest" routerLinkActive="active">
+            <span class="menu-icon">
+              <app-keenicon name="abstract-37" class="fs-2"></app-keenicon>
+            </span>
+            <span class="menu-title" translate="MENU.INGEST_MNGT"></span>
+          </a>
+        </div>
+        <!--end::Menu item-->
+      </div>
+      <!--end::Menu sub-->
+    </div>
+
+    <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click" >
+      <a href="#" class="menu-link py-3">
+        <span class="menu-icon">
+          <app-keenicon name="switch" class="fs-2"></app-keenicon>
+        </span>
+        <span class="menu-title">Quản lý tài khoản</span>
+        <span class="menu-arrow"></span>
+      </a>
+
+      <!--begin::Menu sub-->
+      <div class="menu-sub menu-sub-accordion pt-3">
+        <!--Quản lý người dùng hệ thống -->
+        <div class="menu-item">
+          <a class="menu-link without-sub" routerLink="/users/user-list" routerLinkActive="active">
+            <span class="menu-icon">
+              <app-keenicon name="abstract-37" class="fs-2"></app-keenicon>
+            </span>
+            <span class="menu-title">Quản lý người dùng</span>
+          </a>
+        </div>
+      </div>
+      <!--end::Menu sub-->
+
+      <!--begin::Menu sub-->
+      <div class="menu-sub menu-sub-accordion pt-3">
+        <!--Đồng bộ dữ liệu -->
+        <div class="menu-item" >
+          <a class="menu-link without-sub" routerLink="/approve-seller" routerLinkActive="active">
+            <span class="menu-icon">
+              <app-keenicon name="abstract-37" class="fs-2"></app-keenicon>
+            </span>
+            <span class="menu-title">Phê duyệt Đăng ký bán</span>
+          </a>
+        </div>
+      </div>
+      <!--end::Menu sub-->
+
+      <!--begin::Menu sub-->
+      <div class="menu-sub menu-sub-accordion pt-3">
+        <!--Đồng bộ dữ liệu -->
+        <div class="menu-item" >
+          <a class="menu-link without-sub" routerLink="/users/user-postpaid" routerLinkActive="active">
+            <span class="menu-icon">
+              <app-keenicon name="abstract-37" class="fs-2"></app-keenicon>
+            </span>
+            <span class="menu-title">Phê duyệt Đăng ký trả sau</span>
+          </a>
+        </div>
+      </div>
+      <!--end::Menu sub-->
+    </div>
+
+
+    <!--end::Menu item-->
+
+    <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click">
+      <a href="#" class="menu-link py-3">
+        <span class="menu-icon">
+          <app-keenicon name="gear" class="fs-2"></app-keenicon>
+        </span>
+        <span class="menu-title" translate="MENU.TOOLS"></span>
+        <span class="menu-arrow"></span>
+      </a>
+      <!--begin::Menu sub-->
+      <div class="menu-sub menu-sub-accordion pt-3">
+        <!--Quản lý dữ liệu -->
+        <div class="menu-item">
+          <a class="menu-link without-sub" routerLink="/data-management" routerLinkActive="active">
+            <span class="menu-icon">
+              <app-keenicon name="abstract-18" class="fs-2"></app-keenicon>
+            </span>
+            <span class="menu-title" translate="MENU.WORKSHEET"></span>
+          </a>
+        </div>
+
+        <div class="menu-item">
+          <a class="menu-link without-sub" routerLink="/file-management" routerLinkActive="active">
+            <span class="menu-icon">
+              <app-keenicon name="file-added" class="fs-2"></app-keenicon>
+            </span>
+            <span class="menu-title" translate="MENU.FILE"></span>
+          </a>
+        </div>
+        <!--end::Menu sub-->
+      </div>
+      <!--     -->
+
+      <!-- Quản lý Worksheet -->
+      <div class="menu-item">
+        <a class="menu-link without-sub" routerLink="/worksheet/worksheet-list" routerLinkActive="active">
+          <span class="menu-icon">
+            <app-keenicon name="parcel" class="fs-2"></app-keenicon>
+          </span>
+          <span class="menu-title" translate="MENU.WORKSHEET_MNGT"></span>
+        </a>
+      </div>
+
+
+      <!-- Quản lý warehouse -->
+      <div class="menu-item">
+        <a class="menu-link without-sub" routerLink="/warehouse-management" routerLinkActive="active">
+          <span class="menu-icon">
+            <app-keenicon name="parcel" class="fs-2"></app-keenicon>
+          </span>
+          <span class="menu-title" translate="MENU.WAREHOUSE"></span>
+        </a>
+      </div>
+
+      <!-- Lịch sử giao dịch -->
+      <div class="menu-item">
+        <a class="menu-link without-sub" routerLink="/history" routerLinkActive="active">
+          <span class="menu-icon">
+            <app-keenicon name="cheque" class="fs-2"></app-keenicon>
+          </span>
+          <span class="menu-title" translate="MENU.HISTORY"></span>
+        </a>
+      </div>
+
+      <div class="menu-item">
+        <a class="menu-link without-sub" routerLink="/statistic-chart" routerLinkActive="active">
+          <span class="menu-icon">
+            <app-keenicon name="financial-schedule" class="fs-2"></app-keenicon>
+          </span>
+          <span class="menu-title" translate="MENU.STATISTIC"></span>
+        </a>
+      </div>
+
+      <div class="menu-item" >
+        <a class="menu-link without-sub" routerLink="/email-template-management" routerLinkActive="active">
+          <span class="menu-icon">
+            <app-keenicon name="folder" class="fs-2"></app-keenicon>
+          </span>
+          <span class="menu-title" translate="MENU.EMAIL_TEMPLATE"></span>
+        </a>
+      </div>
+
+      <!--Đăng ký người bán -->
+      <!-- <div class="menu-item" *ngIf="groupdId !== 2">
+        <a class="menu-link without-sub" routerLink="/provider/register-provider" routerLinkActive="active">
+          <span class="menu-icon">
+            <app-keenicon name="brifecase-tick" class="fs-2"></app-keenicon>
+          </span>
+          <span class="menu-title" translate="MENU.REGISTER_PRO"></span>
+        </a>
+      </div> -->
+    </div>
+    <!--end::Menu-->
+  </div>
+  <!--end::Menu wrapper-->

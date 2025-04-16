@@ -1,0 +1,12 @@
+<div class="dialog-container">
+  <h2 class="dialog-title">Đổi tên </h2>
+  <form (ngSubmit)="rename()">
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Tên mới</mat-label>
+      <input matInput [(ngModel)]="newName" name="newName" placeholder="Nhập tên mới" />
+    </mat-form-field>
+    <button type="submit" class="btn btn-primary save-button">
+      Lưu
+    </button>
+  </form>
+</div>

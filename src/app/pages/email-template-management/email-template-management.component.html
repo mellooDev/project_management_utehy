@@ -1,0 +1,180 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">Quản lý template email</h4>
+  </div>
+  <div class="card-body">
+    <div class="search-container mt-22">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Tìm kiếm template..." [(ngModel)]="searchTerm" (keydown.enter)="onSearch()"/>
+        <i class="bi bi-x-circle-fill delete-input" (click)="clearSearch()"></i>
+        <span class="input-group-text"  style="cursor: pointer;" (click)="onSearch()">
+          <i class="bi bi-search"></i> <!-- Biểu tượng kính lúp -->
+        </span>
+      </div>
+      <!-- <button type="button" class=" button-add" (click)="open(modalCreateTemplate)">
+        <i class="bi bi-plus icon-add"></i>
+        Tạo mới
+      </button> -->
+    </div>
+
+
+    <div *ngIf="templateList.length === 0; else dataAvailable">
+      <p>Không có dữ liệu</p>
+    </div>
+
+    <ng-template #dataAvailable>
+      <table class="table table-striped mt-3 custom-bordered">
+        <thead class="custom-header">
+          <tr>
+            <th style="text-align: center">STT</th>
+            <th>Tên template</th>
+            <th>Code</th>
+            <th>Tiêu đề</th>
+            <th>Mô tả</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of templateList; let i = index">
+            <td style="text-align: center;">{{i+1}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.code}}</td>
+            <td>{{item.title}}</td>
+            <td>{{item.description}}</td>
+            <td>
+              <div ngbDropdown class="d-inline-block">
+                <button type="button" class="button-action btn-primary" id="dropdownBasic1" ngbDropdownToggle>
+                  Action
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu">
+                  <button ngbDropdownItem (click)="open(modalCreateTemplate, item.id)">Sửa</button>
+                  <button ngbDropdownItem (click)="onOpenModalDelete(deleteTemplate, item.id)">Xóa</button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-template>
+
+    <div *ngIf="templateList.length > 0" class="pagination-container mt-3">
+      <ngb-pagination
+        [collectionSize]="recordsTotal"
+        [(page)]="currentPage"
+        [pageSize]="pageSize"
+        (pageChange)="onPageChange($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+
+  <ng-template let-modal #modalCreateTemplate>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Thông tin template</h4>
+    </div>
+
+    <div class="modal-body email-template-modal-body">
+      <div class="email-template-info">
+        <div class="d-flex justify-content-between align-items-center gap-3">
+
+          <div class="form-group mb-3 w-100">
+            <label for="templateName">Loại thông báo</label>
+            <select class="form-control form-select select-method" [(ngModel)]="selectedTemplateCode">
+              <option value="" selected disabled hidden>Chọn loại thông báo</option>
+              <option *ngFor="let template of emailTemplatesCodes" [value]="template.code">{{template.name}}</option>
+            </select>
+            <span class="text-danger mt-2 d-block" *ngIf="isTemplateNameInvalid">{{messageError.emailTemplateName}}</span>
+          </div>
+
+          <div class="form-group mb-3 w-100">
+            <label for="templateName">Tên email template</label>
+            <input type="text" class="form-control" id="templateName" [(ngModel)]="emailTemplateName" (ngModelChange)="onInputChange('emailTemplateName')" required />
+            <span class="text-danger mt-2 d-block" *ngIf="isTemplateNameInvalid">{{messageError.emailTemplateName}}</span>
+          </div>
+        </div>
+
+
+        <div class="form-group mb-3">
+          <label for="templateName">Mô tả template</label>
+          <input type="text" class="form-control" id="templateDescription" [(ngModel)]="emailDescription" (ngModelChange)="onInputChange('emailDescription')" required />
+          <span class="text-danger mt-2 d-block" *ngIf="isTemplateDescriptionInvalid">{{messageError.emailDescription}}</span>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="templateSubject">Tiêu đề email</label>
+          <input type="text" class="form-control" id="templateSubject" (ngModelChange)="logPreview()" [(ngModel)]="emailSubject" (ngModelChange)="onInputChange('emailSubject')" />
+          <span class="text-danger mt-2 d-block" *ngIf="isTemplateSubjectInvalid">{{messageError.emailSubject}}</span>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="templateContent">Nội dung email</label>
+          <angular-editor  id="templateContent" [config]="editorConfig"
+                          [(ngModel)]="emailContent" (ngModelChange)="onInputChange('emailContent')"></angular-editor>
+          <span class="text-danger mt-2 d-block" *ngIf="isTemplateContentInvalid">{{messageError.emailContent}}</span>
+        </div>
+      </div>
+      <div class="email-template-review">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">Xem trước</h5>
+            <button class="btn-primary btn-action" *ngIf="isEditMode" (click)="openModalSendEmail(sendEmail)">Gửi email giả lập</button>
+          </div>
+          <div class="card-body">
+              <h4 class="preview-title">{{emailSubject}}</h4>
+              <div class="preview-content" [innerHTML]="emailContent | safeHtml"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <p-toast />
+      <button class="btn btn-secondary" (click)="closeModal()">Hủy</button>
+      <button class="btn btn-primary" (click)="onCreateTemplate()" [disabled]="isLoading">
+        <span *ngIf="!isLoading">{{isEditMode ? 'Cập nhật': 'Lưu'}}</span>
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      </button>
+    </div>
+  </ng-template>
+
+  <ng-template #deleteTemplate let-modal >
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Thông tin template</h4>
+    </div>
+
+    <div class="modal-body email-template-modal-body">
+      <p class="text-center">Bạn có chắc chắn xóa template này không?</p>
+    </div>
+
+    <div class="modal-footer">
+      <p-toast />
+      <button class="btn btn-secondary" (click)="closeModal()">Hủy</button>
+      <button class="btn btn-danger" [disabled]="isLoading" (click)="onDeleteTemplate()">
+        <span *ngIf="!isLoading">Xóa</span>
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      </button>
+    </div>
+  </ng-template>
+
+  <ng-template let-modal #sendEmail>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Gửi email giả lập</h4>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-group mb-3">
+        <label for="templateSubject">Nhập địa chỉ để nhận email thông báo</label>
+        <input type="text" class="form-control w-100" id="emailSendTest" [(ngModel)]="emailSendTest" (ngModelChange)="onEmailSendInputChange('emailSendTest')"  />
+        <span class="text-danger mt-2 d-block" *ngIf="isEmailSendTestInvalid">{{messageEmailError.emailSendTest}}</span>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <p-toast />
+      <button class="btn btn-primary" [disabled]="isLoading" (click)="onSubmitSendTest()">
+        <span *ngIf="!isLoading">Xác nhận</span>
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      </button>
+      <button class="btn btn-secondary" (click)="closeModal()">Hủy</button>
+    </div>
+  </ng-template>
+</div>

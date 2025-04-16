@@ -1,0 +1,274 @@
+.search-container {
+  //  max-width: 400px;
+  margin-bottom: 15px;
+  padding: 20px 0px;
+}
+
+.table {
+  margin-top: 20px;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+}
+
+.custom-header th {
+  font-weight: bold;
+  /* Làm chữ đậm */
+}
+
+
+.custom-bordered tbody tr:nth-child(odd) {
+  background-color: #f2f2f2;
+  /* Màu nền nhạt cho dòng lẻ */
+}
+
+.custom-bordered tbody tr:nth-child(even) {
+  background-color: #ffffff;
+  /* Màu nền trắng cho dòng chẵn */
+}
+
+
+.row-container {
+  display: flex;
+  gap: 10px;
+  /* Khoảng cách giữa các phần tử */
+  align-items: center;
+  /* Canh giữa theo chiều dọc */
+}
+
+.input-group {
+  flex: 1;
+  /* Tăng kích thước để phần tìm kiếm chiếm nhiều không gian hơn */
+}
+
+select {
+  flex: 0.3;
+  /* Kích thước mặc định cho dropdown */
+  min-width: 150px;
+  /* Đảm bảo dropdown không bị quá nhỏ */
+}
+
+
+//
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  min-width: 600px;
+  min-height: 300px;
+  text-align: center;
+}
+
+.popup-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.popup-content li {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.close-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.download-button {
+  background-color: #1b84ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.jwt-table {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-radius: 10px;
+  // border: 1px solid #000;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.jwt-verify {
+  border-right: 1px solid silver;
+  width: 35%;
+}
+
+.api-test {
+  width: 65%;
+}
+
+.title {
+  border-bottom: 1px solid silver;
+  text-align: center;
+
+  p {
+    margin: 0;
+    padding: 1rem 0;
+  }
+}
+
+.header-jwt,
+.payload-jwt,
+.secret-token-jwt {
+  padding: 10px;
+  position: relative;
+  // border-bottom: 1px solid silver;
+
+  span {
+    padding: 4px 2px;
+    border: 1px solid silver;
+    top: 0;
+    left: 0;
+    margin-bottom: 10px;
+  }
+
+}
+
+.secret-token-jwt {
+  border-bottom: none;
+}
+
+.title-children {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.api-content {
+  padding: 15px;
+}
+
+.input-url {
+  display: flex;
+  align-items: center;
+}
+
+.select-method {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  min-width: 100px;
+  padding: 0.775rem 1rem;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.input-url {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+::ng-deep .my-class .modal-dialog {
+  max-width: 80%;
+  width: 80%;
+}
+
+.api-table-detail {
+  width: 100%;
+  margin-top: 20px;
+
+  th {
+    width: 40%;
+  }
+
+  tr {
+    height: 40px;
+  }
+}
+
+.api-table-detail tr:nth-child(odd) {
+  background-color: #e0dede;
+}
+
+.api-table-detail tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+.api-key-block {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  padding: 6px 8px;
+  border-radius: 5px;
+}
+
+.api-key-text {
+  // border: 1px solid rgba(0, 0, 0, 1);
+  position: relative;
+  // background-color: #f0f0f0;
+  transition: all 0.3s ease;
+  margin-bottom: 0;
+}
+
+.api-key-text.blurred {
+  filter: blur(6px);
+  cursor: not-allowed;
+  user-select: none;
+}
+
+.clipboard-icon {
+  position: absolute;
+  top: 61%;
+  left: 92%;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.button-action {
+  padding: calc(0.575rem + 1px) calc(1.3rem + 1px);
+  border-radius: 0.475rem;
+  border: none;
+  background-color: #0D92F4;
+  color: #fff;
+}
+
+.custom-star {
+  font-size: 3rem;
+  color: gray; 
+  transition: color 0.3s ease;
+  padding-left: 10px;
+}
+
+.custom-star.filled {
+  color: gold;
+}
+
+::ng-deep .my-class .modal-dialog {
+  max-width: 50%;
+  width: 50%;
+}
+
+
+.text-review{
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+}
+
+.text-review:focus {
+  outline: none;
+}

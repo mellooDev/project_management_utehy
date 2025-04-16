@@ -1,0 +1,119 @@
+<div class="card">
+  <!-- Tiêu đề trang -->
+  <div class="card-header">
+    <h3 class="card-title">
+      <h1>Phê duyệt Đăng kí người bán</h1>
+    </h3>
+  </div>
+
+  <!-- Bộ lọc và nút Tạo -->
+  <div class="card-body">
+    <div class="container">
+      <div class="row align-items-start  ">
+        <div class="col">
+          <h5>Họ và tên</h5>
+          <span>{{dataDetail.customer_name}}</span>
+        </div>
+        <div class="col">
+          <h5>Loại tài khoản</h5>
+          <span>{{dataDetail.account_type}}</span>
+        </div>
+        <div class="col">
+          <h5>Email</h5>
+          <span>{{dataDetail.customer_email}}</span>
+        </div>
+      </div>
+
+
+      <div class="row align-items-start ">
+        <div class="col">
+          <h5>Số điện thoại</h5>
+          <span>{{dataDetail.customer_phone}}</span>
+        </div>
+        <div class="col">
+          <h5>Website</h5>
+          <span>{{dataDetail.website}}</span>
+        </div>
+        <div class="col">
+          <h5>Địa chỉ</h5>
+          <span>{{dataDetail.address}}</span>
+        </div>
+      </div>
+
+
+      <div class="row align-items-start ">
+        <div class="col">
+          <h5>Số giấy tờ</h5>
+          <span>{{dataDetail.customer_cid}}</span>
+        </div>
+        <div class="col"> 
+        <!-- Ảnh kích thước 300 x 200 -->
+          <h5>Mặt trước giấy tờ</h5>
+          <div *ngIf="frontDocument">
+            <img 
+            [src]="'data:image/png;base64,' + frontDocument.image" 
+                          alt="Mặt trước giấy tờ"
+              style="width: 300px; height: 200px;"
+            >
+          </div>
+        </div>
+        <div class="col">
+          <h5>Mặt sau giấy tờ</h5>
+          <div *ngIf="backDocument">
+            <span>{{ backDocument.name }}</span>
+            <img 
+            [src]="'data:image/png;base64,' + backDocument.image" 
+              alt="Mặt sau giấy tờ"
+              style="width: 300px; height: 200px;"
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="button-group">
+      <button type="button" class="btn-outline-secondary cancel-button" (click)="openRejectModal()">Từ chối</button>
+      <button type="button" class="btn btn-primary" (click)="openApprovalModal()">Phê duyệt</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Phê duyệt -->
+<div *ngIf="isApprovalModalVisible" class="custom-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5>Xác nhận phê duyệt</h5>
+    </div>
+    <div class="modal-body">
+      <p>Xác nhận phê duyệt thông báo người bán?</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline-secondary cancel-button" (click)="closeApprovalModal()">No</button>
+      <button class="btn btn-primary" (click)="approveSeller()">Yes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal từ chối -->
+<div *ngIf="isRejectModalVisible" class="custom-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5>Xác nhận từ chối phê duyệt</h5>
+    </div>
+    <div class="modal-body">
+      <p>Xác nhận từ chối đăng ký người bán?</p>
+      <div class="form-group">
+        <label for="rejectionReason">Lý do từ chối <span class="requiredType">*</span></label>
+        <textarea
+          id="rejectionReason"
+          [(ngModel)]="rejectionReason"
+          rows="3"
+          placeholder="Nhập lý do từ chối"
+        ></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline-secondary cancel-button" (click)="closeRejectModal()">Hủy</button>
+      <button class="btn btn-danger" (click)="confirmRejection()">Từ chối</button>
+    </div>
+  </div>
+</div>

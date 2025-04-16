@@ -1,0 +1,364 @@
+<div class="card">
+  <div class="card-header">
+    <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
+      <li class="nav-item">
+        <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1">Quản lý kho dữ liệu</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " data-bs-toggle="tab" href="#kt_tab_pane_2">Lịch sử truy vấn</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body pt-0">
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
+        <div class="mt-4">
+          <div class="search-container mt-4">
+            <div class="d-flex">
+              <div class="input-group me-2 mb-2">
+                <input type="text" class="form-control" placeholder="Tìm kiếm warehouse.." [(ngModel)]="searchTerm"
+                       (ngModelChange)="onSearch()"/>
+                <i class="bi bi-x-circle-fill delete-input" *ngIf="searchTerm" (click)="clearSearch()"></i>
+                <span class="input-group-text" (click)="onSearch()" style="cursor: pointer;">
+                <i class="bi bi-search"></i> <!-- Biểu tượng kính lúp -->
+                </span>
+              </div>
+
+              <div class="select-box me-2 mb-2">
+                <select class="form-control custom-width" [(ngModel)]="selectedPackage" (ngModelChange)="onSearch()">
+                  <option value="" disabled selected>Gói warehouse</option>
+                  <option *ngFor="let package of warehousePkgData" [value]="package">
+                    {{ package.name }}
+                  </option>
+                </select>
+                <i class="bi bi-chevron-down select-arrow"></i>
+              </div>
+
+              <div class="select-box me-2 mb-2">
+                <select class="form-control custom-width" [(ngModel)]="selectedStatus" (ngModelChange)="onSearch()">
+                  <option value="" disabled selected>Trạng thái</option>
+                  <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+                </select>
+                <i class="bi bi-chevron-down select-arrow"></i>
+              </div>
+            </div>
+
+
+            <button type="button" class=" button-add" (click)="openModalViewDocument(formModal)">
+              <i class="bi bi-plus icon-add"></i>
+              Tạo mới
+            </button>
+          </div>
+          <table class="table table-striped mt-3 custom-bordered">
+            <thead class="custom-header">
+              <tr>
+                <th style="text-align: center">STT</th>
+                <th>Tên warehouse</th>
+                <th>Gói warehouse</th>
+                <th>Trạng thái</th>
+                <th>Số câu lệnh đang chạy</th>
+                <th>Chủ sở hữu</th>
+                <th>Auto - resume</th>
+                <th>Auto - suspend</th>
+                <th>Đã bắt đầu chạy</th>
+                <th>Ngày khởi tạo</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of warehouseData; let i = index">
+                <td style="text-align: center;">{{i+1}}</td>
+                <td>
+                  <a (click)="navigateToDetail(item)" style="cursor: pointer;color: #007bff;">{{item.warehouseName}}</a>
+                </td>
+                <td>{{pkgWarehouseNames[item.packageWarehouseId]}}</td>
+                <td>{{item.isSuspended === true ? 'Tạm dừng' : 'Tiếp tục'}}</td>
+                <td>0</td>
+                <td>{{ownerNames[item.customerId]}}</td>
+                <td>{{item.isAutoResume === true ? 'Enabled' : 'Disabled'}}</td>
+                <td>{{item.isAutoSuspend === true ? 'Enabled' : 'Disabled'}}</td>
+                <td>{{item.isAutoSuspend === true ? 'Enabled' : 'Disabled'}}</td>
+                <td>{{item.createdDate | date: 'dd-MM-yyyy'}}</td>
+                <td>
+                  <div ngbDropdown class="d-inline-block">
+                    <button type="button" class="button-action btn-primary" id="dropdownBasic1" ngbDropdownToggle>
+                      Action
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu">
+                      <button ngbDropdownItem>Chỉnh sửa</button>
+                      <button *ngIf="!item.isSuspended" ngbDropdownItem (click)="openModalSuspendOrUnsuspend(formModalSuspend, item.warehouseName, item, item.id, true)">Tạm dừng</button>
+                      <button ngbDropdownItem *ngIf="item.isSuspended" (click)="openModalSuspendOrUnsuspend(formModalSuspend, item.warehouseName, item, item.id, false)">Tiếp tục khởi chạy</button>
+                      <button ngbDropdownItem (click)="openModalTransferOwner(formTranferOwner)">Chuyển quyền sở hữu</button>
+                      <button ngbDropdownItem>Xóa</button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination-container mt-3">
+          <ngb-pagination
+            [collectionSize]="filteredData.length"
+            [pageSize]="pageSize"
+            (pageChange)="onPageChange($event)"
+          ></ngb-pagination>
+        </div>
+      </div>
+
+      <div class="tab-pane fade " id="kt_tab_pane_2" role="tabpanel">
+        <h4>Lịch sử các câu lệnh truy vấn</h4>
+        <div class="d-flex justify-content-between align-items-center" style="margin: 35px 0;">
+          <button class="btn btn-primary" (click)="onLoadTask()">
+            <i class="bi bi-arrow-clockwise"></i>
+            Làm mới
+          </button>
+          <div class="d-flex align-items-center">
+            <div class="select-box me-5">
+              <select class="form-control custom-width" >
+                <option value="" disabled selected>Database</option>
+                <option value="">abc</option>
+                <option value="">abc</option>
+              </select>
+              <i class="bi bi-chevron-down select-arrow"></i>
+            </div>
+
+            <div class="select-box me-2">
+              <select class="form-control custom-width" >
+                <option value="" disabled selected>Trạng thái</option>
+                <option value="">abc</option>
+                <option value="">abc</option>
+              </select>
+              <i class="bi bi-chevron-down select-arrow"></i>
+            </div>
+          </div>
+        </div>
+
+        <table class="table table-striped mt-3 custom-bordered table-query">
+          <thead class="custom-header">
+            <tr>
+              <th style="text-align: center">STT</th>
+              <th>Tên database</th>
+              <th>Tên warehouse</th>
+              <th>Câu lệnh truy vấn</th>
+              <th>Thời gian bắt đầu</th>
+              <th>Thời gian thực hiện</th>
+              <th>Thời gian kết thúc</th>
+              <th>Thông báo lỗi</th>
+              <th>Trạng thái</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of listWarehouseTask; let i = index">
+              <td>{{i+1}}</td>
+              <td>baop</td>
+              <td>WH-BAOP</td>
+              <td>{{getQueryFromMetadata(item.metadata)}}</td>
+              <td>{{item.timeStart}}</td>
+              <td>{{getExecutionTime(item.timeStart, item.timeEnd)}}</td>
+              <td>{{item.timeEnd}}</td>
+              <td></td>
+              <td>
+                @switch (item.status) {
+                  @case('COMPLETED') {
+                    <span class="badge badge-success">Thành công</span>
+                  }
+                  @case('RUNNING') {
+                    <span class="badge badge-warning">Đang thực hiện</span>
+                  }
+                  @case('FAILED') {
+                    <span class="badge badge-danger">Thất bại</span>
+                  }
+                  @default {
+                    <span class="badge badge-warning">Thành công</span>
+                  }
+                }
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div *ngIf="listWarehouseTask.length > 0" class="pagination-container mt-3">
+          <ngb-pagination
+            [collectionSize]="recordsTotal"
+            [(page)]="currentPage"
+            [pageSize]="pageSize"
+            (pageChange)="onPageChange($event)"
+          ></ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #formModal let-modal>
+  <form #myForm="ngForm" (ngSubmit)="onSubmit($event, myForm)">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Tạo Warehouse</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <div class="d-flex flex-column scroll-y me-n7 pe-7 mw-850px" id="kt_modal_update_customer_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_update_customer_header" data-kt-scroll-wrappers="#kt_modal_update_customer_scroll"
+           data-kt-scroll-offset="300px">
+        <div class="input-name mb-3">
+          <input type="text" class="form-control input-name" [(ngModel)]="warehouseName" name="nameWarehouse" placeholder="Tên warehouse" />
+        </div>
+        <div class="input-name mb-3">
+          <input type="text" class="form-control input-name" [(ngModel)]="warehouseDescription" name="note" placeholder="Ghi chú" />
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <div class="select-box me-2 mb-2" style="width: 55%;">
+            <select class="custom-select-warehouse custom-width" [(ngModel)]="selectedPackage" (change)="onSelectPackage()" name="packageSelect">
+              <option value="" disabled selected>Gói warehouse</option>
+              <option *ngFor="let package of warehousePkgData" [ngValue]="package">
+                {{ package.name }} - {{ package.priceOneHour | currency:'VND':'symbol-narrow':'1.0-0' }}/giờ
+              </option>
+            </select>
+            <i class="bi bi-chevron-down select-arrow"></i>
+          </div>
+          <span style="color: #3177FF; font-size: 0.9rem;">Thông tin các gói warehouse</span>
+        </div>
+        <label class="mb-2">Thông tin cấu hình</label>
+        <div class="d-flex gap-3">
+          <div class="input-group mb-5">
+            <span class="input-group-text" id="basic-addon1">CPU</span>
+            <input type="text" class="form-control" placeholder="Nhập CPU" [value]="cpuValue" readonly name="cpu" aria-label="cpu" aria-describedby="basic-addon1"/>
+          </div>
+          <div class="input-group mb-5">
+            <span class="input-group-text" id="basic-addon1">RAM</span>
+            <input type="text" class="form-control" placeholder="Nhập RAM" name="ram" [value]="ramValue" readonly aria-label="ram" aria-describedby="basic-addon1"/>
+          </div>
+        </div>
+
+        <label class="mb-2">Nhập Storage:</label>
+        <div class="input-group mb-5" style="max-width: 100%;">
+          <span class="input-group-text" id="basic-addon1">GB</span>
+          <input type="number" class="form-control" placeholder="Storage" name="storage" [(ngModel)]="storage" aria-label="storage" aria-describedby="basic-addon1"/>
+        </div>
+
+        <label class="mb-2">Nhập số giờ sử dụng warehouse</label>
+        <div class="input-name">
+          <input type="number" class="form-control input-name" min="1" [(ngModel)]="hourOfUse" name="numberOfUseHour" placeholder="Số giờ sử dụng" />
+        </div>
+        <br/>
+        <div class="centered-line"></div>
+        <div style="margin: 10px 0">
+          <div class="d-flex align-items-center gap-2" (click)="toggleAdvancedOptions()" style="cursor: pointer;">
+            <span>
+              Tùy chọn nâng cao
+            </span>
+            <i class="bi " [ngClass]="showAdvancedOptions ? 'bi-caret-up-fill' : 'bi-caret-down-fill'"
+              [@rotateIcon]="showAdvancedOptions ? 'opened' : 'closed'">
+            </i>
+          </div>
+        </div>
+
+        <div *ngIf="showAdvancedOptions">
+          <div class="form-check" style="margin-bottom: 30px;">
+            <input type="checkbox" id="autoResume" [(ngModel)]="autoResume" name="autoResume" class="form-check-input">
+            <label for="autoResume" class="form-check-label" style="color: #000">Auto-Resume</label>
+            <label for="autoResume" class="form-check-label">Tự động tiếp tục chạy data warehouse khi người dùng thực thi các câu lệnh.</label>
+          </div>
+
+          <div class="form-check">
+            <input type="checkbox" id="autoSuspend" [(ngModel)]="autoSuspend" name="autoSuspend" (change)="onAutoSuspendChange()" class="form-check-input">
+            <label for="autoSuspend" class="form-check-label" style="color: #000">Auto-Suspend</label>
+            <label for="autoSuspend" class="form-check-label">Tự động dừng chạy warehouse sau một khoảng thời gian được chỉ định.</label>
+          </div>
+
+          <div *ngIf="autoSuspend" class="mt-2">
+            <label for="suspendTime" class="form-label">Nhập thời gian để dừng (phút):</label>
+            <input type="number" id="suspendTime" min="0" [(ngModel)]="suspendTime" name="suspendTime" class="form-control" placeholder="Nhập số phút">
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer flex-center">
+      <!--begin::Button-->
+      <button type="reset" id="kt_modal_update_customer_cancel" class="btn btn-light me-3" (click)="modal.dismiss('cancel')">
+        Hủy
+      </button>
+      <!--end::Button-->
+
+      <!--begin::Button-->
+      <button type="submit" id="kt_modal_update_customer_submit" class="btn btn-primary" [attr.data-kt-indicator]="isLoading ? 'on' : 'off'">
+          <span class="indicator-label">
+            Mua
+          </span>
+        <span class="indicator-progress">
+            Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+          </span>
+      </button>
+      <!--end::Button-->
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #formModalSuspend let-modal>
+  <form #myForm1="ngForm" (ngSubmit)="onSuspendOrUnsuspend($event, myForm1)">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{ pendingValue ? 'Tạm dừng' : 'Khởi chạy' }} warehouse</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <span>Bạn có chắc chắn muốn {{pendingValue ? 'tạm dừng' : 'khởi chạy'}} {{ warehouseSelectedName }}?</span>
+    </div>
+    <div class="modal-footer flex-center">
+      <!--begin::Button-->
+      <button type="reset" id="kt_modal_update_customer_cancel" class="btn btn-light me-3" (click)="modal.dismiss('cancel')">
+        Hủy
+      </button>
+      <!--end::Button-->
+
+      <!--begin::Button-->
+      <button type="submit" id="kt_modal_update_customer_submit" class="btn btn-primary" [attr.data-kt-indicator]="isLoading ? 'on' : 'off'">
+          <span class="indicator-label">
+            {{pendingValue ? 'Tạm dừng' : 'Khởi chạy'}}
+          </span>
+        <span class="indicator-progress">
+            Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+          </span>
+      </button>
+      <!--end::Button-->
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #formTranferOwner let-modal>
+  <form #myForm="ngForm" (ngSubmit)="onTransferOwner($event, myForm)">
+    <div class="modal-header text-center">
+      <h4 class="modal-title" id="modal-basic-title">Chia sẻ quyền sở hữu</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <span>Chia sẻ quyền sở hữu cho người dùng</span>
+      <div class="select-box me-2 mb-2 mt-4" style="width: 100%;">
+        <select class="custom-select-warehouse custom-width" >
+          <option value="" disabled selected>Gói warehouse</option>
+          <option value="">Gói warehouse</option>
+          <option value="">Gói warehouse</option>
+          <!-- <option *ngFor="let package of warehousePkgData" [ngValue]="package">
+            {{ package.name }} - {{ package.priceOneHour | currency:'VND':'symbol-narrow':'1.0-0' }}/giờ
+          </option> -->
+        </select>
+        <i class="bi bi-chevron-down select-arrow"></i>
+      </div>
+
+    </div>
+    <div class="modal-footer flex-center">
+      <button type="reset" id="kt_modal_update_customer_cancel" class="btn btn-light me-3" (click)="modal.dismiss('cancel')">
+        Hủy
+      </button>
+      <button type="submit" id="kt_modal_update_customer_submit" class="btn btn-primary" [attr.data-kt-indicator]="isLoading ? 'on' : 'off'">
+          <span class="indicator-label">
+            {{pendingValue ? 'Tạm dừng' : 'Khởi chạy'}}
+          </span>
+        <span class="indicator-progress">
+            Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+          </span>
+      </button>
+    </div>
+  </form>
+</ng-template>
+<p-toast />

@@ -1,0 +1,137 @@
+.search-container {
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 20px 0px;
+}
+
+.input-group {
+  max-width: 400px;
+}
+
+.table {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.table tr {
+  vertical-align: middle;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.custom-header th {
+  font-weight: bold;
+}
+
+.button-action {
+  padding: calc(0.575rem + 1px) calc(1.3rem + 1px);
+  border-radius: 0.475rem;
+  border: none;
+  background-color: #0066B3;
+  color: #fff;
+}
+
+.button-add {
+  padding: calc(0.575rem + 1px) calc(1.3rem + 1px);
+  border-radius: 0.475rem;
+  border: none;
+  background-color: #1B84FF;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.delete-input {
+  position: absolute;
+  top: 15px;
+  right: 60px;
+  cursor: pointer;
+}
+
+.input-group input:not(:placeholder-shown)+.delete-input {
+  display: block;
+}
+
+.icon-add {
+  font-size: 1.7rem;
+  color: #fff;
+}
+
+
+.custom-bordered tbody tr:nth-child(odd) {
+  background-color: #f2f2f2;
+  /* Màu nền nhạt cho dòng lẻ */
+}
+
+.custom-bordered tbody tr:nth-child(even) {
+  background-color: #ffffff;
+  /* Màu nền trắng cho dòng chẵn */
+}
+
+.dropdown-menu {
+  transform-origin: center bottom;
+}
+
+::ng-deep .my-class .modal-dialog {
+  max-width: 80%;
+  width: 80%;
+}
+
+.email-template-modal-body {
+  display: flex;
+}
+
+.email-template-info,
+.email-template-review {
+  display: flex;
+  flex-direction: column; /* Đảm bảo các phần tử bên trong sắp xếp theo chiều dọc */
+}
+
+.email-template-info {
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
+  width: 63%;
+  padding-right: 15px;
+}
+
+label {
+  margin-bottom: 8px;
+}
+
+.email-template-review {
+  padding-left: 15px;
+  width: 37%;
+}
+
+.email-template-review .card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.email-template-review .card .card-body {
+  padding-bottom: 0;
+}
+
+.btn-action {
+  padding: calc(0.575rem + 1px) calc(1.0rem + 1px);
+  background-color: #1B84FF;
+  border: 0;
+  border-radius: 5px;
+  height: 50%;
+  transform: translateY(50%);
+  color: #fff;
+}
+
+.btn-action:hover {
+  opacity: 0.8;
+  transition: all .3s;
+}

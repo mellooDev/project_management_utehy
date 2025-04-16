@@ -1,0 +1,493 @@
+<div class="card" style="border-radius: 0px">
+  <!-- Tiêu đề trang -->
+  <div class="card-header">
+    <div
+      class="row"
+      style="display: flex; justify-content: space-between; width: 100%"
+    >
+      <div
+        class="col-lg-6"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          height: 100%;
+        "
+      >
+        <h1>Dashboard thống kê</h1>
+        <span>
+          Từ ngày: {{ formatDateVi(startDate) }} - Đến ngày:
+          {{ formatDateVi(endDate) }}
+        </span>
+      </div>
+
+      <div
+        class="col-lg-6"
+        style="display: flex; justify-content: flex-end; align-items: center"
+      >
+        <div
+          style="position: relative; display: inline-block; width: fit-content"
+        >
+          <img
+            style="
+              position: absolute;
+              top: 50%;
+              left: 10px;
+              transform: translateY(-50%);
+              color: #2f80ed;
+            "
+            src="./assets/media/icons/duotune/formkit_date.svg"
+            alt=""
+          />
+          <select
+            id="dateRange"
+            style="
+              height: 40px;
+              color: #2f80ed;
+              background-color: #e8eefa;
+              border-radius: 6px;
+              border: none;
+              padding-left: 35px;
+            "
+            [(ngModel)]="selectedOption"
+            (change)="onDateRangeChange()"
+          >
+            <option *ngFor="let option of dateOptions" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <mat-tab-group
+    *ngIf="userInfo.group_id === 1 || userInfo.group_id === 2"
+    mat-stretch-tabs="false"
+    style="margin: 0px 20px 0px 20px"
+    (selectedTabChange)="onTabChange($event)"
+  >
+    <mat-tab label="Theo dõi chi tiêu">
+      <div class="card-container">
+        <div class="card card-item" style="background-color: #2f766f">
+          <div class="row custom-row">Gói dữ liệu đã mua</div>
+          <div class="row centered-row">
+            <div class="amount-container">
+              {{ totalPackageDTO.totalPackage }}
+              <div *ngIf="totalPackageGrowPercent > 0" class="custom-percent">
+                <img
+                  style="width: 30px; height: 30px"
+                  src="./assets/media/icons/duotune/iconoir_stat-up.svg"
+                  alt="Stat Up Icon"
+                />
+                {{ totalPackageGrowPercent.toFixed(1) }}%
+              </div>
+              <div *ngIf="totalPackageGrowPercent < 0" class="custom-percent1">
+                <img
+                  style="width: 30px; height: 30px"
+                  src="./assets/media/icons/duotune/iconoir_stat-down.svg"
+                  alt="Stat Up Icon"
+                />
+                {{ (totalPackageGrowPercent * -1).toFixed(1) }}%
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-item" style="background-color: #d17e19">
+          <div class="row custom-row">Tổng chi tiêu</div>
+          <div class="row centered-row">
+            <div class="amount-container">
+              {{ totalPackageDTO.totalAmount }}
+              <div class="currency">đ</div>
+              <div *ngIf="totalAmountGrowPercent > 0" class="custom-percent">
+                <img
+                  style="width: 30px; height: 30px"
+                  src="./assets/media/icons/duotune/iconoir_stat-up.svg"
+                  alt="Stat Up Icon"
+                />
+                {{ totalAmountGrowPercent.toFixed(1) }}%
+              </div>
+              <div *ngIf="totalAmountGrowPercent < 0" class="custom-percent1">
+                <img
+                  style="width: 30px; height: 30px"
+                  src="./assets/media/icons/duotune/iconoir_stat-down.svg"
+                  alt="Stat Up Icon"
+                />
+                {{ (totalAmountGrowPercent * -1).toFixed(1) }}%
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-item" style="background-color: #06c98f">
+          <div class="row custom-row">Gói dữ liệu sắp hết hạn</div>
+          <div class="row centered-row">{{ subAboutToExpire }}</div>
+        </div>
+      </div>
+      <div
+        *ngIf="
+          isTab0 &&
+          !loadAmountPerDay &&
+          !loadNumberOfUsesPerDay &&
+          !loadRequestInfoPackage
+        "
+        class="chart1-container"
+        style="margin-top: 15px"
+      >
+        <div class="chart1-item">
+          <app-charts-widget4
+            class="card card-xl-stretch"
+            [titleChart]="'Thống kê chi phí sử dụng thời gian'"
+            [data]="amountPerDayList"
+            [categories]="categoryAmounts"
+            [isLoading]="loadAmountPerDay"
+          >
+          </app-charts-widget4>
+        </div>
+        <div class="chart1-item">
+          <app-charts-widget2
+            class="card card-xl-stretch"
+            [titleChart]="'Thống kê lượt sử dụng API theo thời gian'"
+            [dataChart]="numberOfUsesPerDayList"
+            [isLoading]="loadNumberOfUsesPerDay"
+          >
+          </app-charts-widget2>
+        </div>
+      </div>
+      <app-charts-widget5
+        *ngIf="!loadRequestInfoPackage && isTab0"
+        style="margin-top: 15px"
+        class="card card-xl-stretch"
+        [titleChart]="'Biểu đồ tình hình sử dụng API theo gói dữ liệu'"
+        [data]="combinedData"
+      >
+      </app-charts-widget5>
+    </mat-tab>
+    <mat-tab *ngIf="userInfo.group_id === 2" label="Theo dõi doanh thu">
+      <div class="card-container">
+        <div class="card card-item" style="background-color: #2f766f">
+          <div class="row custom-row">Dữ liệu của tôi</div>
+          <div class="row centered-row">
+            <div class="row centered-row">
+              <div class="amount-container">
+                {{ myData }}
+                <div *ngIf="growPercentMyData > 0" class="custom-percent">
+                  <img
+                    style="width: 30px; height: 30px"
+                    src="./assets/media/icons/duotune/iconoir_stat-up.svg"
+                    alt="Stat Up Icon"
+                  />
+                  {{ growPercentMyData.toFixed(1) }}%
+                </div>
+                <div *ngIf="growPercentMyData < 0" class="custom-percent1">
+                  <img
+                    style="width: 30px; height: 30px"
+                    src="./assets/media/icons/duotune/iconoir_stat-down.svg"
+                    alt="Stat Up Icon"
+                  />
+                  {{ (growPercentMyData * -1).toFixed(1) }}%
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-item" style="background-color: #d17e19">
+          <div class="row custom-row">Tổng doanh thu</div>
+          <div class="row centered-row">
+            <div class="amount-container">
+              {{ totalRevenueOfProvider }}
+              <div class="currency">đ</div>
+              <div
+                *ngIf="revenueGrowPercentOfProvider > 0"
+                class="custom-percent"
+              >
+                <img
+                  style="width: 30px; height: 30px"
+                  src="./assets/media/icons/duotune/iconoir_stat-up.svg"
+                  alt="Stat Up Icon"
+                />
+                {{ revenueGrowPercentOfProvider.toFixed(1) }}%
+              </div>
+              <div
+                *ngIf="revenueGrowPercentOfProvider < 0"
+                class="custom-percent1"
+              >
+                <img
+                  style="width: 30px; height: 30px"
+                  src="./assets/media/icons/duotune/iconoir_stat-down.svg"
+                  alt="Stat Up Icon"
+                />
+                {{ (revenueGrowPercentOfProvider * -1).toFixed(1) }}%
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-item" style="background-color: #06c98f">
+          <div class="row custom-row">Gói dữ liệu ngừng kinh doanh</div>
+          <div class="row centered-row">{{ dataOutOfBusiness }}</div>
+        </div>
+      </div>
+      <div
+        *ngIf="!loadRevenuePerDay && !isTab0"
+        class="chart1-container"
+        style="margin-top: 15px"
+      >
+        <div class="chart1-item">
+          <app-charts-widget4
+            style="padding-right: 30px"
+            class="card card-xl-stretch"
+            [titleChart]="'Thống kê doanh thu theo thời gian'"
+            [data]="revenuePerDayList"
+            [categories]="categoryRevenueProvider"
+            [isLoading]="loadRevenuePerDay"
+          >
+          </app-charts-widget4>
+        </div>
+        <div class="chart1-item">
+          <app-charts-widget2
+            style="padding-right: 30px"
+            class="card card-xl-stretch"
+            [titleChart]="'Thống kê lượt request API theo dữ liệu'"
+            [dataChart]="numberOfRequestsPerDayList"
+            [isLoading]="loadNumberOfRequestsPerDay"
+          >
+          </app-charts-widget2>
+        </div>
+      </div>
+      <div *ngIf="!isTab0" class="chart1-container" style="margin-top: 15px">
+        <div class="chart1-item">
+          <app-charts-widget4
+            style="padding-right: 30px"
+            class="card card-xl-stretch"
+            [titleChart]="'Biểu đồ thống kê số lượt mua theo gói dữ liệu'"
+            [data]="totalBuyByProductIds"
+            [categories]="categoriesTotalBuyByProductIds"
+            [isLoading]="loadRevenuePerDay"
+          >
+          </app-charts-widget4>
+        </div>
+        <div class="chart1-item">
+          <app-charts-widget4
+            style="padding-right: 30px"
+            class="card card-xl-stretch"
+            [titleChart]="'Biểu đồ thống kê doanh thu theo gói dữ liệu'"
+            [data]="totalRevenueByProductIds"
+            [categories]="categoriesTotalRevenueByProductIds"
+            [isLoading]="loadRevenuePerDay"
+          >
+          </app-charts-widget4>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+  <div
+    *ngIf="userInfo.group_id === 3"
+    style="margin: 15px 20px 0px 20px"
+    class="card1-container"
+  >
+    <div class="card card1-item" style="background-color: #9694ff">
+      <div class="row custom-row1">Dữ liệu đang kinh doanh</div>
+      <div class="row centered-row">
+        <div class="row centered-row">
+          <div class="amount-container1">
+            {{ allData }}
+            <div *ngIf="growPercentAllData > 0" class="custom-percent">
+              <img
+                style="width: 30px; height: 30px"
+                src="./assets/media/icons/duotune/iconoir_stat-up.svg"
+                alt="Stat Up Icon"
+              />
+              {{ growPercentAllData.toFixed(1) }}%
+            </div>
+            <div *ngIf="growPercentAllData < 0" class="custom-percent1">
+              <img
+                style="width: 30px; height: 30px"
+                src="./assets/media/icons/duotune/iconoir_stat-down.svg"
+                alt="Stat Up Icon"
+              />
+              {{ (growPercentAllData * -1).toFixed(1) }}%
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card1-item" style="background-color: #3d3bf3">
+      <div class="row custom-row1">Dữ liệu cần phê duyệt</div>
+      <div class="row centered-row">
+        <div class="row centered-row">
+          <div class="amount-container1">
+            {{ allRequest }}
+            <div *ngIf="growPercentAllRequest > 0" class="custom-percent">
+              <img
+                style="width: 30px; height: 30px"
+                src="./assets/media/icons/duotune/iconoir_stat-up.svg"
+                alt="Stat Up Icon"
+              />
+              {{ growPercentAllRequest.toFixed(1) }}%
+            </div>
+            <div *ngIf="growPercentAllRequest < 0" class="custom-percent1">
+              <img
+                style="width: 30px; height: 30px"
+                src="./assets/media/icons/duotune/iconoir_stat-down.svg"
+                alt="Stat Up Icon"
+              />
+              {{ (growPercentAllRequest * -1).toFixed(1) }}%
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card1-item" style="background-color: #009b4e">
+      <div class="row custom-row1">Tổng doanh thu sàn</div>
+      <div class="row centered-row">
+        <div class="amount-container1">
+          {{ revenueTotal }}
+          <div class="currency1">đ</div>
+          <div *ngIf="revenueTotalGrowPercent > 0" class="custom-percent">
+            <img
+              style="width: 30px; height: 30px"
+              src="./assets/media/icons/duotune/iconoir_stat-up.svg"
+              alt="Stat Up Icon"
+            />
+            {{ revenueTotalGrowPercent.toFixed(1) }}%
+          </div>
+          <div *ngIf="revenueTotalGrowPercent < 0" class="custom-percent1">
+            <img
+              style="width: 30px; height: 30px"
+              src="./assets/media/icons/duotune/iconoir_stat-down.svg"
+              alt="Stat Up Icon"
+            />
+            {{ (revenueTotalGrowPercent * -1).toFixed(1) }}%
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card1-item" style="background-color: #77cdff">
+      <div class="row custom-row1">Số lượng đăng ký mới</div>
+      <div class="row centered-row">
+        <div class="row centered-row">
+          <div class="amount-container1">
+            {{ userTotalDTO.totalUser }}
+            <div *ngIf="totalUserGrowPercent > 0" class="custom-percent">
+              <img
+                style="width: 30px; height: 30px"
+                src="./assets/media/icons/duotune/iconoir_stat-up.svg"
+                alt="Stat Up Icon"
+              />
+              {{ totalUserGrowPercent.toFixed(1) }}%
+            </div>
+            <div *ngIf="totalUserGrowPercent < 0" class="custom-percent1">
+              <img
+                style="width: 30px; height: 30px"
+                src="./assets/media/icons/duotune/iconoir_stat-down.svg"
+                alt="Stat Up Icon"
+              />
+              {{ (totalUserGrowPercent * -1).toFixed(1) }}%
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card1-item" style="background-color: #0d92f4">
+      <div class="row custom-row1">Số lượng người bán</div>
+      <div class="row centered-row">
+        <div class="row centered-row">
+          <div class="amount-container1">
+            {{ userTotalDTO.totalProvider }}
+            <div *ngIf="totalProviderGrowPercent > 0" class="custom-percent">
+              <img
+                style="width: 30px; height: 30px"
+                src="./assets/media/icons/duotune/iconoir_stat-up.svg"
+                alt="Stat Up Icon"
+              />
+              {{ totalProviderGrowPercent.toFixed(1) }}%
+            </div>
+            <div *ngIf="totalProviderGrowPercent < 0" class="custom-percent1">
+              <img
+                style="width: 30px; height: 30px"
+                src="./assets/media/icons/duotune/iconoir_stat-down.svg"
+                alt="Stat Up Icon"
+              />
+              {{ (totalProviderGrowPercent * -1).toFixed(1) }}%
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="!loadTopViewProviders && !loadTopViewCategory && !loadTopViewProduct"
+    class="chart-container"
+    style="margin: 15px 20px 0px 20px"
+  >
+    <div class="chart-item">
+      <app-charts-widget1
+        [isLoading]="loadTopViewProviders"
+        [titleChart]="'Top 5 người bán có doanh thu cao nhất'"
+        [categories]="providerNames"
+        [data]="providerRevenues"
+        [colors]="color1"
+        class="card card-xl-stretch"
+      >
+      </app-charts-widget1>
+    </div>
+    <div class="chart-item">
+      <app-charts-widget1
+        [isLoading]="loadTopViewCategory"
+        [titleChart]="'Top 5 lĩnh vực có doanh thu cao nhất'"
+        [categories]="categoryNames"
+        [data]="categoryRevenues"
+        [colors]="color2"
+        class="card card-xl-stretch"
+      >
+      </app-charts-widget1>
+    </div>
+    <div class="chart-item">
+      <app-charts-widget1
+        [isLoading]="loadTopViewProduct"
+        [titleChart]="'Top 5 dữ liệu có doanh thu cao nhất'"
+        [categories]="productNames"
+        [data]="productRevenues"
+        [colors]="color3"
+        class="card card-xl-stretch"
+      >
+      </app-charts-widget1>
+    </div>
+  </div>
+  <div class="chart-container" style="margin: 15px 20px 20px 20px">
+    <div class="chart-item">
+      <app-charts-widget2
+        *ngIf="!loadRevenueCategoryStatisticsByDate"
+        style="padding-right: 30px"
+        class="card card-xl-stretch"
+        [titleChart]="'Thống kê doanh thu theo thời gian'"
+        [dataChart]="revenueCategoryStatisticsByDate"
+        [isLoading]="loadRevenueCategoryStatisticsByDate"
+        [forAdmin]="true"
+      >
+      </app-charts-widget2>
+    </div>
+    <div class="chart-item">
+      <app-charts-widget3
+        *ngIf="!loadNewUserStatistics"
+        style="padding-right: 30px"
+        class="card card-xl-stretch"
+        [titleChart]="'Biểu đồ theo dõi số lượng tài khoản đăng ký mới'"
+        [users]="newUserStatistics"
+        [providers]="newProviderStatistics"
+        [categories]="categoryDates"
+        [isLoading]="loadNewUserStatistics"
+      >
+      </app-charts-widget3>
+    </div>
+  </div>
+</div>

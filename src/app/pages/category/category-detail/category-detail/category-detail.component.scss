@@ -1,0 +1,74 @@
+/* Icon and Title Styling */
+img {
+  border-radius: 8px;
+}
+
+/* Filter Buttons */
+button {
+  border-radius: 6px;
+}
+
+/* Filter Section */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Card Styling */
+.card {
+  border: 1px solid #e3e6f0;
+  border-radius: 0.35rem;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-title {
+    font-weight: bold;
+    color: #000000;
+  }
+
+  .card-text {
+    color: #5a5c69;
+    margin-top: 10px;
+  }
+
+  .badge {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+}
+
+
+/* File Buttons */
+.btn-file {
+  font-size: 14px;
+  color: #007bff;
+  border-radius: 4px;
+  text-transform: none;
+}
+
+.btn-file:hover {
+  background-color: #f8f9fa;
+  color: #0056b3;
+  border-color: #f8f9fa;
+}
+
+/* Icon Styling */
+//img {
+//  border-radius: 4px;
+//}
+
+/* Badge */
+.badge {
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
+/* Lightning Icon */
+.bi-lightning-fill {
+  font-size: 18px;
+}

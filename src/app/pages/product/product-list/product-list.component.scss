@@ -1,0 +1,63 @@
+.justify-left {
+  justify-content: left !important;
+}
+
+.justify-center {
+  justify-content: center !important;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card-body {
+  padding: 1.5rem;
+  height: 115px;
+}
+
+
+@media (max-width: 768px) {
+  .text-primary-gradient {
+    font-size: 2rem;
+  }
+
+  .logos .logo {
+    width: 50px;
+    height: 50px;
+  }
+
+  .buttons button {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+a:hover {
+  color: #87CEFF;
+}
+
+.card {
+  border: 1px solid #e3e6f0;
+  border-radius: 0.35rem;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-title {
+    font-weight: bold;
+    color: #000000;
+  }
+
+  .card-text {
+    color: #5a5c69;
+    margin-top: 10px;
+  }
+
+  .badge {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+}

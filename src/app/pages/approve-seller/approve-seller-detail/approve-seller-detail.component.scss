@@ -1,0 +1,128 @@
+/* Cấu trúc cho button group */
+.row {
+    margin-bottom: 3rem;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+  }
+  
+  .cancel-button {
+    border: 1px solid #758694;
+    padding: calc(0.775rem + 1px) calc(1.5rem + 1px);
+    border-radius: 0.475rem;
+  }
+  
+  .cancel-button:hover {
+    background-color: #758694;
+    color: #fff;
+  }
+  
+  /* Modal nền */
+  .custom-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  /* Nội dung của modal */
+  .modal-content {
+    background-color: white;
+    border-radius: 10px;
+    width: 600px; 
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Tiêu đề modal */
+  .modal-header h5 {
+   // font-size: 18px;
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  /* Nội dung modal */
+  .modal-body p {
+    margin: 20px 0;
+  //  font-size: 15px;
+  }
+  
+  /* Phần nhập liệu trong modal */
+  .modal-body .form-group {
+    margin-top: 15px;
+    text-align: left;
+  }
+  
+  .modal-body .form-group label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+  }
+  
+  .modal-body .form-group .requiredType {
+    color: red;
+  }
+  
+  .modal-body .form-group textarea {
+    width: 100%;
+    height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+   // font-size: 13px;
+  }
+  
+  /* Phần footer của modal */
+  .modal-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+  }
+  
+  .modal-footer .btn {
+  //  width: 48%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+  //  font-size: 13px;
+  }
+  
+  /* Button đặc biệt */
+  .modal-footer .btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .modal-footer .btn-danger {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .modal-footer .btn-secondary {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+  }
+  
+  /* Modal từ chối */
+  .custom-modal.reject {
+    width: 600px;
+  }
+  
+  /* Modal phê duyệt */
+  .custom-modal.approve {
+    width: 500px; 
+  }
+  
+  
