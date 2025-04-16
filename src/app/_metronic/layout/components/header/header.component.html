@@ -1,4 +1,7 @@
 <!--begin::Header container-->
+<div class="ml-2">
+  <h4>Cổng thông tin số hóa - Trường Đại học Sư phạm Kỹ Thuật Hưng Yên</h4>
+</div>
 <div class="app-container" id="kt_app_header_container" [ngClass]="headerContainerCssClass"
   [ngClass]="isLogin ? 'justify-left' : 'justify-center'">
   <ng-container *ngIf="appSidebarDefaultCollapseDesktopEnabled">
@@ -50,7 +53,7 @@
   </ng-container>
 
   <!--begin::Header wrapper-->
-  <div class="d-flex" id="kt_app_header_wrapper" style="justify-content: center;">
+  <div class="d-flex" id="kt_app_header_wrapper" style="justify-content: center">
     <ng-container *ngIf="appHeaderDefaultContent === 'menu' && appHeaderDefaulMenuDisplay">
       <!--begin::Menu wrapper-->
       <div class="

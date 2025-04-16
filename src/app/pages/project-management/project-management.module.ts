@@ -17,7 +17,8 @@ import { RegisterProjectComponent } from './register-project/register-project.co
 
 @NgModule({
   declarations: [
-    ProjectManagementComponent
+    ProjectManagementComponent,
+    RegisterProjectComponent
   ],
   imports: [
     CommonModule,

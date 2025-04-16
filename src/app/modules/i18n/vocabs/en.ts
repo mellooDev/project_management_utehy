@@ -16,6 +16,7 @@ export const locale = {
       INTRODUCE: 'Giới thiệu',
       PROJECT_MANAGEMENT: 'Quản lý đồ án',
       REGISTER_PROJECT: 'Đăng ký đề tài đồ án',
+      STUDENT_PROJECT_LIST: 'Danh sách đề tài',
       REPORT_RESULTS: 'Báo cáo kết quả',
       STUDENT_MANAGEMENT: 'Quản lý sinh viên',
       TEACHER_MANAGEMENT: 'Quản lý giảng viên',

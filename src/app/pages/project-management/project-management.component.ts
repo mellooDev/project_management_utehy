@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-project-management',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './project-management.component.scss'
 })
 export class ProjectManagementComponent {
+  constructor(private router: Router) {}
 
+  onLoadFormRegister() {
+    this.router.navigate(['/project-management/register-project'])
+  }
 }
