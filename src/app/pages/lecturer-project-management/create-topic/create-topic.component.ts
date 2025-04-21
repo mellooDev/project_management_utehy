@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { MessageService } from 'primeng/api';
 
 @Component({
-  selector: 'app-register-project',
-  templateUrl: './register-project.component.html',
-  styleUrl: './register-project.component.scss',
+  selector: 'app-create-topic',
+  templateUrl: './create-topic.component.html',
+  styleUrl: './create-topic.component.scss',
   providers: [MessageService],
 })
-export class RegisterProjectComponent {
+export class CreateTopicComponent {
   editorConfig: AngularEditorConfig = {
     sanitize: false,
     editable: true,
@@ -45,15 +45,23 @@ export class RegisterProjectComponent {
 
   constructor(private messageService: MessageService, private router: Router) {}
 
-  ngOnInit() {
+  ngOnInit() {}
 
-  }
-
-  showNotification(severity: string, summary: string, detail: string, lifetime: number) {
-    this.messageService.add({ severity: severity, summary: summary, detail: detail, life: lifetime })
+  showNotification(
+    severity: string,
+    summary: string,
+    detail: string,
+    lifetime: number
+  ) {
+    this.messageService.add({
+      severity: severity,
+      summary: summary,
+      detail: detail,
+      life: lifetime,
+    });
   }
 
   onSubmit() {
-    this.showNotification("success", 'abc', 'def', 300000)
+    this.showNotification('success', 'abc', 'def', 300000);
   }
 }

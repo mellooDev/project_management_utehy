@@ -12,15 +12,15 @@ import { ToastModule } from 'primeng/toast';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { ModalsModule, WidgetsModule } from 'src/app/_metronic/partials';
 import { InputSwitchModule } from 'primeng/inputswitch';
-import { ProjectManagementComponent } from './project-management.component';
-import { RegisterProjectComponent } from './register-project/register-project.component';
 import { RippleModule } from 'primeng/ripple';
+import { LecturerProjectManagementComponent } from './lecturer-project-management.component';
+import { CreateTopicComponent } from './create-topic/create-topic.component';
 
 
 @NgModule({
   declarations: [
-    ProjectManagementComponent,
-    RegisterProjectComponent
+    LecturerProjectManagementComponent,
+    CreateTopicComponent
   ],
   imports: [
     CommonModule,
@@ -30,11 +30,11 @@ import { RippleModule } from 'primeng/ripple';
     RouterModule.forChild([
       {
         path: '',
-        component: ProjectManagementComponent,
+        component: LecturerProjectManagementComponent,
       },
       {
-        path: 'register-project',
-        component: RegisterProjectComponent
+        path: 'create-topic',
+        component: CreateTopicComponent
       },
 
     ]),
@@ -54,4 +54,4 @@ import { RippleModule } from 'primeng/ripple';
     CodemirrorModule
   ],
 })
-export class ProjectManagementModule { }
+export class LecturerProjectManagementModule { }

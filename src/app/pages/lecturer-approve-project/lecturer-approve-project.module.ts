@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NgbDropdownModule, NgbPaginationModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbPaginationModule, NgbRatingModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { allIcons, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons'
@@ -12,15 +12,13 @@ import { ToastModule } from 'primeng/toast';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { ModalsModule, WidgetsModule } from 'src/app/_metronic/partials';
 import { InputSwitchModule } from 'primeng/inputswitch';
-import { ProjectManagementComponent } from './project-management.component';
-import { RegisterProjectComponent } from './register-project/register-project.component';
 import { RippleModule } from 'primeng/ripple';
+import { LecturerApproveProjectComponent } from './lecturer-approve-project.component';
 
 
 @NgModule({
   declarations: [
-    ProjectManagementComponent,
-    RegisterProjectComponent
+    LecturerApproveProjectComponent
   ],
   imports: [
     CommonModule,
@@ -30,22 +28,19 @@ import { RippleModule } from 'primeng/ripple';
     RouterModule.forChild([
       {
         path: '',
-        component: ProjectManagementComponent,
-      },
-      {
-        path: 'register-project',
-        component: RegisterProjectComponent
+        component: LecturerApproveProjectComponent,
       },
 
     ]),
     WidgetsModule,
     ModalsModule,
-    FormsModule, // Thêm FormsModule ở đây
+    FormsModule,
     NgbPaginationModule,
     MatDialogModule,
     InputSwitchModule,
     NgbRatingModule,
     NgbDropdownModule,
+    NgbTooltipModule,
     MatIconModule,
     NgxBootstrapIconsModule.pick(allIcons),
     AngularEditorModule,
@@ -54,4 +49,4 @@ import { RippleModule } from 'primeng/ripple';
     CodemirrorModule
   ],
 })
-export class ProjectManagementModule { }
+export class LecturerApproveProjectModule { }

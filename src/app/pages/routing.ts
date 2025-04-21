@@ -13,6 +13,16 @@ const Routing: Routes = [
     loadChildren: () => import('./project-management/project-management.module').then((m) => m.ProjectManagementModule),
   },
   {
+    path: 'lecturer-project-management',
+    // canActivate: [AuthGuard],
+    loadChildren: () => import('./lecturer-project-management/lecturer-project-management.module').then((m) => m.LecturerProjectManagementModule),
+  },
+  {
+    path: 'lecturer-approve-project',
+    // canActivate: [AuthGuard],
+    loadChildren: () => import('./lecturer-approve-project/lecturer-approve-project.module').then((m) => m.LecturerApproveProjectModule),
+  },
+  {
     path: 'product-provider',
     // canActivate: [AuthGuard],
     loadChildren: () => import('./product-provider/product-provider.module').then((m) => m.ProductProviderModule),

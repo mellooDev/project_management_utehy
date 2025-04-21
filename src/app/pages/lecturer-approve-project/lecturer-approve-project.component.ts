@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from 'primeng/api';
 
 @Component({
-  selector: 'app-register-project',
-  templateUrl: './register-project.component.html',
-  styleUrl: './register-project.component.scss',
+  selector: 'app-lecturer-approve-project',
+  templateUrl: './lecturer-approve-project.component.html',
+  styleUrl: './lecturer-approve-project.component.scss',
   providers: [MessageService],
 })
-export class RegisterProjectComponent {
+export class LecturerApproveProjectComponent {
   editorConfig: AngularEditorConfig = {
     sanitize: false,
     editable: true,
@@ -42,18 +43,18 @@ export class RegisterProjectComponent {
       },
     ],
   };
+  isLoading = false;
 
-  constructor(private messageService: MessageService, private router: Router) {}
+  constructor(
+    private modalService: NgbModal,
+    private router: Router,
+    private messageService: MessageService
+  ) {}
 
-  ngOnInit() {
-
-  }
-
-  showNotification(severity: string, summary: string, detail: string, lifetime: number) {
-    this.messageService.add({ severity: severity, summary: summary, detail: detail, life: lifetime })
-  }
-
-  onSubmit() {
-    this.showNotification("success", 'abc', 'def', 300000)
+  onLoadFormDetail(content: TemplateRef<any>) {
+    this.modalService.open(content, {
+      centered: true,
+      windowClass: 'formDetailClass',
+    });
   }
 }

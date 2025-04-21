@@ -1,0 +1,93 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title font-weight-bolder text-dark">Danh sách đề tài đồ án</h3>
+  </div>
+
+  <div class="card-body pt-0" >
+    <div class="mt-4">
+      <div class="search-container mt-4">
+        <div class="d-flex">
+          <div class="input-group me-2 mb-2">
+            <input type="text" class="form-control" placeholder="Tên đề tài"/>
+            <span class="input-group-text" style="cursor: pointer;">
+            <i class="bi bi-search"></i> <!-- Biểu tượng kính lúp -->
+            </span>
+          </div>
+
+
+          <div class="select-box me-2 mb-2">
+            <select class="form-control custom-width">
+              <option value="" disabled selected>Tên đợt</option>
+            </select>
+            <i class="bi bi-chevron-down select-arrow"></i>
+          </div>
+
+          <div class="select-box me-2 mb-2">
+            <select class="form-control custom-width">
+              <option value="" disabled selected>Năm học áp dụng</option>
+              <!-- <option *ngFor="let status of statuses" [value]="status">{{ status }}</option> -->
+            </select>
+            <i class="bi bi-chevron-down select-arrow"></i>
+          </div>
+        </div>
+
+
+        <button type="button" class=" button-add" (click)="onLoadFormRegister()">
+          <i class="bi bi-plus icon-add"></i>
+          Thêm mới đề tài
+        </button>
+      </div>
+
+      <table class="table table-striped mt-3 custom-bordered">
+        <thead class="custom-header">
+          <tr>
+            <th style="text-align: center">STT</th>
+            <th>Tên đề tài</th>
+            <!-- <th>Hình thức báo cáo bảo vệ</th> -->
+            <th>Mô tả đề tài</th>
+            <th>Sinh viên đăng ký</th>
+            <th>Giáo viên hướng dẫn</th>
+            <th>Tác vụ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">1</td>
+            <td>đề tài abc</td>
+            <!-- <td></td> -->
+            <td>mô tả abc</td>
+            <td>Nguyễn Văn A</td>
+            <td>Vũ Xuân T</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">1</td>
+            <td>đề tài abc</td>
+            <!-- <td></td> -->
+            <td>mô tả abc</td>
+            <td>Nguyễn Văn A</td>
+            <td>Vũ Xuân T</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">1</td>
+            <td>đề tài abc</td>
+            <!-- <td></td> -->
+            <td>mô tả abc</td>
+            <td>Nguyễn Văn A</td>
+            <td>Vũ Xuân T</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination-container mt-3">
+      <!-- <ngb-pagination
+        [collectionSize]="filteredData.length"
+        [pageSize]="pageSize"
+        (pageChange)="onPageChange($event)"
+      ></ngb-pagination> -->
+    </div>
+  </div>
+</div>
