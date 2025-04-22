@@ -23,6 +23,11 @@ const Routing: Routes = [
     loadChildren: () => import('./lecturer-approve-project/lecturer-approve-project.module').then((m) => m.LecturerApproveProjectModule),
   },
   {
+    path: 'instruction-management',
+    // canActivate: [AuthGuard],
+    loadChildren: () => import('./instruction-management/instruction-management.module').then((m) => m.InstructionManagementModule),
+  },
+  {
     path: 'product-provider',
     // canActivate: [AuthGuard],
     loadChildren: () => import('./product-provider/product-provider.module').then((m) => m.ProductProviderModule),

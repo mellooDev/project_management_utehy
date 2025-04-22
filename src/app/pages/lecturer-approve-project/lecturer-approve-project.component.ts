@@ -1,4 +1,5 @@
 import { Component, TemplateRef } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -44,6 +45,7 @@ export class LecturerApproveProjectComponent {
     ],
   };
   isLoading = false;
+  confirmStatus: 'accept' | 'reject' = 'accept';
 
   constructor(
     private modalService: NgbModal,
@@ -56,5 +58,50 @@ export class LecturerApproveProjectComponent {
       centered: true,
       windowClass: 'formDetailClass',
     });
+  }
+  showNotification(severity: string, summary: string, detail: string, lifetime: number) {
+    this.messageService.add({ severity: severity, summary: summary, detail: detail, life: lifetime })
+  }
+
+  onLoadFormAccept(content: TemplateRef<any>) {
+    this.confirmStatus = 'accept';
+    this.modalService.open(content, {
+      centered: true,
+    });
+  }
+
+
+  onLoadFormReject(content: TemplateRef<any>) {
+    this.confirmStatus = 'reject';
+    this.modalService.open(content, {
+      centered: true,
+    });
+  }
+
+  onSubmit(event: Event, myForm: NgForm) {
+    event.preventDefault();
+    this.isLoading = true;
+    if(myForm.invalid) {
+      console.log('form invalid');
+      return;
+    }
+
+    if(this.confirmStatus === 'accept') {
+      setTimeout(() => {
+        this.isLoading = false;
+        this.modalService.dismissAll();
+
+        this.showNotification('success', 'Thông báo', 'Phê duyệt đề tài thành công. Đề tài sẽ được gửi lên bộ môn để chờ duyệt', 3000);
+      }, 2000);
+    }
+
+    if(this.confirmStatus === 'reject') {
+      setTimeout(() => {
+        this.isLoading = false;
+        this.modalService.dismissAll();
+
+        this.showNotification('success', 'Thông báo', 'Từ chối đề tài thành công', 3000);
+      }, 2000);
+    }
   }
 }

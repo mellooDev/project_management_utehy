@@ -1,0 +1,269 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title font-weight-bolder text-dark">
+      Xác nhận sinh viên đăng ký đề tài
+    </h3>
+  </div>
+
+  <div class="card-body pt-0">
+    <div class="mt-4">
+      <div class="search-container mt-4">
+        <div class="d-flex">
+          <div class="input-group me-2 mb-2">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Tên quy trình.."
+            />
+            <span class="input-group-text" style="cursor: pointer">
+              <i class="bi bi-search"></i>
+              <!-- Biểu tượng kính lúp -->
+            </span>
+          </div>
+
+          <div class="select-box me-2 mb-2">
+            <select class="form-control custom-width">
+              <option value="" disabled selected>Năm học áp dụng</option>
+            </select>
+            <i class="bi bi-chevron-down select-arrow"></i>
+          </div>
+        </div>
+        <div class="mb-2">
+          <button
+            class="btn btn-primary"
+            (click)="onLoadFormCreateOrUpdate(createOrUpdateModal)"
+          >
+            <i class="bi bi-plus icon-add"></i>
+            Thêm mới quy trình
+          </button>
+        </div>
+      </div>
+
+      <table class="table table-striped mt-3 custom-bordered">
+        <thead class="custom-header">
+          <tr>
+            <th style="text-align: center">STT</th>
+            <th>Mã quy trình</th>
+            <th>Tên quy trình</th>
+            <th>Năm học áp dụng</th>
+            <th>Ngày tạo</th>
+            <th>Tạo bởi</th>
+            <th>Tác vụ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center">1</td>
+            <td>QTW</td>
+            <td>đề tài abc</td>
+            <!-- <td></td> -->
+            <td>2024-2025</td>
+            <td>22/04/2025</td>
+            <td>Vũ Xuân T</td>
+            <td>
+              <div class="d-flex gap-3 align-items-center">
+                <button
+                  class="button-action btn-download btn btn-sm"
+                  placement="top"
+                  ngbTooltip="Xem chi tiết"
+                >
+                  <i i-bs name="eye-fill"></i>
+                </button>
+
+                <button
+                  class="button-action btn-download btn btn-sm"
+                  placement="top"
+                  ngbTooltip="Chỉnh sửa đề tài"
+                >
+                  <i i-bs name="pencil-square"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination-container mt-3">
+      <!-- <ngb-pagination
+        [collectionSize]="filteredData.length"
+        [pageSize]="pageSize"
+        (pageChange)="onPageChange($event)"
+      ></ngb-pagination> -->
+    </div>
+  </div>
+</div>
+
+<ng-template #createOrUpdateModal let-modal>
+  <form #myForm="ngForm">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        Thông tin quy trình hướng dẫn
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="d-flex gap-3">
+        <div class="w-50">
+          <label for="" class="form-label">Mã quy trình</label>
+          <input
+            type="text"
+            id=""
+            name=""
+            class="form-control"
+            placeholder=""
+            disabled
+          />
+        </div>
+        <div class="w-25">
+          <label for="" class="form-label">Năm học áp dụng</label>
+          <input
+            type="text"
+            id=""
+            name=""
+            class="form-control"
+            placeholder=""
+          />
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 40px">
+        <label for="" class="form-label">Tên quy trình</label>
+        <input type="text" id="" name="" class="form-control" placeholder="" />
+      </div>
+
+      <div class="">
+        <h4>Chi tiết quy trình</h4>
+        <p-divider />
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="templateContent" class="form-label">Công việc</label>
+        <angular-editor
+          id="templateContent"
+          [config]="editorConfig"
+        ></angular-editor>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="templateContent" class="form-label">Nội dung</label>
+        <angular-editor
+          id="templateContent"
+          [config]="editorConfig"
+        ></angular-editor>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="templateContent" class="form-label">Kết quả</label>
+        <angular-editor
+          id="templateContent"
+          [config]="editorConfig"
+        ></angular-editor>
+      </div>
+
+      <div class="card">
+        <p-table
+          [value]="products"
+          [columns]="cols"
+          rowReorder
+          [tableStyle]="{ 'min-width': '50rem' }"
+        >
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th style="width: 3rem" pReorderableColumn pRowReorder></th>
+              <th *ngFor="let col of columns" >
+                {{ col.header }}
+              </th>
+            </tr>
+          </ng-template>
+
+          <ng-template
+            pTemplate="body"
+            let-rowData
+            let-columns="columns"
+            let-index="rowIndex"
+          >
+            <tr  [pReorderableRow]="index">
+              <td pRowReorderIcon>
+                <!-- <ng-template pTemplate="rowreordericon" let-rowData>
+                  <span class="pi pi-bars"></span>
+                </ng-template> -->
+                <i class="bi bi-list" pReorderableRowHandle></i>
+              </td>
+              <td *ngFor="let col of columns">
+                {{ rowData[col.field] }}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div><div class="card">
+        <p-table
+          [value]="products"
+          [columns]="cols"
+          rowReorder
+          (onRowReorder)="onRowReorder($event)"
+          [tableStyle]="{ 'min-width': '50rem' }"
+        >
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th style="width: 3rem" pReorderableColumn pRowReorder></th>
+              <th *ngFor="let col of columns" >
+                {{ col.header }}
+              </th>
+            </tr>
+          </ng-template>
+
+          <ng-template
+            pTemplate="body"
+            let-rowData
+            let-columns="columns"
+            let-index="rowIndex"
+          >
+            <tr  [pReorderableRow]="rowData">
+              <td pRowReorderIcon>
+                <!-- <ng-template pTemplate="rowreordericon" let-rowData>
+                  <span class="pi pi-bars"></span>
+                </ng-template> -->
+                <i class="bi bi-list" pReorderableRowHandle></i>
+              </td>
+              <td *ngFor="let col of columns">
+                {{ rowData[col.field] }}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button
+        type="reset"
+        id="kt_modal_update_customer_cancel"
+        class="btn btn-light me-3"
+        (click)="modal.dismiss('cancel')"
+      >
+        Hủy
+      </button>
+
+      <button
+        type="submit"
+        id="kt_modal_update_customer_submit"
+        class="btn btn-primary"
+      >
+        <span class="indicator-label"> Xác nhận </span>
+        <span class="indicator-progress">
+          Please wait...
+          <span
+            class="spinner-border spinner-border-sm align-middle ms-2"
+          ></span>
+        </span>
+      </button>
+    </div>
+  </form>
+</ng-template>
+<p-toast />

@@ -42,7 +42,8 @@
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/codemirror/lib/codemirror.css",
-              "node_modules/daterangepicker/daterangepicker.css"
+              "node_modules/daterangepicker/daterangepicker.css",
+              "node_modules/primeicons/primeicons.css"
 
             ],
             "scripts": [

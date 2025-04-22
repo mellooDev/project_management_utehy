@@ -76,40 +76,136 @@
   <form #myForm="ngForm">
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Thông tin đề tài abc</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
     </div>
     <div class="modal-body">
       <div class="d-flex gap-3">
         <div class="w-50">
           <label for="" class="form-label">Mã đề tài</label>
-            <input type="text" id="" name="" class="form-control" placeholder="" disabled>
+          <input
+            type="text"
+            id=""
+            name=""
+            class="form-control"
+            placeholder=""
+            disabled
+          />
         </div>
         <div class="w-50">
           <label for="" class="form-label">Tên đề tài</label>
-            <input type="text" id="" name="" class="form-control" placeholder="">
+          <input
+            type="text"
+            id=""
+            name=""
+            class="form-control"
+            placeholder=""
+          />
         </div>
       </div>
 
       <div class="form-group mb-3">
         <label for="templateContent" class="form-label">Nội dung đề tài</label>
-        <angular-editor  id="templateContent" [config]="editorConfig"
-                        ></angular-editor>
+        <angular-editor
+          id="templateContent"
+          [config]="editorConfig"
+        ></angular-editor>
       </div>
     </div>
 
     <div class="modal-footer">
-      <button type="reset" id="kt_modal_update_customer_cancel" class="btn btn-light me-3" (click)="modal.dismiss('cancel')">
+      <button
+        type="reset"
+        id="kt_modal_update_customer_cancel"
+        class="btn btn-light me-3"
+        (click)="modal.dismiss('cancel')"
+      >
         Hủy
       </button>
 
-      <button type="submit" id="kt_modal_update_customer_submit" class="btn btn-primary" [attr.data-kt-indicator]="isLoading ? 'on' : 'off'">
-        <span class="indicator-label">
-          Đồng ý
+      <button
+        type="submit"
+        id="kt_modal_update_customer_submit"
+        class="btn btn-primary"
+        (click)="onLoadFormAccept(confirmModal)"
+      >
+        <span class="indicator-label"> Đồng ý </span>
+        <span class="indicator-progress">
+          Please wait...
+          <span
+            class="spinner-border spinner-border-sm align-middle ms-2"
+          ></span>
         </span>
-      <span class="indicator-progress">
-          Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+      </button>
+
+      <button
+        type="submit"
+        id="kt_modal_update_customer_submit"
+        class="btn btn-danger"
+        (click)="onLoadFormReject(confirmModal)"
+      >
+        <span class="indicator-label"> Từ chối </span>
+        <span class="indicator-progress">
+          Please wait...
+          <span
+            class="spinner-border spinner-border-sm align-middle ms-2"
+          ></span>
         </span>
-    </button>
+      </button>
     </div>
   </form>
 </ng-template>
+
+<ng-template #confirmModal let-modal>
+  <form #myForm="ngForm" (ngSubmit)="onSubmit($event, myForm)">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Thêm mới quy trình hướng dẫn</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group mb-3" *ngIf="confirmStatus === 'reject'">
+        <label for="templateContent" class="form-label">Lý do từ chối</label>
+        <angular-editor
+          id="templateContent"
+          [config]="editorConfig"
+        ></angular-editor>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button
+        type="reset"
+        id="kt_modal_update_customer_cancel"
+        class="btn btn-light me-3"
+        (click)="modal.dismiss('cancel')"
+      >
+        Hủy
+      </button>
+
+      <button
+        type="submit"
+        id="kt_modal_update_customer_submit"
+        class="btn btn-primary"
+        [attr.data-kt-indicator]="isLoading ? 'on' : 'off'"
+      >
+        <span class="indicator-label"> Xác nhận </span>
+        <span class="indicator-progress">
+          Please wait...
+          <span
+            class="spinner-border spinner-border-sm align-middle ms-2"
+          ></span>
+        </span>
+      </button>
+    </div>
+  </form>
+</ng-template>
+<p-toast />
