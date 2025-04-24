@@ -1,0 +1,191 @@
+::ng-deep .formDetailClass .modal-dialog {
+  max-width: 80%;
+  width: 80%;
+}
+
+.nav-link.active {
+  font-weight: bold;
+  color: #000;
+  border-bottom: 2px solid #1B84FF;
+}
+
+.search-container {
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 20px 0px;
+}
+
+.input-group {
+  max-width: 400px;
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.custom-select-warehouse {
+  padding: 0.775rem 1rem;
+  font-size: 1.1rem;
+  display: block;
+  width: 100%;
+  padding: 0.575rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #4B5675;
+  appearance: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #DBDFE9;
+  border-radius: 0.475rem;
+  box-shadow: false;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.custom-select-warehouse:focus {
+  outline: none;
+}
+
+
+.table {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.table tr {
+  vertical-align: middle;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.custom-header th {
+  font-weight: bold;
+}
+
+.table-query tbody tr td:nth-child(2) {
+  width: 10%;
+}
+
+.table-query tbody tr td:nth-child(3) {
+  width: 10%;
+}
+
+.table-query tbody tr td:nth-child(4) {
+  width: 12%;
+}
+
+.table-query tbody tr td:nth-child(5) {
+  width: 15%;
+}
+
+.table-query tbody tr td:nth-child(7) {
+  width: 15%;
+}
+
+.button-action {
+  padding: calc(0.575rem + 1px) calc(1.3rem + 1px);
+  border-radius: 0.475rem;
+  border: none;
+  background-color: #0066B3;
+  color: #fff;
+}
+
+.button-add {
+  padding: calc(0.575rem + 1px) calc(1.3rem + 1px);
+  border-radius: 0.475rem;
+  border: none;
+  background-color: #1B84FF;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+
+.delete-input {
+  position: absolute;
+  top: 15px;
+  right: 60px;
+  cursor: pointer;
+}
+
+.input-group input:not(:placeholder-shown)+.delete-input {
+  display: block;
+}
+
+.custom-bordered tbody tr:nth-child(odd) {
+  background-color: #f2f2f2;
+  /* Màu nền nhạt cho dòng lẻ */
+}
+
+.custom-bordered tbody tr:nth-child(even) {
+  background-color: #ffffff;
+  /* Màu nền trắng cho dòng chẵn */
+}
+
+.dropdown-menu {
+  transform-origin: center bottom;
+}
+
+.icon-add {
+  font-size: 1.7rem;
+  color: #fff;
+}
+.custom-width {
+  min-width: 180px; /* Adjust the width as needed */
+}
+.select-box {
+  position: relative;
+  width: 180px;
+}
+.select-box select {
+  width: 100%;
+}
+
+.select-box .select-arrow {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+::ng-deep .formCreateOrUpdate .modal-dialog {
+  max-width: 80%;
+  width: 80%;
+  min-height: 100vh;
+  height: 100vh;
+}
+
+::ng-deep ul.p-dropdown-items {
+  padding-left: 0;
+}
+
+::ng-deep .p-datepicker table td {
+  padding: 0;
+}
+
+::ng-deep .p-dropdown-label {
+  width: 150px;
+}
+
+::ng-deep p-calendar{
+  width: 100%; /* hoặc 50%, tùy bạn */
+  font-size: 0.875rem; /* nhỏ hơn một chút */
+  top: 50px;
+}
+
+.calendar-sm .p-inputtext {
+  padding: 0.375rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.calendar-sm .p-calendar {
+  width: 100%;
+}

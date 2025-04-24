@@ -60,10 +60,10 @@ export class InstructionManagementComponent {
 
   ngOnInit() {
     this.cols = [
-      { field: 'code', header: 'Code' },
-      { field: 'name', header: 'Name' },
-      { field: 'category', header: 'Category' },
-      { field: 'quantity', header: 'Quantity' },
+      { field: 'week', header: 'Tuần' },
+      { field: 'task', header: 'Công việc' },
+      { field: 'content', header: 'Nội dung' },
+      { field: 'result', header: 'Kết quả' },
     ];
 
     const categories = [
@@ -75,10 +75,10 @@ export class InstructionManagementComponent {
     ];
 
     this.products = Array.from({ length: 10 }, (_, i) => ({
-      code: `P${(i + 1).toString().padStart(3, '0')}`,
-      name: `Product ${i + 1}`,
-      category: categories[Math.floor(Math.random() * categories.length)],
-      quantity: Math.floor(Math.random() * 100) + 1,
+      week: `Tuần ${(i + 1).toString().padStart(1, '0')}`,
+      task: `Product ${i + 1}`,
+      content: categories[Math.floor(Math.random() * categories.length)],
+      result: Math.floor(Math.random() * 100) + 1,
     }));
   }
 
@@ -98,19 +98,10 @@ export class InstructionManagementComponent {
   // }
 
   onRowReorder(event: any) {
-    const dragIndex = event.dragIndex;
-    const dropIndex = event.dropIndex;
+    this.products = [...event.rows];
 
-    const updatedProducts = [...this.products];
-    const [movedItem] = updatedProducts.splice(dragIndex, 1);
-    updatedProducts.splice(dropIndex, 0, movedItem);
+    console.log('product new: ', this.products);
 
-    this.products = updatedProducts;
   }
-
-
-
-
-
 
 }
