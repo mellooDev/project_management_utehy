@@ -189,3 +189,17 @@
 .calendar-sm .p-calendar {
   width: 100%;
 }
+
+.add-lecturer-search-modal {
+  padding: 0 10%;
+}
+
+.table-left {
+  min-height: 30px;
+  align-items: center;
+}
+
+::ng-deep .add-lecturer-modal .modal-dialog {
+  max-width: 85%;
+  width: 85%;
+}

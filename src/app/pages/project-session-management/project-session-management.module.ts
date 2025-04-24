@@ -13,10 +13,15 @@ import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { ModalsModule, WidgetsModule } from 'src/app/_metronic/partials';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
+import { InputIconModule } from 'primeng/inputicon';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputTextModule } from 'primeng/inputtext';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import {DividerModule} from 'primeng/divider';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { TableModule } from 'primeng/table';
 import { RippleModule } from 'primeng/ripple';
+import { ButtonModule } from 'primeng/button';
 import { ProjectSessionManagementComponent } from './project-session-management.component';
 
 
@@ -38,14 +43,19 @@ import { ProjectSessionManagementComponent } from './project-session-management.
     ]),
     WidgetsModule,
     ModalsModule,
+    TableModule,
     FormsModule, // Thêm FormsModule ở đây
     NgbPaginationModule,
+    ButtonModule,
     MatDialogModule,
     ToggleButtonModule,
     DividerModule,
     InputSwitchModule,
     CalendarModule,
     NgbDropdownModule,
+    InputIconModule,
+    IconFieldModule,
+    InputTextModule,
     DropdownModule,
     MatIconModule,
     NgxBootstrapIconsModule.pick(allIcons),

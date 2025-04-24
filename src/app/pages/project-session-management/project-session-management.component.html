@@ -60,6 +60,7 @@
                 [options]="cities"
                 optionLabel="name"
                 placeholder="Chọn tác vụ"
+                [(ngModel)]="selectedAction"
                 (onChange)="handleActionChange($event)"
               />
               <!-- <div class="d-flex gap-3 align-items-center">
@@ -133,14 +134,25 @@
         </div>
       </div>
 
-      <div class="d-flex align-items-center justify-content-between" style="margin-bottom: 20px;">
+      <div
+        class="d-flex align-items-center justify-content-between"
+        style="margin-bottom: 20px"
+      >
         <div class="form-group w-50" style="margin-bottom: 40px">
           <label for="" class="form-label">Tên đợt</label>
-          <input type="text" id="" name="" class="form-control" placeholder="" />
+          <input
+            type="text"
+            id=""
+            name=""
+            class="form-control"
+            placeholder=""
+          />
         </div>
 
         <div class="form-group w-50 ms-4" style="margin-bottom: 40px">
-          <label for="" class="form-label w-100">Ngày bắt đầu thực hiện đồ án</label>
+          <label for="" class="form-label w-100"
+            >Ngày bắt đầu thực hiện đồ án</label
+          >
           <p-calendar
             class="calendar-sm"
             [showButtonBar]="true"
@@ -161,10 +173,11 @@
         </div>
 
         <p-toggleButton
-        [(ngModel)]="settings.dangKyDeTai"
-        name="dangKyDeTai"
-        onLabel="On"
-        offLabel="Off" />
+          [(ngModel)]="settings.dangKyDeTai"
+          name="dangKyDeTai"
+          onLabel="On"
+          offLabel="Off"
+        />
       </div>
 
       <div class="d-flex align-items-center mb-4">
@@ -173,22 +186,24 @@
         </div>
 
         <p-toggleButton
-        [(ngModel)]="settings.dangKyKhacBoMon"
-        name="dangKyGBKhacBM"
-        onLabel="On"
-        offLabel="Off" />
+          [(ngModel)]="settings.dangKyKhacBoMon"
+          name="dangKyGBKhacBM"
+          onLabel="On"
+          offLabel="Off"
+        />
       </div>
 
       <div class="d-flex align-items-center mb-4">
         <div class="setting-title me-5 w-50">
-          <span>Cho phép sinh viên báo cáo khác tuần hiện tại  </span>
+          <span>Cho phép sinh viên báo cáo khác tuần hiện tại </span>
         </div>
 
         <p-toggleButton
-        [(ngModel)]="settings.baoCaoKhacTuan"
-        onLabel="On"
-        name="baoCaoKhacHT"
-        offLabel="Off" />
+          [(ngModel)]="settings.baoCaoKhacTuan"
+          onLabel="On"
+          name="baoCaoKhacHT"
+          offLabel="Off"
+        />
       </div>
 
       <div class="d-flex align-items-center mb-4">
@@ -197,27 +212,27 @@
         </div>
 
         <p-toggleButton
-        [(ngModel)]="settings.nhanXetKhacTuan"
-        name="nhanXetKhacHT"
-        onLabel="On"
-        offLabel="Off" />
+          [(ngModel)]="settings.nhanXetKhacTuan"
+          name="nhanXetKhacHT"
+          onLabel="On"
+          offLabel="Off"
+        />
       </div>
 
       <div class="d-flex align-items-center mb-4">
         <div class="setting-title me-5 w-50">
-          <span>Cho phép giảng viên sửa đề tài TBM đã duyệt sinh viên đăng ký</span>
+          <span
+            >Cho phép giảng viên sửa đề tài TBM đã duyệt sinh viên đăng ký</span
+          >
         </div>
 
         <p-toggleButton
-        [(ngModel)]="settings.suaDeTaiTbm"
-        onLabel="On"
-        name="suaDeTai"
-        offLabel="Off" />
+          [(ngModel)]="settings.suaDeTaiTbm"
+          onLabel="On"
+          name="suaDeTai"
+          offLabel="Off"
+        />
       </div>
-
-
-
-
     </div>
 
     <div class="modal-footer">
@@ -247,8 +262,198 @@
   </form>
 </ng-template>
 
-<ng-template #abc let-modal>
-  <h2>djcnsdkjnc</h2>
+<ng-template #addLecturer let-modal>
+  <form #myForm="ngForm">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        Cập nhật giảng viên cho đợt
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="add-lecturer-search-modal">
+        <div class="d-flex gap-3 mb-4">
+          <div class="w-50">
+            <label for="" class="form-label">Khóa học</label>
+            <input
+              type="text"
+              id=""
+              name=""
+              class="form-control"
+              placeholder=""
+              disabled
+            />
+          </div>
+          <div class="w-50">
+            <label for="" class="form-label">Tên bộ môn</label>
+            <input
+              type="text"
+              id=""
+              name=""
+              class="form-control"
+              placeholder=""
+            />
+          </div>
+        </div>
+
+        <div class="d-flex gap-3 mb-4">
+          <div class="w-50">
+            <label for="" class="form-label">Mã lớp</label>
+            <input
+              type="text"
+              id=""
+              name=""
+              class="form-control"
+              placeholder=""
+              disabled
+            />
+          </div>
+          <div class="w-50">
+            <label for="" class="form-label">Chuyên ngành</label>
+            <input
+              type="text"
+              id=""
+              name=""
+              class="form-control"
+              placeholder=""
+            />
+          </div>
+        </div>
+      </div>
+      <p-divider />
+
+      <!-- table -->
+      <div class="add-lecturer-content d-flex gap-3 justify-content-between">
+        <div class="student-list" style="width: 47%;">
+          <button
+            class="p-button-primary rounded"
+            pButton
+            pRipple
+            label="Thêm tất cả các sinh viên vào đợt"
+          ></button>
+
+          <div class="card">
+            <div
+              class="d-flex align-items-center justify-content-between px-5 pt-2 table-left"
+            >
+              <h6 class="m-0">Danh sách sinh viên</h6>
+              <p-iconField iconPosition="right">
+                <input type="text" pInputText placeholder="Tìm kiếm" />
+                <p-inputIcon styleClass="pi pi-search" />
+              </p-iconField>
+            </div>
+            <p-divider />
+            <div class="">
+              <p-table
+                [value]="students"
+                class="p-datatable-gridlines"
+              >
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th></th>
+                    <th>STT</th>
+                    <th>Mã sinh viên</th>
+                    <th>Tên sinh viên</th>
+                    <th>Mã lớp</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData
+                let-index="rowIndex">
+                  <tr>
+                    <td></td>
+                    <td>{{index + 1}}</td>
+                    <td>{{rowData.maSinhVien}}</td>
+                    <td>{{rowData.ten}}</td>
+                    <td>{{rowData.lop}}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+
+        <button>n</button>
+
+        <div class="student-list-selected" style="width: 47%;">
+          <button
+            class="p-button-primary rounded"
+            pButton
+            pRipple
+            label="Xóa tất cả các sinh viên khỏi đợt"
+          ></button>
+
+          <div class="card">
+            <div
+              class="d-flex align-items-center justify-content-between px-5 pt-2 table-left"
+            >
+              <h6 class="m-0">Danh sách sinh viên</h6>
+              <p-iconField iconPosition="right">
+                <input type="text" pInputText placeholder="Tìm kiếm" />
+                <p-inputIcon styleClass="pi pi-search" />
+              </p-iconField>
+            </div>
+            <p-divider />
+            <div class="">
+              <p-table
+                [value]="students"
+                styleClass="p-datatable-gridlines"
+              >
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th></th>
+                    <th>STT</th>
+                    <th>Mã sinh viên</th>
+                    <th>Tên sinh viên</th>
+                    <th>Mã lớp</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData
+                let-index="rowIndex">
+                  <tr>
+                    <td></td>
+                    <td>{{index + 1}}</td>
+                    <td>{{rowData.maSinhVien}}</td>
+                    <td>{{rowData.ten}}</td>
+                    <td>{{rowData.lop}}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button
+        type="reset"
+        id="kt_modal_update_customer_cancel"
+        class="btn btn-light me-3"
+        (click)="modal.dismiss('cancel')"
+      >
+        Hủy
+      </button>
+
+      <button
+        type="submit"
+        id="kt_modal_update_customer_submit"
+        class="btn btn-primary"
+      >
+        <span class="indicator-label"> Xác nhận </span>
+        <span class="indicator-progress">
+          Please wait...
+          <span
+            class="spinner-border spinner-border-sm align-middle ms-2"
+          ></span>
+        </span>
+      </button>
+    </div>
+  </form>
 </ng-template>
 
 <ng-template #viewDetailTemplate let-modal>

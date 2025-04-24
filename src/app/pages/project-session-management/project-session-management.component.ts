@@ -15,6 +15,8 @@ export class ProjectSessionManagementComponent {
   date: Date[] | undefined;
   checked: boolean = false;
 
+  students: any;
+
   settings = {
     dangKyDeTai: false,
     dangKyKhacBoMon: false,
@@ -23,17 +25,23 @@ export class ProjectSessionManagementComponent {
     suaDeTaiTbm: false,
   };
 
+  selectedAction : any = null;
+
   constructor(private modalService: NgbModal, private messageService: MessageService) {}
 
   ngOnInit() {
     this.cities = [
-      { name: 'Cập nhật sinh viên', code: 'NY' },
-      { name: 'Cập nhật giảng viên', code: 'RM' },
-      { name: 'Xem chi tiết', code: 'LDN' },
-      { name: 'Sửa', code: 'IST' },
-      { name: 'Xóa', code: 'PRS' },
+      { name: 'Cập nhật sinh viên', code: 'updateStudent' },
+      { name: 'Cập nhật giảng viên', code: 'updateLecturer' },
+      { name: 'Xem chi tiết', code: 'viewDetail' },
+      { name: 'Sửa', code: 'edit' },
+      { name: 'Xóa', code: 'delete' },
     ];
 
+    this.students = [
+      { maSinhVien: '11021274', ten: 'Hoàng Văn Thuận', lop: 'KTPM01' },
+      { maSinhVien: '11021275', ten: 'Nguyễn Văn A', lop: 'KTPM02' },
+    ];
 
   }
 
@@ -54,6 +62,7 @@ export class ProjectSessionManagementComponent {
   @ViewChild('viewDetailTemplate') viewDetailTemplate!: TemplateRef<any>;
   @ViewChild('editTemplate') editTemplate!: TemplateRef<any>;
   @ViewChild('deleteTemplate') deleteTemplate!: TemplateRef<any>;
+  @ViewChild('addLecturer') addLecturer!: TemplateRef<any>;
 
   handleActionChange(event: any): void {
     const code = event.value?.code;
@@ -79,7 +88,17 @@ export class ProjectSessionManagementComponent {
           windowClass: 'formCreateOrUpdate'
         });
         break;
+
+      case 'updateLecturer':
+        this.modalService.open(this.addLecturer, {
+          centered: true,
+          windowClass: 'add-lecturer-modal'
+        })
     }
+
+    setTimeout(() => {
+      this.selectedAction = null;
+    });
   }
 
 
