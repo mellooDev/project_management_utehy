@@ -44,6 +44,8 @@
                 [options]="reviewAction"
                 optionLabel="name"
                 placeholder="Chọn trạng thái"
+                [(ngModel)]="selectedAction"
+                (onChange)="handleActionChange($event)"
               />
             </td>
           </tr>
@@ -60,3 +62,160 @@
     </div>
   </div>
 </div>
+
+<ng-template #reviewModal let-modal>
+  <form #myForm="ngForm">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        Nhận xét, đánh giá báo cáo
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="card mb-5" style="padding: 15px 8%;">
+        <div class="form-group w-50 mb-3">
+          <label for="" class="form-label">Tên giảng viên</label>
+          <input
+            type="text"
+            id=""
+            name=""
+            class="form-control"
+            placeholder=""
+          />
+        </div>
+
+        <div class="form-group w-100 mb-3">
+          <label for="" class="form-label">Tên đề tài</label>
+          <input
+            type="text"
+            id=""
+            name=""
+            class="form-control"
+            placeholder=""
+          />
+        </div>
+
+        <div class="d-flex align-items-center gap-4">
+          <div class="form-group w-50 mb-3">
+            <label for="" class="form-label">Biểu mẫu</label>
+            <input
+              type="text"
+              id=""
+              name=""
+              class="form-control"
+              placeholder=""
+            />
+          </div>
+
+          <button pButton pRipple class="p-button-primary rounded" style="margin-top: 16px;">Quy trình hướng dẫn</button>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 10px 5%;">
+        <div class="d-flex align-items-center mb-3" style="gap: 35px;">
+          <div class="form-group w-25">
+            <label for="" class="form-label">Tuần</label>
+            <input
+              type="text"
+              id=""
+              name=""
+              class="form-control"
+              placeholder=""
+            />
+          </div>
+
+          <div class="form-group w-25">
+            <label for="" class="form-label">Từ ngày</label>
+            <input
+              type="text"
+              id=""
+              name=""
+              class="form-control"
+              placeholder=""
+            />
+          </div>
+
+          <div class="form-group w-25">
+            <label for="" class="form-label">Đến ngày</label>
+            <input
+              type="text"
+              id=""
+              name=""
+              class="form-control"
+              placeholder=""
+            />
+          </div>
+        </div>
+
+        <div class="form-group w-100 mb-3">
+          <label for="" class="form-label">Công việc</label>
+          <input
+            type="text"
+            id=""
+            name=""
+            class="form-control"
+            placeholder=""
+          />
+        </div>
+
+        <div class="form-group w-100 mb-3">
+          <label for="" class="form-label">Nội dung cần thực hiện</label>
+          <input
+            type="text"
+            id=""
+            name=""
+            class="form-control"
+            placeholder=""
+          />
+        </div>
+
+        <div class="form-group w-100 mb-3">
+          <label for="" class="form-label">Kết quả</label>
+          <input
+            type="text"
+            id=""
+            name=""
+            class="form-control"
+            placeholder=""
+          />
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="templateContent" class="form-label">Nhận xét, đánh giá</label>
+          <angular-editor  id="templateContent" [config]="editorConfig"
+                          ></angular-editor>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="modal-footer">
+      <button
+        type="reset"
+        id="kt_modal_update_customer_cancel"
+        class="btn btn-light me-3"
+        (click)="modal.dismiss('cancel')"
+      >
+        Hủy
+      </button>
+
+      <button
+        type="submit"
+        id="kt_modal_update_customer_submit"
+        class="btn btn-primary"
+      >
+        <span class="indicator-label"> Xác nhận </span>
+        <span class="indicator-progress">
+          Please wait...
+          <span
+            class="spinner-border spinner-border-sm align-middle ms-2"
+          ></span>
+        </span>
+      </button>
+    </div> -->
+  </form>
+</ng-template>
