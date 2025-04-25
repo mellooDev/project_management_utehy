@@ -23,12 +23,12 @@ import { TableModule } from 'primeng/table';
 import { RippleModule } from 'primeng/ripple';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
-import { ProjectSessionManagementComponent } from './project-session-management.component';
+import { CouncilDefenseManagementComponent } from './council-defense-management.component';
 
 
 @NgModule({
   declarations: [
-    ProjectSessionManagementComponent,
+    CouncilDefenseManagementComponent,
   ],
   imports: [
     CommonModule,
@@ -38,7 +38,7 @@ import { ProjectSessionManagementComponent } from './project-session-management.
     RouterModule.forChild([
       {
         path: '',
-        component: ProjectSessionManagementComponent,
+        component: CouncilDefenseManagementComponent,
       },
 
     ]),
@@ -67,4 +67,4 @@ import { ProjectSessionManagementComponent } from './project-session-management.
     CheckboxModule
   ],
 })
-export class ProjectSessionManagementModule { }
+export class CouncilDefenseManagementModule { }

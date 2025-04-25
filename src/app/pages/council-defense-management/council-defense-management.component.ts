@@ -1,24 +1,16 @@
-import { filter } from 'rxjs';
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  TemplateRef,
-  ViewChild,
-} from '@angular/core';
-import { MessageService } from 'primeng/api';
-import moment, { duration } from 'moment';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MessageService } from 'primeng/api';
 
-declare var $: any;
 @Component({
-  selector: 'app-project-session-management',
-  templateUrl: './project-session-management.component.html',
-  styleUrl: './project-session-management.component.scss',
+  selector: 'app-council-defense-management',
+  templateUrl: './council-defense-management.component.html',
+  styleUrl: './council-defense-management.component.scss',
   providers: [MessageService],
 })
-export class ProjectSessionManagementComponent {
+export class CouncilDefenseManagementComponent {
   cities: any;
+  studentStatus: any;
   date: Date[] | undefined;
   checked: boolean = false;
 
@@ -50,9 +42,15 @@ export class ProjectSessionManagementComponent {
       { name: 'Cập nhật sinh viên', code: 'updateStudent' },
       { name: 'Cập nhật giảng viên', code: 'updateLecturer' },
       { name: 'Xem chi tiết', code: 'viewDetail' },
+      { name: 'Cập nhật TT bảo vệ', code: 'updateStudentDefense' },
       { name: 'Sửa', code: 'edit' },
       { name: 'Xóa', code: 'delete' },
     ];
+
+    this.studentStatus = [
+      { name: 'Bảo vệ thành công', code: 'successDefense' },
+      { name: 'Bảo vệ thất bại', code: 'failureDefense' },
+    ]
 
     this.lecturers = [
       { maGiangVien: '11021274', ten: 'Hoàng Văn Thuận', soLuongHD: 10 },
@@ -83,6 +81,7 @@ export class ProjectSessionManagementComponent {
   @ViewChild('deleteTemplate') deleteTemplate!: TemplateRef<any>;
   @ViewChild('addStudent') addStudent!: TemplateRef<any>;
   @ViewChild('addLecturer') addLecturer!: TemplateRef<any>;
+  @ViewChild('updateStudentDefense') updateStudentDefense!: TemplateRef<any>;
 
   handleActionChange(event: any): void {
     const code = event.value?.code;
@@ -118,6 +117,13 @@ export class ProjectSessionManagementComponent {
 
       case 'updateLecturer':
         this.modalService.open(this.addLecturer, {
+          centered: true,
+          windowClass: 'add-student-modal',
+        });
+        break;
+
+      case 'updateStudentDefense':
+        this.modalService.open(this.updateStudentDefense, {
           centered: true,
           windowClass: 'add-student-modal',
         });

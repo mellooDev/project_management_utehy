@@ -33,6 +33,11 @@ const Routing: Routes = [
     loadChildren: () => import('./project-session-management/project-session-management.module').then((m) => m.ProjectSessionManagementModule),
   },
   {
+    path: 'council-defense-management',
+    // canActivate: [AuthGuard],
+    loadChildren: () => import('./council-defense-management/council-defense-management.module').then((m) => m.CouncilDefenseManagementModule),
+  },
+  {
     path: 'product-provider',
     // canActivate: [AuthGuard],
     loadChildren: () => import('./product-provider/product-provider.module').then((m) => m.ProductProviderModule),

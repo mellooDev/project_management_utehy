@@ -163,7 +163,9 @@
 <ng-template #confirmModal let-modal>
   <form #myForm="ngForm" (ngSubmit)="onSubmit($event, myForm)">
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Thêm mới quy trình hướng dẫn</h4>
+      <h4 class="modal-title" id="modal-basic-title">
+        Thêm mới quy trình hướng dẫn
+      </h4>
       <button
         type="button"
         class="btn-close"
@@ -178,6 +180,10 @@
           id="templateContent"
           [config]="editorConfig"
         ></angular-editor>
+      </div>
+
+      <div class="form-group mb-3" *ngIf="confirmStatus === 'accept'">
+        <h4>Bạn có chắc chắn muốn phê duyệt đề tài này không?</h4>
       </div>
     </div>
 
