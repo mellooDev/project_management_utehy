@@ -1,0 +1,62 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title font-weight-bolder text-dark">Đánh giá, nhận xét báo cáo</h3>
+  </div>
+
+  <div class="card-body pt-0" >
+    <div class="mt-4">
+      <div class="search-container mt-4">
+        <div class="d-flex">
+
+
+          <div class="select-box me-2 mb-2">
+            <select class="form-control custom-width">
+              <option value="" disabled selected>Tên đợt</option>
+            </select>
+            <i class="bi bi-chevron-down select-arrow"></i>
+          </div>
+
+        </div>
+      </div>
+
+      <table class="table table-striped mt-3 custom-bordered">
+        <thead class="custom-header">
+          <tr>
+            <th style="text-align: center">STT</th>
+            <th>Mã sinh viên</th>
+            <th>Tên sinh viên</th>
+            <th>Mã lớp</th>
+            <th>Tên đợt</th>
+            <th>Tên đề tài</th>
+            <th>Tác vụ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center">1</td>
+            <td>11021274</td>
+            <td>Hoàng Văn Thuận</td>
+            <td>11021274</td>
+            <td>đợt 1</td>
+            <td>Nguyễn Văn A</td>
+            <td>
+              <p-dropdown
+                [options]="reviewAction"
+                optionLabel="name"
+                placeholder="Chọn trạng thái"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination-container mt-3">
+      <!-- <ngb-pagination
+        [collectionSize]="filteredData.length"
+        [pageSize]="pageSize"
+        (pageChange)="onPageChange($event)"
+      ></ngb-pagination> -->
+    </div>
+  </div>
+</div>

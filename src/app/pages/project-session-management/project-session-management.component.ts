@@ -17,7 +17,7 @@ declare var $: any;
   styleUrl: './project-session-management.component.scss',
   providers: [MessageService],
 })
-export class ProjectSessionManagementComponent {
+export class ProjectSessionManagementComponent implements OnInit {
   cities: any;
   date: Date[] | undefined;
   checked: boolean = false;

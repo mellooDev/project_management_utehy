@@ -23,6 +23,7 @@ export const locale = {
       INSTRUCTION_MANAGEMENT: 'Quản lý quy trình hướng dẫn',
       REQUEST_PROJECT_APPROVAL: 'Quản lý duyệt đồ án',
       LECTURER_APPROVE_PROJECT_MANAGEMENT: 'Phê duyệt đồ án của sinh viên',
+      REVIEW_PROJECT_MANAGEMENT: 'Đánh giá, nhận xét báo cáo',
 
       DEAN_APPROVE_PROJECT_MANAGEMENT: 'Phê duyệt đồ án',
       REGISTER_PROJECT: 'Đăng ký đề tài đồ án',

@@ -38,6 +38,11 @@ const Routing: Routes = [
     loadChildren: () => import('./council-defense-management/council-defense-management.module').then((m) => m.CouncilDefenseManagementModule),
   },
   {
+    path: 'review-project-management',
+    // canActivate: [AuthGuard],
+    loadChildren: () => import('./review-project-management/review-project-management.module').then((m) => m.ReviewProjectManagementModule),
+  },
+  {
     path: 'product-provider',
     // canActivate: [AuthGuard],
     loadChildren: () => import('./product-provider/product-provider.module').then((m) => m.ProductProviderModule),
