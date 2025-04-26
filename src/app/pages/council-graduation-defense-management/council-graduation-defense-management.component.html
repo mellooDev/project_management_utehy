@@ -1,0 +1,224 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title font-weight-bolder text-dark">Đợt làm đồ án</h3>
+  </div>
+
+  <div class="card-body pt-0">
+    <div class="mt-4">
+      <div class="search-container mt-4">
+        <div class="d-flex">
+          <div class="select-box me-2 mb-2">
+            <select class="form-control custom-width">
+              <option value="" disabled selected>Đợt đồ án</option>
+            </select>
+            <i class="bi bi-chevron-down select-arrow"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="card defense-1 mb-4">
+        <div class="card-header align-items-center">
+          <h3 class="mb-0">Danh sách phản biện 1</h3>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped mt-3 custom-bordered">
+            <thead class="custom-header">
+              <tr>
+                <th style="text-align: center">STT</th>
+                <th>Mã sinh viên</th>
+                <th>Tên sinh viên</th>
+                <th>Mã lớp</th>
+                <th>Giảng viên hướng dẫn</th>
+                <th>Lịch phản biện</th>
+                <th>Tác vụ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="text-align: center">1</td>
+                <td>11021274</td>
+                <td>Hoàng Văn Thuận</td>
+                <td>125211</td>
+                <td>Vũ Xuân Thắng</td>
+                <td>Đề tài abc</td>
+                <td>30/04/2025</td>
+                <td>
+                  <p-dropdown
+                    [options]="actions"
+                    optionLabel="name"
+                    placeholder="Chọn tác vụ"
+                    [(ngModel)]="selectedAction"
+                    (onChange)="handleActionChange($event)"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="pagination-container mt-3">
+            <!-- <ngb-pagination
+              [collectionSize]="filteredData.length"
+              [pageSize]="pageSize"
+              (pageChange)="onPageChange($event)"
+            ></ngb-pagination> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="card defense-2 mb-4">
+        <div class="card-header align-items-center">
+          <h3 class="mb-0">Danh sách phản biện 2</h3>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped mt-3 custom-bordered">
+            <thead class="custom-header">
+              <tr>
+                <th style="text-align: center">STT</th>
+                <th>Mã đợt</th>
+                <th>Tên đợt</th>
+                <th>Ngày bắt đầu làm đồ án</th>
+                <th>Trạng thái</th>
+                <th>Năm học áp dụng</th>
+                <th>Tác vụ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="text-align: center">1</td>
+                <td>QTW</td>
+                <td>Đợt đồ án a</td>
+                <td>24/04/2025</td>
+                <td>
+                  <span class="badge badge-success">Đang hoạt động</span>
+                </td>
+                <td>2024-2025</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="pagination-container mt-3">
+            <!-- <ngb-pagination
+              [collectionSize]="filteredData.length"
+              [pageSize]="pageSize"
+              (pageChange)="onPageChange($event)"
+            ></ngb-pagination> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pagination-container mt-3">
+      <!-- <ngb-pagination
+        [collectionSize]="filteredData.length"
+        [pageSize]="pageSize"
+        (pageChange)="onPageChange($event)"
+      ></ngb-pagination> -->
+    </div>
+  </div>
+</div>
+
+<ng-template #counterArgumentStudent let-modal>
+  <form #myForm="ngForm">
+    <div class="modal-header">
+      <div class="modal-title">
+        <h4>Phản biện sinh viên</h4>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <div class="card mb-4">
+        <div class="card-header align-items-center">
+          <h5 class="mb-0">Tiêu chí phản biện</h5>
+        </div>
+        <div class="card-body">
+          <table class="table table-bordered mt-3 custom-bordered">
+            <thead class="custom-header">
+              <tr>
+                <th>Tiêu chí</th>
+                <th>Điểm tối đa</th>
+                <th>Điểm chấm thực tế</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>tiêu chí bla blabla bla</td>
+                <td>9</td>
+                <td>10</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header align-items-center">
+          <h5 class="mb-0">Câu hỏi phản biện</h5>
+        </div>
+        <div class="card-body" style="padding: 10px 8%;">
+          <div class="form-group mb-5">
+            <label for="" class="form-label">Câu hỏi phản biện</label>
+            <angular-editor  id="templateContent" [config]="editorConfig"
+                            ></angular-editor>
+          </div>
+
+          <div class="d-flex align-items-center gap-5">
+            <div style="margin-right: 90px;">
+              <label for="">Được phép bảo vệ</label>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+              <p-radioButton
+                name="defense"
+                value="approve"
+                inputId="approve"
+                [(ngModel)]="defenseApproveSelect"
+              />
+
+              <label for="approve" class="ml-2">Được phép bảo vệ</label>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+              <p-radioButton
+                name="defense"
+                value="reject"
+                inputId="reject"
+                [(ngModel)]="defenseApproveSelect"
+              />
+
+              <label for="reject" class="ml-5">Không cho phép bảo vệ</label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button
+        type="reset"
+        id="kt_modal_update_customer_cancel"
+        class="btn btn-light me-3"
+        (click)="modal.dismiss('cancel')"
+      >
+        Hủy
+      </button>
+
+      <button
+        type="submit"
+        id="kt_modal_update_customer_submit"
+        class="btn btn-primary"
+      >
+        <span class="indicator-label"> Xác nhận </span>
+        <span class="indicator-progress">
+          Please wait...
+          <span
+            class="spinner-border spinner-border-sm align-middle ms-2"
+          ></span>
+        </span>
+      </button>
+    </div>
+  </form>
+</ng-template>
+
+<p-toast />

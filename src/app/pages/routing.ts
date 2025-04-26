@@ -38,6 +38,11 @@ const Routing: Routes = [
     loadChildren: () => import('./council-defense-management/council-defense-management.module').then((m) => m.CouncilDefenseManagementModule),
   },
   {
+    path: 'council-graduation-defense-management',
+    // canActivate: [AuthGuard],
+    loadChildren: () => import('./council-graduation-defense-management/council-graduation-defense-management.module').then((m) => m.CouncilGraduationDefenseManagementModule),
+  },
+  {
     path: 'review-project-management',
     // canActivate: [AuthGuard],
     loadChildren: () => import('./review-project-management/review-project-management.module').then((m) => m.ReviewProjectManagementModule),

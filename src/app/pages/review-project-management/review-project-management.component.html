@@ -190,7 +190,85 @@
           <angular-editor  id="templateContent" [config]="editorConfig"
                           ></angular-editor>
         </div>
+
+        <div class="form-group w-100 mb-3">
+          <label for="" class="form-label">Điểm báo cáo tuần</label>
+          <input
+            type="text"
+            id=""
+            name=""
+            class="form-control"
+            placeholder=""
+          />
+        </div>
+
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-primary">
+            Lưu lại
+          </button>
+        </div>
       </div>
+
+      <table class="table table-bordered mt-3 custom-bordered">
+        <thead class="custom-header">
+          <tr>
+            <th style="text-align: center">STT</th>
+            <th>Tuần</th>
+            <th>Nội dung thực hiện</th>
+            <th>Đường dẫn Git</th>
+            <th>Đường dẫn báo cáo</th>
+            <th>Nhận xét</th>
+            <th>Điểm báo cáo tuần</th>
+            <th>Tác vụ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center">1</td>
+            <td>Tuần 1</td>
+            <td>bla bla bla</td>
+            <td>
+              <a href="#">Link Git</a>
+            </td>
+            <td>
+              <a href="#">Link báo cáo</a>
+            </td>
+            <td>Tốt</td>
+            <td>10</td>
+            <td>
+              <button
+                  class="button-action btn-download btn btn-sm"
+                  placement="top"
+                  ngbTooltip="Chỉnh sửa đề tài"
+                >
+                  <i i-bs name="pencil-square"></i>
+                </button>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center">1</td>
+            <td>Tuần 1</td>
+            <td>bla bla bla</td>
+            <td>
+              <a href="#">Link Git</a>
+            </td>
+            <td>
+              <a href="#">Link báo cáo</a>
+            </td>
+            <td>Tốt</td>
+            <td>10</td>
+            <td>
+              <button
+                  class="button-action btn-download btn btn-sm"
+                  placement="top"
+                  ngbTooltip="Chỉnh sửa đề tài"
+                >
+                  <i i-bs name="pencil-square"></i>
+                </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <!-- <div class="modal-footer">

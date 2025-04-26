@@ -20,6 +20,7 @@ export const locale = {
       DEFENSE_PROJECT_MANAGEMENT: 'Quản lý bảo vệ đồ án',
       SESSION_PROJECT_MANAGEMENT: 'Quản lý đợt làm đồ án',
       COUNCIL_DEFENSE_MANAGEMENT: 'Quản lý hội đồng bảo vệ đồ án',
+      COUNCIL_GRADUATION_DEFENSE_MANAGEMENT: 'Quản lý hội đồng bảo vệ đồ án tốt nghiệp',
       INSTRUCTION_MANAGEMENT: 'Quản lý quy trình hướng dẫn',
       REQUEST_PROJECT_APPROVAL: 'Quản lý duyệt đồ án',
       LECTURER_APPROVE_PROJECT_MANAGEMENT: 'Phê duyệt đồ án của sinh viên',

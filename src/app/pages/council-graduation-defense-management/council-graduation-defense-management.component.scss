@@ -122,10 +122,10 @@
   display: block;
 }
 
-.custom-bordered tbody tr:nth-child(odd) {
-  background-color: #f2f2f2;
-  /* Màu nền nhạt cho dòng lẻ */
-}
+// .custom-bordered tbody tr:nth-child(odd) {
+//   background-color: #f2f2f2;
+//   /* Màu nền nhạt cho dòng lẻ */
+// }
 
 .custom-bordered tbody tr:nth-child(even) {
   background-color: #ffffff;
@@ -159,9 +159,9 @@
   pointer-events: none;
 }
 
-::ng-deep .formReviewModal .modal-dialog {
-  max-width: 90%;
-  width: 90%;
+::ng-deep .counterArgumentStudent .modal-dialog {
+  max-width: 80%;
+  width: 80%;
 }
 
 ::ng-deep ul.p-dropdown-items {
