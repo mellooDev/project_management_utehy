@@ -18,7 +18,7 @@
         </div>
       </div>
 
-      <div class="card">
+      <div class="card mb-5">
         <div class="card-header align-items-center">
           <h4 class="mb-0">Thông tin đề tài</h4>
         </div>
@@ -49,10 +49,196 @@
           </div>
 
           <div>
-            <button class="p-button-primary" pButton pRipple>
+            <button class="p-button-primary rounded" pButton pRipple>
               Quy trình hướng dẫn
             </button>
           </div>
+        </div>
+      </div>
+
+      <div class="card mb-5">
+        <div class="card-header align-items-center">
+          <h4 class="mb-0">Báo cáo tiến độ đồ án</h4>
+        </div>
+
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-3" style="gap: 35px">
+            <div class="form-group w-25">
+              <label for="" class="form-label">Tuần</label>
+              <input
+                type="text"
+                id=""
+                name=""
+                class="form-control"
+                placeholder=""
+              />
+            </div>
+
+            <div class="form-group w-25">
+              <label for="" class="form-label">Từ ngày</label>
+              <input
+                type="text"
+                id=""
+                name=""
+                class="form-control"
+                placeholder=""
+              />
+            </div>
+
+            <div class="form-group w-25">
+              <label for="" class="form-label">Đến ngày</label>
+              <input
+                type="text"
+                id=""
+                name=""
+                class="form-control"
+                placeholder=""
+              />
+            </div>
+          </div>
+
+          <div class="form-group w-100 mb-3">
+            <label for="" class="form-label">Công việc</label>
+            <input
+              type="text"
+              id=""
+              name=""
+              class="form-control"
+              placeholder=""
+            />
+          </div>
+
+          <div class="form-group w-100 mb-3">
+            <label for="" class="form-label">Nội dung cần thực hiện</label>
+            <input
+              type="text"
+              id=""
+              name=""
+              class="form-control"
+              placeholder=""
+            />
+          </div>
+
+          <div class="form-group w-100 mb-3">
+            <label for="" class="form-label">Kết quả</label>
+            <input
+              type="text"
+              id=""
+              name=""
+              class="form-control"
+              placeholder=""
+            />
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="templateContent" class="form-label"
+              >Nội dung báo cáo</label
+            >
+            <angular-editor
+              id="templateContent"
+              [config]="editorConfig"
+            ></angular-editor>
+          </div>
+
+          <div class="d-flex align-items-center gap-4 mb-5">
+            <div class="form-group w-50">
+              <label for="" class="form-label">Link báo cáo</label>
+              <input
+                type="text"
+                id=""
+                name=""
+                class="form-control"
+                placeholder=""
+              />
+            </div>
+
+            <div class="form-group w-50">
+              <label for="" class="form-label">Link Github</label>
+              <input
+                type="text"
+                id=""
+                name=""
+                class="form-control"
+                placeholder=""
+              />
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end mb-5">
+            <button class="btn btn-primary">Lưu lại</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-primary" (click)="generateProgressReport()">
+              <i class="bi bi-box-arrow-right"></i>
+              Kết xuất
+            </button>
+          </div>
+
+          <table class="table table-bordered mt-3 custom-bordered">
+            <thead class="custom-header">
+              <tr>
+                <th style="text-align: center">STT</th>
+                <th>Tuần</th>
+                <th>Nội dung thực hiện</th>
+                <th>Đường dẫn Git</th>
+                <th>Đường dẫn báo cáo</th>
+                <th>Nhận xét</th>
+                <th>Điểm báo cáo tuần</th>
+                <th>Tác vụ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="text-align: center">1</td>
+                <td>Tuần 1</td>
+                <td>bla bla bla</td>
+                <td>
+                  <a href="#">Link Git</a>
+                </td>
+                <td>
+                  <a href="#">Link báo cáo</a>
+                </td>
+                <td>Tốt</td>
+                <td>10</td>
+                <td>
+                  <button
+                    class="button-action btn-download btn btn-sm"
+                    placement="top"
+                    ngbTooltip="Chỉnh sửa đề tài"
+                  >
+                    <i i-bs name="pencil-square"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: center">1</td>
+                <td>Tuần 1</td>
+                <td>bla bla bla</td>
+                <td>
+                  <a href="#">Link Git</a>
+                </td>
+                <td>
+                  <a href="#">Link báo cáo</a>
+                </td>
+                <td>Tốt</td>
+                <td>10</td>
+                <td>
+                  <button
+                    class="button-action btn-download btn btn-sm"
+                    placement="top"
+                    ngbTooltip="Chỉnh sửa đề tài"
+                  >
+                    <i i-bs name="pencil-square"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
