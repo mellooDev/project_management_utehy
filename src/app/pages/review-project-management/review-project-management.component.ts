@@ -2,6 +2,13 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from 'primeng/api';
+import Pizzip from 'pizzip';
+import Docxtemplater from 'docxtemplater';
+import { saveAs } from 'file-saver';
+// import { Blob } from 'buffer';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
+
 
 @Component({
   selector: 'app-review-project-management',
@@ -12,6 +19,7 @@ import { MessageService } from 'primeng/api';
 export class ReviewProjectManagementComponent implements OnInit {
   reviewAction: any;
   selectedAction: any = null;
+  safeFileUrl: SafeResourceUrl | null = null;
 
   editorConfig: AngularEditorConfig = {
     sanitize: false,
@@ -46,13 +54,17 @@ export class ReviewProjectManagementComponent implements OnInit {
     ],
   };
 
+  fileUrl: string | null = null;
+  blobData: Blob | null = null;
+
   @ViewChild('reviewModal') reviewModal: TemplateRef<any>;
   @ViewChild('printProgress') printProgress: TemplateRef<any>;
   @ViewChild('viewDetail') viewDetail: TemplateRef<any>;
 
   constructor(
     private modalService: NgbModal,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private sanitizer: DomSanitizer,
   ) {}
 
   ngOnInit(): void {
@@ -63,7 +75,60 @@ export class ReviewProjectManagementComponent implements OnInit {
     ];
   }
 
-  handleActionChange(event: any): void {
+  async generateProgressReport() {
+    const response = await fetch('../../../assets/test_baocao.docx');
+
+    const arrayBuffer = await response.arrayBuffer();
+
+    const zip = new Pizzip(arrayBuffer);
+    const doc = new Docxtemplater(zip, {
+      paragraphLoop: true,
+      linebreaks: true,
+
+    });
+
+    doc.setData({
+      giaovien: 'Vũ Xuân Thắng',
+      sinhvien: 'Hoàng Văn Thuận'
+    })
+
+    try {
+      doc.render();
+    } catch (error) {
+      console.error('render.error', error);
+      return;
+    }
+
+    const blob = doc.getZip().generate({
+      type: 'blob',
+      mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    })
+
+    this.blobData = blob;
+    this.fileUrl = URL.createObjectURL(blob);
+    this.safeFileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      'https://view.officeapps.live.com/op/embed.aspx?src=' + encodeURIComponent(this.fileUrl)
+    )
+
+    console.log('url: ', this.safeFileUrl);
+
+    this.modalService.open(this.printProgress, {
+      centered: true,
+      windowClass: 'formReviewModal'
+    })
+  }
+
+  downloadData() {
+    if(this.blobData) {
+      saveAs(this.blobData, 'baocao.docx');
+    }
+  }
+
+  encodeUrl(url: string): string {
+    return encodeURIComponent(url);
+  }
+
+  async handleActionChange(event: any): Promise<void> {
     const code = event.value?.code;
 
     switch (code) {
@@ -75,9 +140,10 @@ export class ReviewProjectManagementComponent implements OnInit {
         break;
 
       case 'printProgress':
-        this.modalService.open(this.printProgress, {
-          centered: true,
-        });
+        // this.modalService.open(this.printProgress, {
+        //   centered: true,
+        // });
+        await this.generateProgressReport();
         break;
 
       case 'viewDetail':

@@ -1,21 +1,20 @@
 <div class="card">
   <div class="card-header">
-    <h3 class="card-title font-weight-bolder text-dark">Đánh giá, nhận xét báo cáo</h3>
+    <h3 class="card-title font-weight-bolder text-dark">
+      Đánh giá, nhận xét báo cáo
+    </h3>
   </div>
 
-  <div class="card-body pt-0" >
+  <div class="card-body pt-0">
     <div class="mt-4">
       <div class="search-container mt-4">
         <div class="d-flex">
-
-
           <div class="select-box me-2 mb-2">
             <select class="form-control custom-width">
               <option value="" disabled selected>Tên đợt</option>
             </select>
             <i class="bi bi-chevron-down select-arrow"></i>
           </div>
-
         </div>
       </div>
 
@@ -77,7 +76,7 @@
       ></button>
     </div>
     <div class="modal-body">
-      <div class="card mb-5" style="padding: 15px 8%;">
+      <div class="card mb-5" style="padding: 15px 8%">
         <div class="form-group w-50 mb-3">
           <label for="" class="form-label">Tên giảng viên</label>
           <input
@@ -112,12 +111,19 @@
             />
           </div>
 
-          <button pButton pRipple class="p-button-primary rounded" style="margin-top: 16px;">Quy trình hướng dẫn</button>
+          <button
+            pButton
+            pRipple
+            class="p-button-primary rounded"
+            style="margin-top: 16px"
+          >
+            Quy trình hướng dẫn
+          </button>
         </div>
       </div>
 
-      <div class="card" style="padding: 10px 5%;">
-        <div class="d-flex align-items-center mb-3" style="gap: 35px;">
+      <div class="card" style="padding: 10px 5%">
+        <div class="d-flex align-items-center mb-3" style="gap: 35px">
           <div class="form-group w-25">
             <label for="" class="form-label">Tuần</label>
             <input
@@ -186,9 +192,13 @@
         </div>
 
         <div class="form-group mb-3">
-          <label for="templateContent" class="form-label">Nhận xét, đánh giá</label>
-          <angular-editor  id="templateContent" [config]="editorConfig"
-                          ></angular-editor>
+          <label for="templateContent" class="form-label"
+            >Nhận xét, đánh giá</label
+          >
+          <angular-editor
+            id="templateContent"
+            [config]="editorConfig"
+          ></angular-editor>
         </div>
 
         <div class="form-group w-100 mb-3">
@@ -203,9 +213,7 @@
         </div>
 
         <div class="d-flex justify-content-end">
-          <button class="btn btn-primary">
-            Lưu lại
-          </button>
+          <button class="btn btn-primary">Lưu lại</button>
         </div>
       </div>
 
@@ -237,12 +245,12 @@
             <td>10</td>
             <td>
               <button
-                  class="button-action btn-download btn btn-sm"
-                  placement="top"
-                  ngbTooltip="Chỉnh sửa đề tài"
-                >
-                  <i i-bs name="pencil-square"></i>
-                </button>
+                class="button-action btn-download btn btn-sm"
+                placement="top"
+                ngbTooltip="Chỉnh sửa đề tài"
+              >
+                <i i-bs name="pencil-square"></i>
+              </button>
             </td>
           </tr>
           <tr>
@@ -259,12 +267,12 @@
             <td>10</td>
             <td>
               <button
-                  class="button-action btn-download btn btn-sm"
-                  placement="top"
-                  ngbTooltip="Chỉnh sửa đề tài"
-                >
-                  <i i-bs name="pencil-square"></i>
-                </button>
+                class="button-action btn-download btn btn-sm"
+                placement="top"
+                ngbTooltip="Chỉnh sửa đề tài"
+              >
+                <i i-bs name="pencil-square"></i>
+              </button>
             </td>
           </tr>
         </tbody>
@@ -295,5 +303,33 @@
         </span>
       </button>
     </div> -->
+  </form>
+</ng-template>
+
+<ng-template #printProgress let-modal>
+  <form #myForm="ngForm">
+    <div class="modal-header">
+      <h5 class="modal-title">Xem trước báo cáo</h5>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body" *ngIf="fileUrl">
+      <iframe
+        [src]="safeFileUrl"
+        width="100%"
+        height="600px"
+        style="border: none"
+      ></iframe>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="modal.dismissAll()">
+        Đóng
+      </button>
+      <button class="btn btn-success" (click)="downloadData()">Tải file</button>
+    </div>
   </form>
 </ng-template>

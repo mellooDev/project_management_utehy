@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NgbDropdownModule, NgbPaginationModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { allIcons, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons'
@@ -11,18 +11,24 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ToastModule } from 'primeng/toast';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { ModalsModule, WidgetsModule } from 'src/app/_metronic/partials';
-import { InputSwitchModule } from 'primeng/inputswitch';
-import { ProjectManagementComponent } from './project-management.component';
-import { RegisterProjectComponent } from './register-project/register-project.component';
-import { RippleModule } from 'primeng/ripple';
 import { DropdownModule } from 'primeng/dropdown';
-
+import { CalendarModule } from 'primeng/calendar';
+import { InputIconModule } from 'primeng/inputicon';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputTextModule } from 'primeng/inputtext';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import {DividerModule} from 'primeng/divider';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { TableModule } from 'primeng/table';
+import { RippleModule } from 'primeng/ripple';
+import { ButtonModule } from 'primeng/button';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ReportResultsManagementComponent } from './report-results-management.component';
 
 
 @NgModule({
   declarations: [
-    ProjectManagementComponent,
-    RegisterProjectComponent
+    ReportResultsManagementComponent,
   ],
   imports: [
     CommonModule,
@@ -32,29 +38,33 @@ import { DropdownModule } from 'primeng/dropdown';
     RouterModule.forChild([
       {
         path: '',
-        component: ProjectManagementComponent,
-      },
-      {
-        path: 'register-project',
-        component: RegisterProjectComponent
+        component: ReportResultsManagementComponent,
       },
 
     ]),
     WidgetsModule,
     ModalsModule,
+    TableModule,
     FormsModule, // Thêm FormsModule ở đây
     NgbPaginationModule,
+    ButtonModule,
     MatDialogModule,
+    ToggleButtonModule,
+    DividerModule,
     InputSwitchModule,
-    NgbRatingModule,
-    DropdownModule,
+    CalendarModule,
     NgbDropdownModule,
+    InputIconModule,
+    IconFieldModule,
+    InputTextModule,
+    DropdownModule,
     MatIconModule,
     NgxBootstrapIconsModule.pick(allIcons),
     AngularEditorModule,
     ToastModule,
     RippleModule,
-    CodemirrorModule
+    CodemirrorModule,
+    CheckboxModule
   ],
 })
-export class ProjectManagementModule { }
+export class ReportResultsManagementModule { }

@@ -43,6 +43,11 @@ const Routing: Routes = [
     loadChildren: () => import('./council-graduation-defense-management/council-graduation-defense-management.module').then((m) => m.CouncilGraduationDefenseManagementModule),
   },
   {
+    path: 'report-results',
+    // canActivate: [AuthGuard],
+    loadChildren: () => import('./report-results-management/report-results-management.module').then((m) => m.ReportResultsManagementModule),
+  },
+  {
     path: 'review-project-management',
     // canActivate: [AuthGuard],
     loadChildren: () => import('./review-project-management/review-project-management.module').then((m) => m.ReviewProjectManagementModule),

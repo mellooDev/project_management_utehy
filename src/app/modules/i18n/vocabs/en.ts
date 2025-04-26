@@ -30,7 +30,7 @@ export const locale = {
       REGISTER_PROJECT: 'Đăng ký đề tài đồ án',
       STUDENT_PROJECT_LIST: 'Danh sách đề tài',
       TEACHER_PROJECT_LIST: 'Quản lý đề tài đồ án',
-      REPORT_RESULTS: 'Báo cáo kết quả',
+      REPORT_RESULTS: 'Báo cáo kết quả thực hiện',
       STUDENT_MANAGEMENT: 'Quản lý sinh viên',
       TEACHER_MANAGEMENT: 'Quản lý giảng viên',
       SYSTEM_MANAGEMENT: 'Quản lý hệ thống',
