@@ -1,67 +1,70 @@
 <div class="card">
   <div class="card-header">
-    <h3 class="card-title font-weight-bolder text-dark">Danh sách đề tài đồ án</h3>
+    <h3 class="card-title font-weight-bolder text-dark">Danh sách khoa</h3>
   </div>
 
-  <div class="card-body pt-0" >
+  <div class="card-body pt-0">
     <div class="mt-4">
       <div class="search-container mt-4">
         <div class="d-flex">
           <div class="input-group me-2 mb-2">
-            <input type="text" class="form-control" placeholder="Tên đề tài"/>
-            <span class="input-group-text" style="cursor: pointer;">
-            <i class="bi bi-search"></i> <!-- Biểu tượng kính lúp -->
+            <input type="text" class="form-control" placeholder="Tên khoa" />
+            <span class="input-group-text" style="cursor: pointer">
+              <i class="bi bi-search"></i>
+              <!-- Biểu tượng kính lúp -->
             </span>
-          </div>
-
-
-          <div class="select-box me-2 mb-2">
-            <select class="form-control custom-width">
-              <option value="" disabled selected>Tên đợt</option>
-            </select>
-            <i class="bi bi-chevron-down select-arrow"></i>
-          </div>
-
-          <div class="select-box me-2 mb-2">
-            <select class="form-control custom-width">
-              <option value="" disabled selected>Năm học áp dụng</option>
-              <!-- <option *ngFor="let status of statuses" [value]="status">{{ status }}</option> -->
-            </select>
-            <i class="bi bi-chevron-down select-arrow"></i>
           </div>
         </div>
 
-
-        <button type="button" class=" button-add" (click)="onLoadFormRegister()">
+        <button type="button" class="button-add" (click)="onLoadCreateDepartment(createDepartment)">
           <i class="bi bi-plus icon-add"></i>
-          Thêm mới đề tài
+          Thêm mới khoa
         </button>
       </div>
 
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-success">Kết xuất</button>
+      </div>
       <table class="table table-striped mt-3 custom-bordered">
         <thead class="custom-header">
           <tr>
             <th style="text-align: center">STT</th>
-            <th>Mã đề tài</th>
-            <th>Tên đề tài</th>
-            <th>Tên đợt</th>
-            <th>Mô tả đề tài</th>
-            <th>Đề tài do SV đề xuất</th>
+            <th>Mã khoa</th>
+            <th>Tên khoa</th>
+            <th>Mô tả</th>
+            <th>Cập nhật lần cuối</th>
             <th>Tác vụ</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td style="text-align: center;">1</td>
-            <td>DATN</td>
-            <td>đề tài abc</td>
-            <td>Đợt 1</td>
-            <td>mô tả abc</td>
-            <td>Nguyễn Văn A</td>
+            <td style="text-align: center">1</td>
+            <td>CNTT</td>
+            <td>Công nghệ thông tin</td>
+            <td>
+              Khoa Công nghệ thông tin - Trường Đại học Sư phạm Kỹ thuật Hưng
+              Yên
+            </td>
+            <td>27/04/2025</td>
             <td>
               <div class="d-flex align-items-center gap-4">
-                <i class="bi bi-pencil-square" style="cursor: pointer;" (click)="onLoadFormUpdate(updateProject)"></i>
-                <i class="bi bi-trash-fill" style="cursor: pointer;" (click)="onLoadFormDelete(deleteProject)"></i>
+                <button
+                  class="button-action btn-download btn btn-sm"
+                  placement="top"
+                  ngbTooltip="Chỉnh sửa khoa"
+                  (click)="onLoadCreateDepartment(createDepartment)"
+                >
+                  <i i-bs name="pencil-square" class="p-0"></i>
+                </button>
+
+                <button
+                  class="button-action btn-download btn btn-sm"
+                  placement="top"
+                  ngbTooltip="Xóa khoa"
+                  (click)="onDeleteDepartment(deleteDepartment)"
+                >
+                  <i i-bs name="trash-fill" class="p-0"></i>
+                </button>
               </div>
             </td>
           </tr>
@@ -79,10 +82,10 @@
   </div>
 </div>
 
-<ng-template #updateProject let-modal>
+<ng-template #createDepartment let-modal>
   <form #myForm="ngForm">
     <div class="modal-header">
-      <h5 class="mb-0 modal-title">Xóa đề xuất đề tài</h5>
+      <h5 class="mb-0 modal-title">Thêm mới khoa</h5>
       <button
         type="button"
         class="btn-close"
@@ -90,29 +93,24 @@
         (click)="modal.dismiss('Cross click')"
       ></button>
     </div>
-    <div class="modal-body text-center">
-      <div class="d-flex align-items-center justify-content-between">
-        <div class="form-group w-50 mb-3">
-          <label for="" class="form-label">Mã đề tài</label>
-          <input
-            type="text"
-            id=""
-            name=""
-            class="form-control"
-            placeholder=""
-          />
+    <div class="modal-body">
+      <div class="d-flex align-items-center gap-5">
+        <div class="form-group w-50">
+          <label for="department" class="form-label">Mã khoa</label>
+          <input type="text" id="department_id" name="department" class="form-control" placeholder="" disabled/>
         </div>
 
-        <div class="form-group w-50 mb-3">
-          <label for="" class="form-label">Tên đề tài</label>
-          <input
-            type="text"
-            id=""
-            name=""
-            class="form-control"
-            placeholder=""
-          />
+        <div class="form-group w-50" >
+          <label for="department" class="form-label">Tên khoa</label>
+          <input type="text" id="department_id" name="department" class="form-control" placeholder=""/>
         </div>
+      </div>
+      <div class="form-group w-100" >
+        <label for="departmentDes" class="form-label">Mô tả khoa</label>
+        <angular-editor
+          id="departmentDes"
+          [config]="editorConfig"
+        ></angular-editor>
       </div>
     </div>
     <div class="modal-footer">
@@ -128,10 +126,10 @@
       <button
         type="submit"
         id="kt_modal_update_customer_submit"
-        class="btn btn-danger"
+        class="btn btn-primary"
         [attr.data-kt-indicator]="isLoading ? 'on' : 'off'"
       >
-        <span class="indicator-label"> Xóa </span>
+        <span class="indicator-label"> Xác nhận </span>
         <span class="indicator-progress">
           Please wait...
           <span
@@ -143,11 +141,10 @@
   </form>
 </ng-template>
 
-
-<ng-template #deleteProject let-modal>
+<ng-template #deleteDepartment let-modal>
   <form #myForm="ngForm">
     <div class="modal-header">
-      <h5 class="mb-0 modal-title">Xóa đề xuất đề tài</h5>
+      <h5 class="mb-0 modal-title">Xóa khoa</h5>
       <button
         type="button"
         class="btn-close"
@@ -156,7 +153,7 @@
       ></button>
     </div>
     <div class="modal-body text-center">
-      <h4>Bạn chắc chắn muốn xóa đề tài abc?</h4>
+      <h4>Bạn chắc chắn muốn xóa khoa abc?</h4>
     </div>
     <div class="modal-footer">
       <button

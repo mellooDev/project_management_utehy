@@ -48,9 +48,39 @@
             />
           </div>
 
-          <div>
+          <div style="margin-bottom: 20px;">
             <button class="p-button-primary rounded" pButton pRipple>
               Quy trình hướng dẫn
+            </button>
+          </div>
+
+          <div class="d-flex align-items-end gap-4">
+            <div class="form-group w-50">
+              <label for="" class="form-label"> Bản báo cáo cuối </label>
+              <input
+                type="text"
+                id=""
+                name=""
+                class="form-control"
+              />
+            </div>
+
+            <div>
+              <p-fileUpload
+                mode="basic"
+                name="demo[]"
+                chooseIcon="pi pi-upload"
+                url="https://www.primefaces.org/cdn/api/upload.php"
+                accept="image/*"
+                maxFileSize="1000000"
+                (onUpload)="onBasicUploadAuto($event)"
+                [auto]="true"
+                chooseLabel="Browse"
+              />
+
+            </div>
+            <button class="btn btn-primary">
+              Lưu lại
             </button>
           </div>
         </div>

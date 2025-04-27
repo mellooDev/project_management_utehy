@@ -8,6 +8,7 @@ import Docxtemplater from 'docxtemplater';
 import { saveAs } from 'file-saver';
 // import { Blob } from 'buffer';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { FileUploadEvent } from 'primeng/fileupload';
 
 @Component({
   selector: 'app-report-results-management',
@@ -99,4 +100,12 @@ export class ReportResultsManagementComponent implements OnInit {
         saveAs(this.blobData, 'baocao.docx');
       }
     }
+
+    onBasicUploadAuto(event: FileUploadEvent) {
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Success',
+            detail: 'File Uploaded with Auto Mode',
+          });
+        }
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { MessageService } from 'primeng/api';
+import { FileUploadEvent } from 'primeng/fileupload';
 
 @Component({
   selector: 'app-create-topic',
@@ -64,4 +65,12 @@ export class CreateTopicComponent {
   onSubmit() {
     this.showNotification('success', 'abc', 'def', 300000);
   }
+
+  onBasicUploadAuto(event: FileUploadEvent) {
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Success',
+        detail: 'File Uploaded with Auto Mode',
+      });
+    }
 }

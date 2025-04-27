@@ -76,7 +76,7 @@
 
         <!-- xem giảng viên phản biện và hội đồng -->
         <div class="menu-item" >
-          <a class="menu-link without-sub" routerLink="/report-results" routerLinkActive="active">
+          <a class="menu-link without-sub" routerLink="/view-council" routerLinkActive="active">
             <span class="menu-icon">
               <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
             </span>
@@ -234,7 +234,7 @@
 
         <!-- Quản lý lớp học -->
         <div class="menu-item" >
-          <a class="menu-link without-sub" routerLink="/project-management" routerLinkActive="active">
+          <a class="menu-link without-sub" routerLink="/academic/class-management" routerLinkActive="active">
             <span class="menu-icon">
               <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
             </span>
@@ -244,7 +244,7 @@
 
         <!-- Quản lý chuyên ngành -->
         <div class="menu-item" >
-          <a class="menu-link without-sub" routerLink="/project-management" routerLinkActive="active">
+          <a class="menu-link without-sub" routerLink="/academic/major-management" routerLinkActive="active">
             <span class="menu-icon">
               <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
             </span>
@@ -254,11 +254,31 @@
 
         <!-- Quản lý khoa -->
         <div class="menu-item" >
-          <a class="menu-link without-sub" routerLink="/project-management" routerLinkActive="active">
+          <a class="menu-link without-sub" routerLink="/academic/department-management" routerLinkActive="active">
             <span class="menu-icon">
               <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
             </span>
             <span class="menu-title" translate="MENU.DEPARTMENT_MANAGEMENT"></span>
+          </a>
+        </div>
+
+        <!-- Quản lý giảng viên -->
+        <div class="menu-item" >
+          <a class="menu-link without-sub" routerLink="/academic/lecturer-management" routerLinkActive="active">
+            <span class="menu-icon">
+              <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
+            </span>
+            <span class="menu-title" translate="MENU.TEACHER_MANAGEMENT"></span>
+          </a>
+        </div>
+
+        <!-- Quản lý sinh viên -->
+        <div class="menu-item" >
+          <a class="menu-link without-sub" routerLink="/academic/student-management" routerLinkActive="active">
+            <span class="menu-icon">
+              <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
+            </span>
+            <span class="menu-title" translate="MENU.STUDENT_MANAGEMENT"></span>
           </a>
         </div>
 

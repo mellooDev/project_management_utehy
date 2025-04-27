@@ -13,6 +13,11 @@ const Routing: Routes = [
     loadChildren: () => import('./project-management/project-management.module').then((m) => m.ProjectManagementModule),
   },
   {
+    path: 'academic',
+    // canActivate: [AuthGuard],
+    loadChildren: () => import('./academic/academic.module').then((m) => m.AcademicModule),
+  },
+  {
     path: 'lecturer-project-management',
     // canActivate: [AuthGuard],
     loadChildren: () => import('./lecturer-project-management/lecturer-project-management.module').then((m) => m.LecturerProjectManagementModule),
@@ -46,6 +51,11 @@ const Routing: Routes = [
     path: 'report-results',
     // canActivate: [AuthGuard],
     loadChildren: () => import('./report-results-management/report-results-management.module').then((m) => m.ReportResultsManagementModule),
+  },
+  {
+    path: 'view-council',
+    // canActivate: [AuthGuard],
+    loadChildren: () => import('./view-council-management/view-council-management.module').then((m) => m.ViewCouncilManagementModule),
   },
   {
     path: 'review-project-management',

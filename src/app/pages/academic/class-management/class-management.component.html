@@ -1,0 +1,243 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title font-weight-bolder text-dark">Danh sách lớp</h3>
+  </div>
+
+  <div class="card-body pt-0">
+    <div class="mt-4">
+      <div class="search-container mt-4">
+        <div class="d-flex">
+          <div class="input-group me-2 mb-2">
+            <input type="text" class="form-control" placeholder="Mã lớp" />
+            <span class="input-group-text" style="cursor: pointer">
+              <i class="bi bi-search"></i>
+              <!-- Biểu tượng kính lúp -->
+            </span>
+          </div>
+          <div class="input-group me-2 mb-2">
+            <input type="text" class="form-control" placeholder="Tên lớp" />
+            <span class="input-group-text" style="cursor: pointer">
+              <i class="bi bi-search"></i>
+              <!-- Biểu tượng kính lúp -->
+            </span>
+          </div>
+
+          <div class="select-box me-2 mb-2">
+            <select class="form-control custom-width">
+              <option value="" disabled selected>Chuyên ngành</option>
+            </select>
+            <i class="bi bi-chevron-down select-arrow"></i>
+          </div>
+
+          <div class="select-box me-2 mb-2">
+            <select class="form-control custom-width">
+              <option value="" disabled selected>Khóa học</option>
+            </select>
+            <i class="bi bi-chevron-down select-arrow"></i>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="button-add"
+          (click)="onLoadCreateClass(createClass)"
+        >
+          <i class="bi bi-plus icon-add"></i>
+          Thêm mới lớp
+        </button>
+      </div>
+
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-success">Kết xuất</button>
+      </div>
+      <table class="table table-striped mt-3 custom-bordered">
+        <thead class="custom-header">
+          <tr>
+            <th style="text-align: center">STT</th>
+            <th>Mã lớp</th>
+            <th>Tên lớp</th>
+            <th>Tên chuyên ngành</th>
+            <th>Khóa học</th>
+            <th>Cập nhật lần cuối</th>
+            <th>Tác vụ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center">1</td>
+            <td>125211</td>
+            <td>SEK19.1</td>
+            <td>Kỹ thuật phần mềm</td>
+            <td>2021 - 2025</td>
+            <td>27/04/2025</td>
+            <td>
+              <div class="d-flex align-items-center gap-4">
+                <button
+                  class="button-action btn-download btn btn-sm"
+                  placement="top"
+                  ngbTooltip="Chỉnh sửa"
+                  (click)="onLoadCreateClass(createClass)"
+                >
+                  <i i-bs name="pencil-square" class="p-0"></i>
+                </button>
+
+                <button
+                  class="button-action btn-download btn btn-sm"
+                  placement="top"
+                  ngbTooltip="Xóa lớp"
+                  (click)="onDeleteClass(deleteClass)"
+                >
+                  <i i-bs name="trash-fill" class="p-0"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination-container mt-3">
+      <!-- <ngb-pagination
+        [collectionSize]="filteredData.length"
+        [pageSize]="pageSize"
+        (pageChange)="onPageChange($event)"
+      ></ngb-pagination> -->
+    </div>
+  </div>
+</div>
+
+<ng-template #createClass let-modal>
+  <form #myForm="ngForm">
+    <div class="modal-header">
+      <h5 class="mb-0 modal-title">Thêm mới lớp</h5>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="d-flex align-items-center gap-5" style="margin-bottom: 20px">
+        <div class="form-group w-50">
+          <label for="" class="form-label">Khoa</label>
+          <select class="form-select" aria-label="Select example">
+            <option disabled selected>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+
+        <div class="form-group w-50">
+          <label for="" class="form-label">Chuyên ngành</label>
+          <select class="form-select" aria-label="Select example">
+            <option disabled selected>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="d-flex align-items-center gap-5" style="margin-bottom: 20px">
+        <div class="form-group w-50">
+          <label for="" class="form-label">Mã lớp</label>
+          <input
+            type="text"
+            id=""
+            name=""
+            class="form-control"
+            placeholder=""
+          />
+        </div>
+
+        <div class="form-group w-50">
+          <label for="" class="form-label">Tên lớp</label>
+          <input
+            type="text"
+            id=""
+            name=""
+            class="form-control"
+            placeholder=""
+          />
+        </div>
+      </div>
+
+      <div class="form-group w-100">
+        <label for="departmentDes" class="form-label">Mô tả chuyên ngành</label>
+        <angular-editor
+          id="departmentDes"
+          [config]="editorConfig"
+        ></angular-editor>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="reset"
+        id="kt_modal_update_customer_cancel"
+        class="btn btn-light me-3"
+        (click)="modal.dismiss('cancel')"
+      >
+        Hủy
+      </button>
+
+      <button
+        type="submit"
+        id="kt_modal_update_customer_submit"
+        class="btn btn-primary"
+        [attr.data-kt-indicator]="isLoading ? 'on' : 'off'"
+      >
+        <span class="indicator-label"> Xác nhận </span>
+        <span class="indicator-progress">
+          Please wait...
+          <span
+            class="spinner-border spinner-border-sm align-middle ms-2"
+          ></span>
+        </span>
+      </button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #deleteClass let-modal>
+  <form #myForm="ngForm">
+    <div class="modal-header">
+      <h5 class="mb-0 modal-title">Xóa chuyên ngành</h5>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body text-center">
+      <h4>Bạn chắc chắn muốn xóa chuyên ngành abc?</h4>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="reset"
+        id="kt_modal_update_customer_cancel"
+        class="btn btn-light me-3"
+        (click)="modal.dismiss('cancel')"
+      >
+        Hủy
+      </button>
+
+      <button
+        type="submit"
+        id="kt_modal_update_customer_submit"
+        class="btn btn-danger"
+        [attr.data-kt-indicator]="isLoading ? 'on' : 'off'"
+      >
+        <span class="indicator-label"> Xóa </span>
+        <span class="indicator-progress">
+          Please wait...
+          <span
+            class="spinner-border spinner-border-sm align-middle ms-2"
+          ></span>
+        </span>
+      </button>
+    </div>
+  </form>
+</ng-template>

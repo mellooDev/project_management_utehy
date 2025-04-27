@@ -45,6 +45,8 @@
             <th>Tên đề tài</th>
             <th>Tên giảng viên</th>
             <th>Email</th>
+            <th>Số điện thoại</th>
+            <th>Mô tả</th>
             <th>Số lượng sinh viên đã đăng ký</th>
             <th>Tác vụ</th>
           </tr>
@@ -55,12 +57,14 @@
             <td>đề tài abc</td>
             <td>Vũ Xuân T</td>
             <td>vuxuanthangutehygmail.com</td>
+            <td>0987654321</td>
+            <td>abcabcabacc</td>
             <td>1/10</td>
             <td>
               <p-dropdown
                 [options]="actions"
                 optionLabel="name"
-                placeholder="Chọn trạng thái"
+                placeholder="Chọn tác vụ"
                 [(ngModel)]="selectedAction"
                 (onChange)="handleActionChange($event)"
               />

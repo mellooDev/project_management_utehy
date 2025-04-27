@@ -26,6 +26,7 @@
             <th>Tên sinh viên</th>
             <th>Mã lớp</th>
             <th>Tên đề tài</th>
+            <th>Trạng thái</th>
             <th>Tác vụ</th>
           </tr>
         </thead>
@@ -37,6 +38,9 @@
             <td>mô tả abc</td>
             <td>Nguyễn Văn A</td>
             <td>Vũ Xuân T</td>
+            <td>
+              <span class="badge badge-warning">Đang chờ duyệt</span>
+            </td>
             <td>
               <div class="d-flex gap-3 align-items-center">
                 <button
@@ -75,7 +79,7 @@
 <ng-template #viewDetailModal let-modal>
   <form #myForm="ngForm">
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Thông tin đề tài abc</h4>
+      <h4 class="modal-title" id="modal-basic-title">Thông tin đề tài abc của sinh viên abc - Mã sinh viên abc</h4>
       <button
         type="button"
         class="btn-close"
@@ -109,11 +113,22 @@
       </div>
 
       <div class="form-group mb-3">
-        <label for="templateContent" class="form-label">Nội dung đề tài</label>
+        <label for="templateContent" class="form-label">Mô tả đề tài</label>
         <angular-editor
           id="templateContent"
           [config]="editorConfig"
         ></angular-editor>
+      </div>
+
+      <div class="w-50">
+        <label for="" class="form-label">Link mô tả</label>
+        <input
+          type="text"
+          id=""
+          name=""
+          class="form-control"
+          placeholder=""
+        />
       </div>
     </div>
 

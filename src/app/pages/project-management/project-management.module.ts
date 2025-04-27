@@ -16,6 +16,7 @@ import { ProjectManagementComponent } from './project-management.component';
 import { RegisterProjectComponent } from './register-project/register-project.component';
 import { RippleModule } from 'primeng/ripple';
 import { DropdownModule } from 'primeng/dropdown';
+import { FileUploadModule } from 'primeng/fileupload';
 
 
 
@@ -45,6 +46,7 @@ import { DropdownModule } from 'primeng/dropdown';
     FormsModule, // Thêm FormsModule ở đây
     NgbPaginationModule,
     MatDialogModule,
+    FileUploadModule,
     InputSwitchModule,
     NgbRatingModule,
     DropdownModule,

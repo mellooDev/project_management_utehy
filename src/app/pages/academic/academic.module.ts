@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NgbDropdownModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbModule, NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { allIcons, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons'
@@ -23,13 +23,20 @@ import { TableModule } from 'primeng/table';
 import { RippleModule } from 'primeng/ripple';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
-import { ReportResultsManagementComponent } from './report-results-management.component';
-import { FileUploadModule } from 'primeng/fileupload';
+import { DepartmentManagementComponent } from './department-management/department-management.component';
+import { MajorManagementComponent } from './major-management/major-management.component';
+import { ClassManagementComponent } from './class-management/class-management.component';
+import { LecturerManagementComponent } from './lecturer-management/lecturer-management.component';
+import { StudentManagementComponent } from './student-management/student-management.component';
 
 
 @NgModule({
   declarations: [
-    ReportResultsManagementComponent,
+    DepartmentManagementComponent,
+    MajorManagementComponent,
+    ClassManagementComponent,
+    LecturerManagementComponent,
+    StudentManagementComponent
   ],
   imports: [
     CommonModule,
@@ -38,8 +45,24 @@ import { FileUploadModule } from 'primeng/fileupload';
 
     RouterModule.forChild([
       {
-        path: '',
-        component: ReportResultsManagementComponent,
+        path: 'class-management',
+        component: ClassManagementComponent,
+      },
+      {
+        path: 'major-management',
+        component: MajorManagementComponent,
+      },
+      {
+        path: 'department-management',
+        component: DepartmentManagementComponent,
+      },
+      {
+        path: 'lecturer-management',
+        component: LecturerManagementComponent,
+      },
+      {
+        path: 'student-management',
+        component: StudentManagementComponent,
       },
 
     ]),
@@ -48,8 +71,8 @@ import { FileUploadModule } from 'primeng/fileupload';
     TableModule,
     FormsModule, // Thêm FormsModule ở đây
     NgbPaginationModule,
-    FileUploadModule,
     ButtonModule,
+    NgbTooltipModule,
     MatDialogModule,
     ToggleButtonModule,
     DividerModule,
@@ -69,4 +92,4 @@ import { FileUploadModule } from 'primeng/fileupload';
     CheckboxModule
   ],
 })
-export class ReportResultsManagementModule { }
+export class AcademicModule { }

@@ -1,7 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from 'primeng/api';
+import { FileUploadEvent } from 'primeng/fileupload';
+
+interface UploadEvent {
+  originalEvent: Event;
+  files: File[];
+}
 
 @Component({
   selector: 'app-register-project',
@@ -43,17 +50,39 @@ export class RegisterProjectComponent {
     ],
   };
 
-  constructor(private messageService: MessageService, private router: Router) {}
+  constructor(private messageService: MessageService, private router: Router, private modalService: NgbModal) {}
 
-  ngOnInit() {
+  ngOnInit() {}
 
+  showNotification(
+    severity: string,
+    summary: string,
+    detail: string,
+    lifetime: number
+  ) {
+    this.messageService.add({
+      severity: severity,
+      summary: summary,
+      detail: detail,
+      life: lifetime,
+    });
   }
 
-  showNotification(severity: string, summary: string, detail: string, lifetime: number) {
-    this.messageService.add({ severity: severity, summary: summary, detail: detail, life: lifetime })
+  onLoadFormConfirm(content: TemplateRef<any>) {
+    this.modalService.open(content, {
+      centered: true,
+    })
   }
 
   onSubmit() {
-    this.showNotification("success", 'abc', 'def', 300000)
+    this.showNotification('success', 'abc', 'def', 300000);
+  }
+
+  onBasicUploadAuto(event: FileUploadEvent) {
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Success',
+      detail: 'File Uploaded with Auto Mode',
+    });
   }
 }
