@@ -1,7 +1,12 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, TemplateRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from 'primeng/api';
+
+interface City {
+  name: string;
+  code: string;
+}
 
 @Component({
   selector: 'app-lecturer-project-management',
@@ -9,9 +14,28 @@ import { MessageService } from 'primeng/api';
   styleUrl: './lecturer-project-management.component.scss',
   providers: [MessageService],
 })
-export class LecturerProjectManagementComponent {
+export class LecturerProjectManagementComponent implements OnInit {
   isLoading: any;
-  constructor(private router: Router, private modalService: NgbModal, private messageService: MessageService) {}
+
+  cities!: City[];
+
+  selectedCities!: City[];
+
+  constructor(
+    private router: Router,
+    private modalService: NgbModal,
+    private messageService: MessageService
+  ) {}
+
+  ngOnInit(): void {
+    this.cities = [
+      { name: 'New York', code: 'NY' },
+      { name: 'Rome', code: 'RM' },
+      { name: 'London', code: 'LDN' },
+      { name: 'Istanbul', code: 'IST' },
+      { name: 'Paris', code: 'PRS' },
+    ];
+  }
 
   onLoadFormRegister() {
     this.router.navigate(['/lecturer-project-management/create-topic']);
@@ -20,12 +44,13 @@ export class LecturerProjectManagementComponent {
   onLoadFormDelete(content: TemplateRef<any>) {
     this.modalService.open(content, {
       centered: true,
-    })
+    });
   }
 
   onLoadFormUpdate(content: TemplateRef<any>) {
     this.modalService.open(content, {
       centered: true,
-    })
+      size: 'lg',
+    });
   }
 }

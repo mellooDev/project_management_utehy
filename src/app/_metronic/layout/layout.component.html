@@ -2,16 +2,29 @@
 <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
   <!--begin::Page-->
   <div class="app-page flex-column flex-column-fluid" id="kt_app_page" >
-    <ng-container *ngIf="!isLogin">
+    <ng-container *ngIf="isLogin">
       <app-header style="background: white" [ngClass]="appHeaderDefaultClass"  [ngClass]="isLogin ? 'justify-left' : 'justify-content-between align-items-center'" id="kt_app_header" class="app-header" data-kt-sticky="true" data-kt-sticky-activate="{default: true, lg: true}" data-kt-sticky-name="app-header-minimize" data-kt-sticky-offset="{default: '200px', lg: '0'}" data-kt-sticky-animation="false">
       </app-header>
+    </ng-container>
+    <ng-container *ngIf="!isLogin">
+      <app-header-menu class="
+      menu
+      menu-rounded
+      menu-column
+      menu-lg-row
+      my-5
+      my-lg-0
+      fw-semibold
+      px-2 px-lg-0
+      w-full
+  " id="kt_app_header_menu" data-kt-menu="true"></app-header-menu>
     </ng-container>
     <!--begin::Wrapper -->
     <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
 
 <!--      <ng-container *ngIf="appSidebarDisplay">-->
 <!--        &lt;!&ndash;begin::sidebar&ndash;&gt;-->
-        <app-sidebar #ktSidebar id="kt_app_sidebar" class="app-sidebar flex-column" [ngClass]="appSidebarDefaultClass" *ngIf="!isLogin" >
+        <app-sidebar #ktSidebar id="kt_app_sidebar" class="app-sidebar flex-column" [ngClass]="appSidebarDefaultClass" *ngIf="isLogin" >
         </app-sidebar>
 <!--        &lt;!&ndash;end::sidebar&ndash;&gt;-->
 <!--      </ng-container>-->
@@ -29,14 +42,14 @@
 <!--          </ng-container>-->
           <app-content id=" kt_app_content" class="app-content"  [ngClass]="contentCSSClasses"
             [contentContainerCSSClass]="contentContainerCSSClass" [appContentContiner]="appContentContiner"
-            [appContentContainerClass]="appContentContainerClass" style="width: 100%;">
+            [appContentContainerClass]="appContentContainerClass" style="width: 100%; background-color: #f6f6f6;">
           </app-content>
 
         </div>
         <!--end::Content wrapper-->
         <ng-container *ngIf="appFooterDisplay">
-          <app-footer [ngClass]="appFooterCSSClass" id="kt_app_footer"
-            [appFooterContainerCSSClass]="appFooterContainerCSSClass"></app-footer>
+          <!-- <app-footer [ngClass]="appFooterCSSClass" id="kt_app_footer"
+            [appFooterContainerCSSClass]="appFooterContainerCSSClass"></app-footer> -->
         </ng-container>
       </div>
       <!--end:::Main-->

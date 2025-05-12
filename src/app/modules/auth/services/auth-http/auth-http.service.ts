@@ -14,8 +14,8 @@ const API_USERS_URL = `${environment.apiUrl}/user/profile`;
 
 
 export interface LoginRequest {
-  email?: string | null,
-  username?: string | null,
+  usernameOrEmail?: string | null,
+  // username?: string | null,
   password?: string | null
 }
 
@@ -145,7 +145,8 @@ export class AuthHTTPService {
   }
 
   doLogin(loginRequest: LoginRequest): Observable<any> {
-    const url = environment.authen +'/customer/login';
+    // const url = environment.authen +'/customer/login';
+    const url = 'http://localhost:8096/api' +'/auth/login';
     return this.http.post<any>(url,loginRequest);
   }
 

@@ -6,8 +6,8 @@
   <div class="menu menu-column menu-rounded menu-sub-indention fw-semibold fs-6" id="#kt_app_sidebar_menu"
     data-kt-menu="true" data-kt-menu-expand="false">
     <!-- Dashboard -->
-    <div class="menu-item">
-      <a class="menu-link without-sub" routerLink="/marketplace" routerLinkActive="active">
+    <div class="menu-item" style="display: none;">
+      <a class="menu-link without-sub" routerLink="/home" routerLinkActive="active">
         <span class="menu-icon">
           <app-keenicon name="shop" class="fs-2"></app-keenicon>
         </span>
@@ -15,16 +15,8 @@
       </a>
     </div>
 
-    <div class="menu-item">
-      <a class="menu-link without-sub" routerLink="/project-management" routerLinkActive="active">
-        <span class="menu-icon">
-          <app-keenicon name="shop" class="fs-2"></app-keenicon>
-        </span>
-        <span class="menu-title" translate="MENU.PROJECT_MANAGEMENT"></span>
-      </a>
-    </div>
 
-    <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click">
+    <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click" *ngIf="role !== 'admin'">
       <a href="#" class="menu-link py-3">
         <span class="menu-icon">
           <app-keenicon name="abstract-26" class="fs-2"></app-keenicon>
@@ -36,7 +28,7 @@
       <div class="menu-sub menu-sub-accordion pt-3">
 
         <!-- Danh sách đề tài -->
-        <div class="menu-item" >
+        <div class="menu-item" *ngIf="role === 'student'">
           <a class="menu-link without-sub" routerLink="/project-management" routerLinkActive="active">
             <span class="menu-icon">
               <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
@@ -45,7 +37,7 @@
           </a>
         </div>
 
-        <div class="menu-item" >
+        <div class="menu-item" *ngIf="role === 'lecturer'">
           <a class="menu-link without-sub" routerLink="/lecturer-project-management" routerLinkActive="active">
             <span class="menu-icon">
               <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
@@ -54,18 +46,8 @@
           </a>
         </div>
 
-        <!-- Quản lý bảo vệ đồ án -->
-        <div class="menu-item" >
-          <a class="menu-link without-sub" routerLink="/project-management" routerLinkActive="active">
-            <span class="menu-icon">
-              <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
-            </span>
-            <span class="menu-title" translate="MENU.DEFENSE_PROJECT_MANAGEMENT"></span>
-          </a>
-        </div>
-
         <!-- sinh viên báo cáo -->
-        <div class="menu-item" >
+        <div class="menu-item"  *ngIf="role === 'student'">
           <a class="menu-link without-sub" routerLink="/report-results" routerLinkActive="active">
             <span class="menu-icon">
               <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
@@ -75,7 +57,7 @@
         </div>
 
         <!-- xem giảng viên phản biện và hội đồng -->
-        <div class="menu-item" >
+        <div class="menu-item" *ngIf="role === 'student'">
           <a class="menu-link without-sub" routerLink="/view-council" routerLinkActive="active">
             <span class="menu-icon">
               <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
@@ -85,7 +67,7 @@
         </div>
 
         <!-- giảng viên đánh giá, nhận xét báo cáo -->
-        <div class="menu-item" >
+        <div class="menu-item" *ngIf="role === 'lecturer'">
           <a class="menu-link without-sub" routerLink="/review-project-management" routerLinkActive="active">
             <span class="menu-icon">
               <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
@@ -95,7 +77,7 @@
         </div>
 
         <!-- Quản lý đợt làm đồ án -->
-        <div class="menu-item" >
+        <div class="menu-item" *ngIf="role === 'dean'">
           <a class="menu-link without-sub" routerLink="/project-session-management" routerLinkActive="active">
             <span class="menu-icon">
               <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
@@ -105,7 +87,7 @@
         </div>
 
         <!-- Quản lý hội đồng bảo vệ đồ án -->
-        <div class="menu-item" >
+        <div class="menu-item" *ngIf="role === 'dean'">
           <a class="menu-link without-sub" routerLink="/council-defense-management" routerLinkActive="active">
             <span class="menu-icon">
               <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
@@ -115,7 +97,7 @@
         </div>
 
         <!-- Quản lý hội đồng bảo vệ đồ án (tốt nghiệp) -->
-        <div class="menu-item" >
+        <div class="menu-item" *ngIf="role === 'lecturer'">
           <a class="menu-link without-sub" routerLink="/council-graduation-defense-management" routerLinkActive="active">
             <span class="menu-icon">
               <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
@@ -125,7 +107,7 @@
         </div>
 
         <!-- Quản lý quy trình hướng dẫn -->
-        <div class="menu-item" >
+        <div class="menu-item" *ngIf="role === 'dean'">
           <a class="menu-link without-sub" routerLink="/instruction-management" routerLinkActive="active">
             <span class="menu-icon">
               <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
@@ -149,7 +131,7 @@
     </div>
 
     <!-- Quản lý duyệt đồ án -->
-    <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click">
+    <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click" *ngIf="role !== 'student' && role !== 'admin'">
       <a href="#" class="menu-link py-3">
         <span class="menu-icon">
           <app-keenicon name="abstract-26" class="fs-2"></app-keenicon>
@@ -161,7 +143,7 @@
       <div class="menu-sub menu-sub-accordion pt-3">
 
         <!-- Phê duyệt đồ án của sinh viên -->
-        <div class="menu-item" >
+        <div class="menu-item" *ngIf="role === 'lecturer'">
           <a class="menu-link without-sub" routerLink="/lecturer-approve-project" routerLinkActive="active">
             <span class="menu-icon">
               <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
@@ -171,7 +153,7 @@
         </div>
 
         <!-- Phê duyệt đồ án -->
-        <div class="menu-item" >
+        <div class="menu-item" *ngIf="role === 'dean'">
           <a class="menu-link without-sub" routerLink="/project-management" routerLinkActive="active">
             <span class="menu-icon">
               <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
@@ -186,7 +168,7 @@
 
 
     <!-- Quản lý hệ thống -->
-    <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click">
+    <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click" *ngIf="role === 'admin'">
       <a href="#" class="menu-link py-3">
         <span class="menu-icon">
           <app-keenicon name="abstract-26" class="fs-2"></app-keenicon>
@@ -221,7 +203,7 @@
       <!--end::Menu sub-->
     </div>
 
-    <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click">
+    <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click" *ngIf="role === 'admin'">
       <a href="#" class="menu-link py-3">
         <span class="menu-icon">
           <app-keenicon name="abstract-26" class="fs-2"></app-keenicon>
@@ -272,7 +254,6 @@
           </a>
         </div>
 
-        <!-- Quản lý sinh viên -->
         <div class="menu-item" >
           <a class="menu-link without-sub" routerLink="/academic/student-management" routerLinkActive="active">
             <span class="menu-icon">
@@ -283,11 +264,10 @@
         </div>
 
       </div>
-      <!--end::Menu sub-->
     </div>
 
 
-    <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click">
+    <!-- <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click">
       <a href="#" class="menu-link py-3">
         <span class="menu-icon">
           <app-keenicon name="abstract-26" class="fs-2"></app-keenicon>
@@ -295,9 +275,7 @@
         <span class="menu-title" translate="MENU.DATA_MNGT"></span>
         <span class="menu-arrow"></span>
       </a>
-      <!--begin::Menu sub-->
       <div class="menu-sub menu-sub-accordion pt-3">
-        <!-- Sản phẩm -->
         <div class="menu-item" >
           <a class="menu-link without-sub" routerLink="/product-provider" routerLinkActive="active">
             <span class="menu-icon">
@@ -316,7 +294,6 @@
           </a>
         </div>
 
-        <!-- Quản lý dữ liệu đã mua -->
         <div class="menu-item">
           <a class="menu-link without-sub" routerLink="/buyed" routerLinkActive="active">
             <span class="menu-icon">
@@ -327,10 +304,9 @@
         </div>
 
       </div>
-      <!--end::Menu sub-->
-    </div>
+    </div> -->
     <!--end::Menu item-->
-    <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click">
+    <!-- <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click">
       <a href="#" class="menu-link py-3">
         <span class="menu-icon">
           <app-keenicon name="switch" class="fs-2"></app-keenicon>
@@ -338,9 +314,7 @@
         <span class="menu-title" translate="MENU.WAREHOUSE_MNGT"></span>
         <span class="menu-arrow"></span>
       </a>
-      <!--begin::Menu sub-->
       <div class="menu-sub menu-sub-accordion pt-3">
-        <!--Đồng bộ dữ liệu -->
         <div class="menu-item" >
           <a class="menu-link without-sub" routerLink="/ingest" routerLinkActive="active">
             <span class="menu-icon">
@@ -349,12 +323,10 @@
             <span class="menu-title" translate="MENU.INGEST_MNGT"></span>
           </a>
         </div>
-        <!--end::Menu item-->
       </div>
-      <!--end::Menu sub-->
-    </div>
+    </div> -->
 
-    <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click" >
+    <!-- <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click" >
       <a href="#" class="menu-link py-3">
         <span class="menu-icon">
           <app-keenicon name="switch" class="fs-2"></app-keenicon>
@@ -363,9 +335,7 @@
         <span class="menu-arrow"></span>
       </a>
 
-      <!--begin::Menu sub-->
       <div class="menu-sub menu-sub-accordion pt-3">
-        <!--Quản lý người dùng hệ thống -->
         <div class="menu-item">
           <a class="menu-link without-sub" routerLink="/users/user-list" routerLinkActive="active">
             <span class="menu-icon">
@@ -375,11 +345,9 @@
           </a>
         </div>
       </div>
-      <!--end::Menu sub-->
 
-      <!--begin::Menu sub-->
+
       <div class="menu-sub menu-sub-accordion pt-3">
-        <!--Đồng bộ dữ liệu -->
         <div class="menu-item" >
           <a class="menu-link without-sub" routerLink="/approve-seller" routerLinkActive="active">
             <span class="menu-icon">
@@ -389,11 +357,8 @@
           </a>
         </div>
       </div>
-      <!--end::Menu sub-->
 
-      <!--begin::Menu sub-->
       <div class="menu-sub menu-sub-accordion pt-3">
-        <!--Đồng bộ dữ liệu -->
         <div class="menu-item" >
           <a class="menu-link without-sub" routerLink="/users/user-postpaid" routerLinkActive="active">
             <span class="menu-icon">
@@ -403,23 +368,21 @@
           </a>
         </div>
       </div>
-      <!--end::Menu sub-->
-    </div>
+    </div> -->
 
 
     <!--end::Menu item-->
 
-    <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click">
+    <!-- <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click">
       <a href="#" class="menu-link py-3">
         <span class="menu-icon">
           <app-keenicon name="gear" class="fs-2"></app-keenicon>
         </span>
         <span class="menu-title" translate="MENU.TOOLS"></span>
         <span class="menu-arrow"></span>
-      </a>
+      </a> -->
       <!--begin::Menu sub-->
-      <div class="menu-sub menu-sub-accordion pt-3">
-        <!--Quản lý dữ liệu -->
+      <!-- <div class="menu-sub menu-sub-accordion pt-3">
         <div class="menu-item">
           <a class="menu-link without-sub" routerLink="/data-management" routerLinkActive="active">
             <span class="menu-icon">
@@ -437,51 +400,50 @@
             <span class="menu-title" translate="MENU.FILE"></span>
           </a>
         </div>
-        <!--end::Menu sub-->
-      </div>
+      </div> -->
       <!--     -->
 
       <!-- Quản lý Worksheet -->
-      <div class="menu-item">
+      <!-- <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/worksheet/worksheet-list" routerLinkActive="active">
           <span class="menu-icon">
             <app-keenicon name="parcel" class="fs-2"></app-keenicon>
           </span>
           <span class="menu-title" translate="MENU.WORKSHEET_MNGT"></span>
         </a>
-      </div>
+      </div> -->
 
 
       <!-- Quản lý warehouse -->
-      <div class="menu-item">
+      <!-- <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/warehouse-management" routerLinkActive="active">
           <span class="menu-icon">
             <app-keenicon name="parcel" class="fs-2"></app-keenicon>
           </span>
           <span class="menu-title" translate="MENU.WAREHOUSE"></span>
         </a>
-      </div>
+      </div> -->
 
       <!-- Lịch sử giao dịch -->
-      <div class="menu-item">
+      <!-- <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/history" routerLinkActive="active">
           <span class="menu-icon">
             <app-keenicon name="cheque" class="fs-2"></app-keenicon>
           </span>
           <span class="menu-title" translate="MENU.HISTORY"></span>
         </a>
-      </div>
+      </div> -->
 
-      <div class="menu-item">
+      <!-- <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/statistic-chart" routerLinkActive="active">
           <span class="menu-icon">
             <app-keenicon name="financial-schedule" class="fs-2"></app-keenicon>
           </span>
           <span class="menu-title" translate="MENU.STATISTIC"></span>
         </a>
-      </div>
+      </div> -->
 
-      <div class="menu-item" >
+      <div class="menu-item" *ngIf="role === 'admin'" >
         <a class="menu-link without-sub" routerLink="/email-template-management" routerLinkActive="active">
           <span class="menu-icon">
             <app-keenicon name="folder" class="fs-2"></app-keenicon>

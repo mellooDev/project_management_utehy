@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   hasError: boolean;
   messageError: string;
-  returnUrl: string = '/marketplace'; // Đường dẫn mặc định nếu không có returnUrl
+  returnUrl: string = '/home'; // Đường dẫn mặc định nếu không có returnUrl
   isLoading$: Observable<boolean>;
   loginRequest: LoginRequest = {};
   email: string;
@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
        // Lấy giá trị returnUrl từ query params
        this.route.queryParams.subscribe(params => {
-        this.returnUrl = params['returnUrl'] || 'marketplace';
+        this.returnUrl = params['returnUrl'] || 'home';
       });
 
     const token = this.route.snapshot.queryParamMap.get('token');
@@ -156,22 +156,22 @@ export class LoginComponent implements OnInit, OnDestroy {
         : '';
     }
 
-    if (field === 'dataPasswordLogin') {
+    // if (field === 'dataPasswordLogin') {
 
-      const passwordPattern =
-        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+    //   const passwordPattern =
+    //     /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+]{8,}$/;
 
-      const invalidPass =
-        !this.dataPasswordLogin || !passwordPattern.test(this.dataPasswordLogin);
+    //   const invalidPass =
+    //     !this.dataPasswordLogin || !passwordPattern.test(this.dataPasswordLogin);
 
-      this.isDataPasswordInvalid = invalidPass;
+    //   this.isDataPasswordInvalid = invalidPass;
 
-      this.errorLoginMessage.dataPasswordLogin = invalidPass
-        ? this.dataPasswordLogin.length === 0
-          ? 'Vui lòng nhập Password'
-          : 'Mật khẩu phải bao gồm số, chữ hoa, chữ thường và ký tự đặc biệt.'
-        : '';
-    }
+    //   this.errorLoginMessage.dataPasswordLogin = invalidPass
+    //     ? this.dataPasswordLogin.length === 0
+    //       ? 'Vui lòng nhập Password'
+    //       : 'Mật khẩu phải bao gồm số, chữ hoa, chữ thường và ký tự đặc biệt.'
+    //     : '';
+    // }
   }
 
   // Sự kiện khi reCAPTCHA được xác nhận
@@ -196,52 +196,52 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   submit() {
 
-    this.router.navigate(['/marketplace']);
+    // this.router.navigate(['/marketplace']);
 
 
-  //   this.onInputChange('dataEmailLogin');  // Kiểm tra validate email
-  // this.onInputChange('dataPasswordLogin');  // Kiểm tra validate password
+    this.onInputChange('dataEmailLogin');  // Kiểm tra validate email
+  this.onInputChange('dataPasswordLogin');  // Kiểm tra validate password
 
-  // // Nếu có lỗi validate thì không thực hiện submit
-  // if (this.isDataEmailInvalid || this.isDataPasswordInvalid) {
-  //   console.log('Form không hợp lệ');
-  //   return;
-  // }
-  //   this.hasError = false;
+  // Nếu có lỗi validate thì không thực hiện submit
+  if (this.isDataEmailInvalid || this.isDataPasswordInvalid) {
+    console.log('Form không hợp lệ');
+    return;
+  }
+    this.hasError = false;
 
-  //   this.loginRequest.email = this.f.email.value.trim();
-  //   this.loginRequest.password = this.f.password.value
-  //   this.authService.login(this.loginRequest).subscribe((resq: any) => {
-  //     if (resq) {
-  //       if(resq.error){
-  //         console.log(resq.error);
-  //         this.hasError = true;
-  //         this.messageError = resq.error.message;
-  //         return;
-  //       }
-  //       // this.router.navigateByUrl(this.returnUrl);
-  //      // this.router.navigate(['/marketplace']);
-  //      // window.location.reload();
-  //       // Đọc URL trước đó
-  //      // const redirectUrl = localStorage.getItem('redirectUrl') || '/';
-  //       // console.log('login redirectUrl',redirectUrl);
+    this.loginRequest.usernameOrEmail = this.f.email.value.trim();
+    this.loginRequest.password = this.f.password.value
+    this.authService.login(this.loginRequest).subscribe((resq: any) => {
+      if (resq) {
+        if(resq.error){
+          console.log(resq.error);
+          this.hasError = true;
+          this.messageError = resq.error.message;
+          return;
+        }
+      //   this.router.navigateByUrl(this.returnUrl);
+      //  this.router.navigate(['/marketplace']);
+      //  window.location.reload();
+        // Đọc URL trước đó
+       // const redirectUrl = localStorage.getItem('redirectUrl') || '/';
+        // console.log('login redirectUrl',redirectUrl);
 
-  //     //  localStorage.removeItem('redirectUrl'); // Xóa URL đã lưu
+      //  localStorage.removeItem('redirectUrl'); // Xóa URL đã lưu
 
-  //       // Điều hướng
-  //     //  this.router.navigateByUrl(redirectUrl);
-  //     // this.router.navigateByUrl(this.returnUrl);
-  //        this.router.navigateByUrl(this.returnUrl).then(() => {
-  //         // Reload current route
-  //         this.router.navigate([this.router.url]);
-  //         window.location.reload();
-  //       });
-  //     //  window.location.reload();
-  //     } else {
-  //       console.log('login fail');
-  //       this.hasError = true;
-  //     }
-  //   })
+        // Điều hướng
+      //  this.router.navigateByUrl(redirectUrl);
+      // this.router.navigateByUrl(this.returnUrl);
+         this.router.navigateByUrl(this.returnUrl).then(() => {
+          // Reload current route
+          this.router.navigate([this.router.url]);
+          window.location.reload();
+        });
+      //  window.location.reload();
+      } else {
+        console.log('login fail');
+        this.hasError = true;
+      }
+    })
 
   }
 

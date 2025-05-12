@@ -9,6 +9,7 @@ import {AuthHTTPService} from "../../../../../modules/auth/services/auth-http";
 })
 export class SidebarMenuComponent implements OnInit {
 
+  role: any;
   constructor(private authService: AuthHTTPService,
               private cdr: ChangeDetectorRef) { }
 
@@ -19,6 +20,8 @@ export class SidebarMenuComponent implements OnInit {
     this.authService.getUserByToken(token).subscribe(res => {
       if(res) {
         this.groupdId = res.group_id
+        this.role = res.role_name;
+        console.log('role: ', this.role);
       }
       this.cdr.detectChanges()
     }, error => {

@@ -6,7 +6,7 @@
   <div class="card-body pt-0" >
     <div class="mt-4">
       <div class="search-container mt-4">
-        <div class="d-flex">
+        <div class="d-flex gap-4">
           <div class="input-group me-2 mb-2">
             <input type="text" class="form-control" placeholder="Tên đề tài"/>
             <span class="input-group-text" style="cursor: pointer;">
@@ -14,13 +14,14 @@
             </span>
           </div>
 
-
-          <div class="select-box me-2 mb-2">
-            <select class="form-control custom-width">
-              <option value="" disabled selected>Tên đợt</option>
-            </select>
-            <i class="bi bi-chevron-down select-arrow"></i>
-          </div>
+          <!-- <p-multiSelect
+            [options]="cities"
+            [(ngModel)]="selectedCities"
+            placeholder="Select city"
+            optionLabel="name"
+            display="chip"
+            [showClear]="true"
+          /> -->
 
           <div class="select-box me-2 mb-2">
             <select class="form-control custom-width">
@@ -82,7 +83,7 @@
 <ng-template #updateProject let-modal>
   <form #myForm="ngForm">
     <div class="modal-header">
-      <h5 class="mb-0 modal-title">Xóa đề xuất đề tài</h5>
+      <h5 class="mb-0 modal-title">Cập nhật tên đề tài</h5>
       <button
         type="button"
         class="btn-close"
@@ -91,7 +92,7 @@
       ></button>
     </div>
     <div class="modal-body text-center">
-      <div class="d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center justify-content-between gap-4">
         <div class="form-group w-50 mb-3">
           <label for="" class="form-label">Mã đề tài</label>
           <input
@@ -100,6 +101,7 @@
             name=""
             class="form-control"
             placeholder=""
+            disabled
           />
         </div>
 
@@ -128,10 +130,10 @@
       <button
         type="submit"
         id="kt_modal_update_customer_submit"
-        class="btn btn-danger"
+        class="btn btn-primary"
         [attr.data-kt-indicator]="isLoading ? 'on' : 'off'"
       >
-        <span class="indicator-label"> Xóa </span>
+        <span class="indicator-label"> Cập nhật </span>
         <span class="indicator-progress">
           Please wait...
           <span

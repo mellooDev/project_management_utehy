@@ -78,6 +78,13 @@ export class LecturerApproveProjectComponent {
     });
   }
 
+  onLoadFormUpdate(content: TemplateRef<any>) {
+    this.modalService.open(content, {
+      centered: true,
+      size: 'lg',
+    });
+  }
+
   onSubmit(event: Event, myForm: NgForm) {
     event.preventDefault();
     this.isLoading = true;

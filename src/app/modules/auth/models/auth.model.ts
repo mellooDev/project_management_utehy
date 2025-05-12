@@ -13,10 +13,10 @@ export class AuthModel {
 export class AuthenModel {
   // code: string;
   // desc: string;
-  data: Token;
+  token: Token;
   // id:number;
   // token: string;
-  
+
 }
 export class Token{
   token: string;

@@ -56,6 +56,7 @@
                   class="button-action btn-download btn btn-sm"
                   placement="top"
                   ngbTooltip="Chỉnh sửa đề tài"
+                  (click)="onLoadFormUpdate(updateProject)"
                 >
                   <i i-bs name="pencil-square"></i>
                 </button>
@@ -219,6 +220,71 @@
         [attr.data-kt-indicator]="isLoading ? 'on' : 'off'"
       >
         <span class="indicator-label"> Xác nhận </span>
+        <span class="indicator-progress">
+          Please wait...
+          <span
+            class="spinner-border spinner-border-sm align-middle ms-2"
+          ></span>
+        </span>
+      </button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #updateProject let-modal>
+  <form #myForm="ngForm">
+    <div class="modal-header">
+      <h5 class="mb-0 modal-title">Cập nhật tên đề tài</h5>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body text-center">
+      <div class="d-flex align-items-center justify-content-between gap-4">
+        <div class="form-group w-50 mb-3">
+          <label for="" class="form-label">Mã đề tài</label>
+          <input
+            type="text"
+            id=""
+            name=""
+            class="form-control"
+            placeholder=""
+            disabled
+          />
+        </div>
+
+        <div class="form-group w-50 mb-3">
+          <label for="" class="form-label">Tên đề tài</label>
+          <input
+            type="text"
+            id=""
+            name=""
+            class="form-control"
+            placeholder=""
+          />
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="reset"
+        id="kt_modal_update_customer_cancel"
+        class="btn btn-light me-3"
+        (click)="modal.dismiss('cancel')"
+      >
+        Hủy
+      </button>
+
+      <button
+        type="submit"
+        id="kt_modal_update_customer_submit"
+        class="btn btn-primary"
+        [attr.data-kt-indicator]="isLoading ? 'on' : 'off'"
+      >
+        <span class="indicator-label"> Cập nhật </span>
         <span class="indicator-progress">
           Please wait...
           <span

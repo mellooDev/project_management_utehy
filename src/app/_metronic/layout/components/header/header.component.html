@@ -1,8 +1,8 @@
 <!--begin::Header container-->
-<div class="ml-2" style="margin-left: 10px;">
+<div class="ml-2" style="margin-left: 15px; width: 80%; display: flex; align-items: center;">
   <h4>Cổng thông tin số hóa - Trường Đại học Sư phạm Kỹ Thuật Hưng Yên</h4>
 </div>
-<div class="app-container" id="kt_app_header_container" [ngClass]="headerContainerCssClass"
+<div class="app-container" id="kt_app_header_container" [ngClass]="headerContainerCssClass" style="justify-content: flex-end; margin-right: 15px;"
   [ngClass]="isLogin ? 'justify-left' : 'justify-center'">
   <ng-container *ngIf="appSidebarDefaultCollapseDesktopEnabled">
     <div class="app-sidebar-collapse-d-flex align-items-center me-3">
@@ -25,7 +25,7 @@
     <!--end::sidebar mobile toggle-->
     <!--begin::Mobile logo-->
     <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-      <a routerLink="/marketplace" class="d-lg-none">
+      <a routerLink="/home" class="d-lg-none">
         <img alt="Logo" src="./assets/media/logos/default-small.svg" class="h-30px pt-5" />
       </a>
     </div>
@@ -36,7 +36,7 @@
     <!--begin::Logo-->
     <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
       <!--Logo---!-->
-      <a routerLink="/marketplace">
+      <a routerLink="/home">
         <ng-container *ngIf="currentLayoutType === 'dark-header'">
           <img alt="Logo" src="./assets/media/logos/default-dark.svg"
             class="h-20px h-lg-30px app-sidebar-logo-default" />
@@ -64,7 +64,7 @@
         data-kt-swapper-mode="{default: 'append', lg: 'prepend'}"
         data-kt-swapper-parent="{default: '#kt_app_body', lg: '#kt_app_header_wrapper'}">
         <!--begin::Menu-->
-        <app-header-menu class="
+        <!-- <app-header-menu class="
         menu
         menu-rounded
         menu-column
@@ -74,7 +74,7 @@
         fw-semibold
         px-2 px-lg-0
         w-full
-    " id="kt_app_header_menu" data-kt-menu="true" *ngIf="isLogin"></app-header-menu>
+    " id="kt_app_header_menu" data-kt-menu="true" *ngIf="!isLogin"></app-header-menu> -->
         <!--end::Menu-->
       </div>
       <!--end::Menu wrapper-->

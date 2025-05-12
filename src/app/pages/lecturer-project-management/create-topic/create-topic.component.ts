@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from 'primeng/api';
 import { FileUploadEvent } from 'primeng/fileupload';
 
@@ -44,7 +45,7 @@ export class CreateTopicComponent {
     ],
   };
 
-  constructor(private messageService: MessageService, private router: Router) {}
+  constructor(private messageService: MessageService, private router: Router, private modalService: NgbModal) {}
 
   ngOnInit() {}
 
@@ -72,5 +73,11 @@ export class CreateTopicComponent {
         summary: 'Success',
         detail: 'File Uploaded with Auto Mode',
       });
+    }
+
+    onLoadFormConfirm(content: TemplateRef<any>) {
+      this.modalService.open(content, {
+        centered: true,
+      })
     }
 }

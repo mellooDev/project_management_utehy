@@ -12,7 +12,7 @@ export const locale = {
       PAGES: 'Trang',
       FEATURES: 'Tính năng',
       APPS: 'Apps',
-      DASHBOARD: 'Marketplace',
+      DASHBOARD: 'Cổng thông tin số hóa UTEHY',
       INTRODUCE: 'Giới thiệu',
 
       // project management

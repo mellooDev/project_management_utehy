@@ -29,7 +29,7 @@ export class ErrorsComponent implements OnInit, OnDestroy {
   }
 
   routeToDashboard() {
-    this.router.navigate(['marketplace']);
+    this.router.navigate(['home']);
     setTimeout(() => {
       ToggleComponent.bootstrap();
       ScrollTopComponent.bootstrap();

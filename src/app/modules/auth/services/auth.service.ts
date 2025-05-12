@@ -70,7 +70,7 @@ export class AuthService implements OnDestroy {
     this.isLoadingSubject.next(true);
     return this.authHttpService.doLogin(loginRequest).pipe(
       map((auth: AuthenModel) => {
-        const result = this.setAuthFromLocalStorage(auth.data.jwt_token);
+        const result = this.setAuthFromLocalStorage(auth.token);
         return result;
       }),
       switchMap(() => this.getUserByToken()),
@@ -124,7 +124,7 @@ export class AuthService implements OnDestroy {
 
   logout(): void {
     this.tokenStorage.signOut(); // Xóa token hoặc session
-    this.router.navigate(['/marketplace']).then(() => {
+    this.router.navigate(['/auth/login']).then(() => {
       window.location.reload(); // Đảm bảo trạng thái được làm mới
     });
   }
@@ -175,7 +175,7 @@ export class AuthService implements OnDestroy {
   registration(user: RegisterRequest): Observable<any> {
     this.isLoadingSubject.next(true);
     const loginRequest: LoginRequest = {};
-    loginRequest.email = user.email;
+    loginRequest.usernameOrEmail = user.email;
     loginRequest.password = user.password
     return this.authHttpService.doRegister(user).pipe(
       map(() => {
@@ -245,7 +245,7 @@ export class AuthService implements OnDestroy {
        // this.logout();
        this.tokenStorage.signOut(); // Xóa token hoặc session
         console.warn('Token expired, redirecting to login...');
-        this.router.navigate(['/marketplace']); // Điều hướng đến trang đăng nhập
+        this.router.navigate(['/home']); // Điều hướng đến trang đăng nhập
       }
     }
 

@@ -93,7 +93,7 @@ const Routing: Routes = [
     loadChildren: () => import('./approve-product/approve-product.module').then((m) => m.ApproveProductModule),
   },
   {
-    path: 'marketplace',
+    path: 'home',
     loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
   {
@@ -139,7 +139,7 @@ const Routing: Routes = [
   },
   {
     path: '',
-    redirectTo: '/marketplace',
+    redirectTo: '/home',
     pathMatch: 'full',
   },
   {

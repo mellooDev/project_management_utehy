@@ -16,6 +16,8 @@ import { RippleModule } from 'primeng/ripple';
 import { LecturerProjectManagementComponent } from './lecturer-project-management.component';
 import { CreateTopicComponent } from './create-topic/create-topic.component';
 import { FileUploadModule } from 'primeng/fileupload';
+import { MultiSelectModule } from 'primeng/multiselect';
+
 
 
 
@@ -47,6 +49,7 @@ import { FileUploadModule } from 'primeng/fileupload';
     NgbPaginationModule,
     MatDialogModule,
     InputSwitchModule,
+    MultiSelectModule,
     NgbRatingModule,
     NgbDropdownModule,
     MatIconModule,

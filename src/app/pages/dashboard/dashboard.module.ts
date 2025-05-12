@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { ModalsModule, WidgetsModule } from '../../_metronic/partials';
+import { CarouselModule } from 'primeng/carousel';
 
 @NgModule({
   declarations: [],
@@ -15,7 +16,8 @@ import { ModalsModule, WidgetsModule } from '../../_metronic/partials';
       },
     ]),
     WidgetsModule,
-    ModalsModule
+    ModalsModule,
+    CarouselModule,
   ],
 })
 export class DashboardModule {}

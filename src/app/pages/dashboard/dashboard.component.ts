@@ -12,6 +12,8 @@ import {BuyService} from "../../services/buy.service";
 import {KeywordService} from "../../services/keyword.service";
 import { SearchService } from 'src/app/services/search.service';
 import { AppConstants } from 'src/app/utils/app.constants';
+import { CarouselModule } from 'primeng/carousel';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +23,7 @@ import { AppConstants } from 'src/app/utils/app.constants';
     MatInputModule,
     NgForOf,
     FormsModule,
+    CarouselModule,
     CommonModule,
     RouterLinkActive,
     RouterLink,
@@ -52,6 +55,14 @@ export class DashboardComponent implements OnInit {
     {src: './assets/media/logos/hero-section.jpg', alt: 'Stripe'},
     {src: './assets/media/logos/DEP_icon.ico', alt: 'AI Network'},
   ];
+
+  slide_img = [
+    {url: '../../.././assets/media/utehy_slide/utehy_slide1.jpg'},
+    {url: '../../.././assets/media/utehy_slide/utehy_slide2.jpg'},
+    {url: '../../.././assets/media/utehy_slide/utehy_slide3.jpg'},
+    {url: '../../.././assets/media/utehy_slide/utehy_slide4.jpg'},
+    {url: '../../.././assets/media/utehy_slide/utehy_slide5.jpg'}
+  ]
 
   responseCategories: any;
   data: any;
@@ -161,7 +172,7 @@ export class DashboardComponent implements OnInit {
 
     this.slideWidth = window.innerWidth / 6;
   setInterval(() => this.slide(1), 3000); // Slide tự động mỗi 3 giây
-    
+
     this.searchService.searchTerm$.subscribe(term => {
       this.searchTerm = term;
       this.applySearchFilter();
