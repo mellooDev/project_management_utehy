@@ -23,13 +23,13 @@ import { TableModule } from 'primeng/table';
 import { RippleModule } from 'primeng/ripple';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
-import { ProjectSessionManagementComponent } from './project-session-management.component';
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { StatisticReportComponent } from './statistic-report.component';
+import { ChartModule } from 'primeng/chart';
 
 
 @NgModule({
   declarations: [
-    ProjectSessionManagementComponent,
+    StatisticReportComponent,
   ],
   imports: [
     CommonModule,
@@ -39,7 +39,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     RouterModule.forChild([
       {
         path: '',
-        component: ProjectSessionManagementComponent,
+        component: StatisticReportComponent,
       },
 
     ]),
@@ -51,8 +51,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     ButtonModule,
     MatDialogModule,
     ToggleButtonModule,
-    RadioButtonModule,
     DividerModule,
+    ChartModule,
     InputSwitchModule,
     CalendarModule,
     NgbDropdownModule,
@@ -69,4 +69,4 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     CheckboxModule
   ],
 })
-export class ProjectSessionManagementModule { }
+export class StatisticReportModule { }

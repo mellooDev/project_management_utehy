@@ -641,12 +641,12 @@
   <div routerLink="/home" style="cursor: pointer">
     <ng-container *ngIf="currentLayoutType === 'dark-sidebar'">
       <div class="app-sidebar-logo-default">
-        <img alt="Logo" src="./assets/media/logos/dep-logo-default.svg" />
+        <img alt="Logo" src="../../../../../../assets/media/logos/utehy_logo_notLogin.png" />
       </div>
     </ng-container>
     <ng-container *ngIf="currentLayoutType !== 'dark-sidebar'">
-      <div class="app-sidebar-logo-default theme-light-show pt-5">
-        <img alt="Logo" src="./assets/media/logos/dep-logo-default.svg" style="width: 150px;"/>
+      <div class="app-sidebar-logo-default theme-light-show d-flex align-items-center h-100">
+        <img alt="Logo" src="../../../../../../assets/media/logos/utehy_logo_notLogin.png" style="width: 150px;"/>
       </div>
       <div class="h-25px app-sidebar-logo-default theme-dark-show pt-4">
         <svg width="100" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
@@ -754,27 +754,16 @@
   </div>
   <!--end::Logo-->
   <!--begin::Input Form-->
-  <div class="form-group">
-    <div class="input-group">
-      <span class="input-group-text">
-        <i class="la la-search"></i>
-      </span>
-      <input type="text" class="form-control form-control-flush ps-10" name="search" [(ngModel)]="searchTerm"
-        (ngModelChange)="onSearch()" placeholder="Tìm kiếm dữ liệu, nhà cung cấp" data-kt-search-element="input" />
-    </div>
-  </div>
-  <!--end::Input Form-->
-  <!--begin::Input Form-->
   <div style="display: flex; padding-left: 20px;">
     <div class="menu-item me-lg-1" style="padding-left: 20px; padding-top: 15px; " *ngIf="!isLogin">
-      <a class="menu-link py-3" routerLinkActive="active menu-here" routerLink="/products" style="cursor: pointer;">
-        <span class="menu-title">Sản phẩm dữ liệu</span>
+      <a class="menu-link py-3" routerLinkActive="active menu-here" href="https://qldaotao.utehy.edu.vn/" style="cursor: pointer;">
+        <span class="menu-title">Quản lý đào tạo</span>
       </a>
     </div>
     <div class="menu-item me-lg-1" style="padding-left: 20px; padding-top: 15px; " *ngIf="!isLogin">
-      <a class="menu-link py-3" routerLinkActive="active menu-here" routerLink="/auth/register"
+      <a class="menu-link py-3" routerLinkActive="active menu-here" href="https://utehy.edu.vn/"
         style="cursor: pointer;">
-        <span class="menu-title">Nhà cung cấp</span>
+        <span class="menu-title">Giới thiệu trường</span>
       </a>
     </div>
     <div class="menu-item me-lg-1" style="padding-left: 20px; padding-top: 15px; " *ngIf="!isLogin">
@@ -782,11 +771,11 @@
         <span class="menu-title">Đăng nhập</span>
       </a>
     </div>
-    <div class="menu-item me-lg-1" style="padding-left: 20px; padding-top: 15px; " *ngIf="!isLogin">
+    <!-- <div class="menu-item me-lg-1" style="padding-left: 20px; padding-top: 15px; " *ngIf="!isLogin">
       <a class="menu-link py-3" routerLinkActive="active menu-here" routerLink="/auth/registration"
         style="cursor: pointer;">
         <span class="menu-title">Đăng ký miễn phí</span>
       </a>
-    </div>
+    </div> -->
   </div>
 </div>

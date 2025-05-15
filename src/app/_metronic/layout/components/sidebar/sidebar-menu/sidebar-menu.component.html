@@ -130,6 +130,39 @@
       <!--end::Menu sub-->
     </div>
 
+    <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click" *ngIf="role !== 'student' && role !== 'admin'">
+      <a href="#" class="menu-link py-3">
+        <span class="menu-icon">
+          <app-keenicon name="abstract-26" class="fs-2"></app-keenicon>
+        </span>
+        <span class="menu-title" translate="MENU.APPOINTMENT_MANAGEMENT"></span>
+        <span class="menu-arrow"></span>
+      </a>
+      <!--begin::Menu sub-->
+      <div class="menu-sub menu-sub-accordion pt-3">
+
+        <div class="menu-item" *ngIf="role === 'student'">
+          <a class="menu-link without-sub" routerLink="/appointment-management/student-appointment" routerLinkActive="active">
+            <span class="menu-icon">
+              <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
+            </span>
+            <span class="menu-title" translate="MENU.STUDENT_APPOINTMENT"></span>
+          </a>
+        </div>
+
+        <div class="menu-item" *ngIf="role === 'lecturer'">
+          <a class="menu-link without-sub" routerLink="/appointment-management/lecturer-appointment" routerLinkActive="active">
+            <span class="menu-icon">
+              <app-keenicon name="archive-tick" class="fs-2"></app-keenicon>
+            </span>
+            <span class="menu-title" translate="MENU.LECTURER_APPOINTMENT"></span>
+          </a>
+        </div>
+
+      </div>
+      <!--end::Menu sub-->
+    </div>
+
     <!-- Quản lý duyệt đồ án -->
     <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click" *ngIf="role !== 'student' && role !== 'admin'">
       <a href="#" class="menu-link py-3">
@@ -265,6 +298,15 @@
 
       </div>
     </div>
+
+    <div class="menu-item" *ngIf="role !== 'student'" >
+        <a class="menu-link without-sub" routerLink="/statistic-report" routerLinkActive="active">
+          <span class="menu-icon">
+            <app-keenicon name="folder" class="fs-2"></app-keenicon>
+          </span>
+          <span class="menu-title" translate="MENU.STATISTIC_REPORT"></span>
+        </a>
+      </div>
 
 
     <!-- <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click">

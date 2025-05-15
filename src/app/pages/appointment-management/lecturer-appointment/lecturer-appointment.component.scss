@@ -227,19 +227,9 @@ ul {
   transition: transform 0.3s ease;
 }
 
-
-.btn > i {
-  padding-right: 0 !important;
-}
-
-::ng-deep .formDetailClass .modal-dialog {
-  max-width: 80%;
-  width: 80%;
-}
-
-.p-table tr td:nth-child(5) {
-  max-width: 250px; /* hoặc tùy kích thước */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.appointment-card:hover {
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  transform: scale(1.02);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }

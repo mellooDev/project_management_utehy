@@ -1,0 +1,82 @@
+.chart-container {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px; /* Khoảng cách giữa các biểu đồ */
+}
+
+.chart-item {
+  flex: 1 1 calc(50% - 15px); /* Mặc định: 3 biểu đồ trên 1 hàng */
+  box-sizing: border-box;
+}
+
+.statistic-properties {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  gap: 40px; /* Khoảng cách giữa các biểu đồ */
+  margin-top: 20px;
+  height: 140px;
+}
+
+.card-item {
+  flex: 1 1 calc(25% - 40px); /* Mặc định: 3 biểu đồ trên 1 hàng */
+  box-sizing: border-box;
+  padding: 15px;
+}
+
+.properties-icon {
+  width: 37px;
+  height: 37px;
+  background-color: rgba(242, 153, 74, 0.2);
+  border-radius: 50%;
+  position: relative;
+}
+
+.properties-icon i {
+  font-size: 20px;
+  position: absolute;
+  top: 9px;
+  left: 24%;
+  // color: #F39C12;
+}
+
+.properties-icon i.bi {
+  color: #F39C12 !important;
+}
+
+.search-container {
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 20px;
+}
+
+.input-group {
+  max-width: 400px;
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.custom-width {
+  min-width: 280px; /* Adjust the width as needed */
+}
+.select-box {
+  position: relative;
+  width: 280px;
+}
+.select-box select {
+  width: 100%;
+}
+
+.select-box .select-arrow {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}

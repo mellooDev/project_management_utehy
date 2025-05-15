@@ -1,0 +1,155 @@
+<div>
+  <div class="search-container mt-4">
+    <div class="d-flex">
+      <div class="select-box me-2 mb-2">
+        <select class="form-control custom-width">
+          <option value="" disabled selected>Tên đợt</option>
+        </select>
+        <i class="bi bi-chevron-down select-arrow"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="statistic-properties">
+  <div class="card-item card">
+    <div class="d-flex justify-content-between">
+      <div class="d-flex align-items-center h-100">
+        <div class="properties-icon">
+          <i class="bi bi-mortarboard"></i>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end align-items-end gap-3 flex-column">
+        <span>Tổng số đồ án</span>
+        <h1
+          data-kt-countup="true"
+          data-kt-countup-value="40"
+          data-kt-countup-prefix=""
+        >
+          0
+        </h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-item card">
+    <div class="d-flex justify-content-between">
+      <div class="d-flex align-items-center h-100">
+        <div class="properties-icon">
+          <i class="bi bi-mortarboard"></i>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end align-items-end gap-3 flex-column">
+        <span>Tổng số giảng viên hướng dẫn</span>
+        <h1
+          data-kt-countup="true"
+          data-kt-countup-value="40"
+          data-kt-countup-prefix=""
+        >
+          0
+        </h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-item card">
+    <div class="d-flex justify-content-between">
+      <div class="d-flex align-items-center h-100">
+        <div class="properties-icon">
+          <i class="bi bi-mortarboard"></i>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end align-items-end gap-3 flex-column">
+        <span>Tổng số sinh viên thực hiện</span>
+        <h1
+          data-kt-countup="true"
+          data-kt-countup-value="40"
+          data-kt-countup-prefix=""
+        >
+          0
+        </h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-item card">
+    <div class="d-flex justify-content-between">
+      <div class="d-flex align-items-center h-100">
+        <div class="properties-icon">
+          <i class="bi bi-mortarboard"></i>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end align-items-end gap-3 flex-column">
+        <span>Điểm trung bình</span>
+        <h1
+          data-kt-countup="true"
+          data-kt-countup-value="7.8"
+          data-kt-countup-decimals="2"
+          data-kt-countup-prefix=""
+        >
+          0
+        </h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="chart-container">
+  <div class="chart-item">
+    <div class="card p-4">
+      <h4>Thống kê số lượng sinh viên theo trạng thái</h4>
+      <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
+    </div>
+  </div>
+
+  <div class="chart-item">
+    <div class="card p-4">
+      <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
+    </div>
+  </div>
+</div>
+
+<div class="chart-container">
+  <div class="chart-item">
+    <div class="card p-4 d-flex justify-content-center align-items-center">
+      <p-chart type="pie" [data]="data" [options]="options" class="w-50" />
+    </div>
+  </div>
+
+  <div class="chart-item">
+    <div class="card p-4">
+      <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
+    </div>
+  </div>
+</div>
+
+<div class="chart-container">
+  <div class="chart-item">
+    <div class="card p-4">
+      <p-chart
+        type="bar"
+        [data]="teacherData"
+        [options]="teacherOptions"
+      ></p-chart>
+    </div>
+  </div>
+
+  <div class="chart-item">
+    <div class="card p-4 d-flex justify-content-center align-items-center">
+      <p-chart
+        type="pie"
+        [data]="submitStatus"
+        [options]="submitStatusOptions"
+        class="w-50"
+      ></p-chart>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="chart-container">
+  <div class="chart-item">
+    <div class="card p-4 d-flex justify-content-center">
+      <p-chart type="pie" [data]="data" [options]="options" />
+    </div>
+  </div>
+</div> -->

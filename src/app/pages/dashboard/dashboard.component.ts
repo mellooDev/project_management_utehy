@@ -13,7 +13,17 @@ import {KeywordService} from "../../services/keyword.service";
 import { SearchService } from 'src/app/services/search.service';
 import { AppConstants } from 'src/app/utils/app.constants';
 import { CarouselModule } from 'primeng/carousel';
+import { Timeline, TimelineModule } from 'primeng/timeline';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
 
+interface EventItem {
+  status?: string;
+  date?: string;
+  icon?: string;
+  color?: string;
+  image?: string;
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -22,6 +32,9 @@ import { CarouselModule } from 'primeng/carousel';
     SharedModule,
     MatInputModule,
     NgForOf,
+    TimelineModule,
+    ButtonModule,
+    CardModule,
     FormsModule,
     CarouselModule,
     CommonModule,
@@ -47,6 +60,7 @@ export class DashboardComponent implements OnInit {
     {icon: 'fas fa-cloud'},
     {icon: 'fas fa-cloud'}
   ];
+  events: EventItem[];
 
   logos = [
     {src: './assets/media/logos/factset.png', alt: 'Factset'},
@@ -169,6 +183,12 @@ export class DashboardComponent implements OnInit {
     this.getListProducts()
     this.getUserByToken()
     this.getListCatalogs()
+    this.events = [
+      { status: 'Ordered', date: '15/10/2020 10:30', icon: 'pi pi-shopping-cart', color: '#9C27B0', image: 'game-controller.jpg' },
+      { status: 'Processing', date: '15/10/2020 14:00', icon: 'pi pi-cog', color: '#673AB7' },
+      { status: 'Shipped', date: '15/10/2020 16:15', icon: 'pi pi-shopping-cart', color: '#FF9800' },
+      { status: 'Delivered', date: '16/10/2020 10:00', icon: 'pi pi-check', color: '#607D8B' }
+  ];
 
     this.slideWidth = window.innerWidth / 6;
   setInterval(() => this.slide(1), 3000); // Slide tự động mỗi 3 giây

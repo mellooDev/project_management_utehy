@@ -1,7 +1,8 @@
-import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Observable, of, Subscription } from 'rxjs';
 import { TranslationService } from '../../../../../../modules/i18n';
 import { AuthService, UserType } from '../../../../../../modules/auth';
+import { AuthHTTPService } from 'src/app/modules/auth/services/auth-http';
 
 interface User {
   pic: string;
@@ -24,11 +25,14 @@ export class UserInnerComponent implements OnInit, OnDestroy {
   langs = languages;
   private unsubscribe: Subscription[] = [];
   user$: Observable<User>;
-
+  fullName: string;
+  email: string;
 
   constructor(
     private auth: AuthService,
-    private translationService: TranslationService
+    private translationService: TranslationService,
+    private authService: AuthHTTPService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -36,11 +40,27 @@ export class UserInnerComponent implements OnInit, OnDestroy {
     this.setLanguage(this.translationService.getSelectedLanguage());
 
     this.user$ = of({
-      pic: './assets/media/avatars/default-avatar.jpg', // Avatar mặc định
+      pic: './assets/media/avatars/user_avatar.jpg', // Avatar mặc định
       firstname: 'Guest',
       lastname: 'User',
       email: 'guest@example.com'
     });
+
+    this.getUserByToken();
+  }
+
+  getUserByToken() {
+    const token = <string>localStorage.getItem('v8.2.3-auth-token');
+    this.authService.getUserByToken(token).subscribe(res => {
+      if(res) {
+        this.fullName = res.fullname;
+        this.email = res.email;
+        console.log('full name: ', this.fullName);
+      }
+      this.cdr.detectChanges()
+    }, error => {
+      console.log(error);
+    })
   }
 
   logout() {

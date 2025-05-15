@@ -46,15 +46,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td style="text-align: center">1</td>
-            <td>QTW</td>
-            <td>Đợt đồ án a</td>
-            <td>24/04/2025</td>
-            <td>
-              <span class="badge badge-success">Đang hoạt động</span>
+          <tr *ngFor="let item of projectSessionList; let i = index">
+            <td style="text-align: center">
+              {{ i + 1 }}
             </td>
-            <td>2024-2025</td>
+            <td>{{ item.project_session_code }}</td>
+            <td>{{ item.project_session_name }}</td>
+            <td>{{ item.start_date | date : "dd/MM/yyyy" }}</td>
+            <td>
+              @switch (item.status) { @case('closed') {
+              <span class="badge badge-warning">Đã kết thúc</span>
+              } @case('open') {
+              <span class="badge badge-success">Đang hoạt động</span>
+              } }
+            </td>
+            <td>{{ item.year_name }}</td>
             <td>
               <p-dropdown
                 [options]="cities"
@@ -97,7 +103,7 @@
 </div>
 
 <ng-template #createOrUpdateModal let-modal>
-  <form #myForm="ngForm">
+  <form #myForm="ngForm" (ngSubmit)="onSubmitSession()">
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">
         Thông tin quy trình hướng dẫn
@@ -117,6 +123,8 @@
             type="text"
             id=""
             name=""
+            name="sessionCode"
+            [(ngModel)]="sessionCode"
             class="form-control"
             placeholder=""
             disabled
@@ -124,13 +132,17 @@
         </div>
         <div class="w-25">
           <label for="" class="form-label">Năm học áp dụng</label>
-          <input
-            type="text"
-            id=""
-            name=""
-            class="form-control"
-            placeholder=""
-          />
+          <select
+            [(ngModel)]="selectedYear"
+            class="form-select"
+            aria-label="Select example"
+            name="academicYear"
+          >
+            <option disabled selected>-- Chọn năm học --</option>
+            <option *ngFor="let year of academicYear" [value]="year.id">
+              {{ year.year_name }}
+            </option>
+          </select>
         </div>
       </div>
 
@@ -143,7 +155,9 @@
           <input
             type="text"
             id=""
-            name=""
+            name="sessionName"
+            [(ngModel)]="sessionName"
+            (ngModelChange)="generateCode()"
             class="form-control"
             placeholder=""
           />
@@ -157,6 +171,8 @@
             class="calendar-sm"
             [showButtonBar]="true"
             [iconDisplay]="'input'"
+            [(ngModel)]="startDate"
+            name="startDate"
             [showIcon]="true"
             inputId="icondisplay"
           />
@@ -233,6 +249,33 @@
           offLabel="Off"
         />
       </div>
+
+      <div class="d-flex align-items-center gap-5">
+        <div style="width: 25%;">
+          <label for="">Loại đồ án</label>
+        </div>
+        <div class="d-flex flex-wrap gap-3 justify-content-between w-25" >
+          <div class="d-flex align-items-center">
+            <p-radioButton
+              name="subject"
+              value="subject"
+              [(ngModel)]="ingredient"
+              inputId="ingredient1"
+            />
+            <label for="ingredient1" class="ms-4"> Đồ án môn học </label>
+          </div>
+
+          <div class="d-flex align-items-center">
+            <p-radioButton
+              name="graduation"
+              value="graduation"
+              [(ngModel)]="ingredient"
+              inputId="ingredient2"
+            />
+            <label for="ingredient2" class="ms-4"> Đồ án tốt nghiệp </label>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="modal-footer">
@@ -249,6 +292,7 @@
         type="submit"
         id="kt_modal_update_customer_submit"
         class="btn btn-primary"
+        [attr.data-kt-indicator]="isLoading ? 'on' : 'off'"
       >
         <span class="indicator-label"> Xác nhận </span>
         <span class="indicator-progress">
@@ -328,9 +372,7 @@
       <p-divider />
 
       <!-- table -->
-      <div
-        class="add-student-content "
-      >
+      <div class="add-student-content">
         <div class="d-flex gap-3 justify-content-between align-items-start">
           <div style="width: 47%">
             <button
@@ -353,7 +395,6 @@
 
         <div class="d-flex gap-3 justify-content-between align-items-start">
           <div class="student-list" style="width: 47%">
-
             <div class="card">
               <div
                 class="d-flex align-items-center justify-content-between px-5 pt-2 table-left"
@@ -415,7 +456,6 @@
           </div>
 
           <div class="student-list-selected" style="width: 47%">
-
             <div class="card">
               <div
                 class="d-flex align-items-center justify-content-between px-5 pt-2 table-left"
@@ -428,7 +468,9 @@
               </div>
               <p-divider />
               <div class="">
-                <table class="table table-bordered mt-3 custom-bordered table-query">
+                <table
+                  class="table table-bordered mt-3 custom-bordered table-query"
+                >
                   <thead class="custom-header">
                     <tr>
                       <th style="text-align: center"></th>
@@ -534,9 +576,7 @@
       <p-divider />
 
       <!-- table -->
-      <div
-        class="add-lecturer-content "
-      >
+      <div class="add-lecturer-content">
         <div class="d-flex gap-3 justify-content-between align-items-start">
           <div style="width: 47%">
             <button
@@ -559,7 +599,6 @@
 
         <div class="d-flex gap-3 justify-content-between align-items-start">
           <div class="student-list" style="width: 47%">
-
             <div class="card">
               <div
                 class="d-flex align-items-center justify-content-between px-5 pt-2 table-left"
@@ -621,7 +660,6 @@
           </div>
 
           <div class="student-list-selected" style="width: 47%">
-
             <div class="card">
               <div
                 class="d-flex align-items-center justify-content-between px-5 pt-2 table-left"
@@ -634,7 +672,9 @@
               </div>
               <p-divider />
               <div class="">
-                <table class="table table-bordered mt-3 custom-bordered table-query">
+                <table
+                  class="table table-bordered mt-3 custom-bordered table-query"
+                >
                   <thead class="custom-header">
                     <tr>
                       <th style="text-align: center"></th>

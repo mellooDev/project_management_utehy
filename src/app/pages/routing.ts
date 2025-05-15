@@ -1,75 +1,91 @@
+import { AppointmentManagementModule } from './appointment-management/appointment-management.module';
 import { Routes } from '@angular/router';
 import { AuthGuard } from '../modules/auth/services/auth.guard';
 
 const Routing: Routes = [
   {
     path: 'approve-seller',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./approve-seller/approve-seller.module').then((m) => m.ApproveSellerModule),
   },
   {
+    path: 'statistic-report',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./statistic-report/statistic-report.module').then((m) => m.StatisticReportModule),
+  },
+  {
     path: 'project-management',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./project-management/project-management.module').then((m) => m.ProjectManagementModule),
   },
   {
     path: 'academic',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./academic/academic.module').then((m) => m.AcademicModule),
   },
   {
     path: 'lecturer-project-management',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./lecturer-project-management/lecturer-project-management.module').then((m) => m.LecturerProjectManagementModule),
   },
   {
     path: 'lecturer-approve-project',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./lecturer-approve-project/lecturer-approve-project.module').then((m) => m.LecturerApproveProjectModule),
   },
   {
     path: 'instruction-management',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./instruction-management/instruction-management.module').then((m) => m.InstructionManagementModule),
   },
   {
     path: 'project-session-management',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./project-session-management/project-session-management.module').then((m) => m.ProjectSessionManagementModule),
   },
   {
     path: 'council-defense-management',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./council-defense-management/council-defense-management.module').then((m) => m.CouncilDefenseManagementModule),
   },
   {
+    path: 'appointment-management',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./appointment-management/appointment-management.module').then((m) => m.AppointmentManagementModule),
+  },
+  {
+    path: 'statistic-report',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./statistic-report/statistic-report.module').then((m) => m.StatisticReportModule),
+  },
+  {
     path: 'council-graduation-defense-management',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./council-graduation-defense-management/council-graduation-defense-management.module').then((m) => m.CouncilGraduationDefenseManagementModule),
   },
   {
     path: 'report-results',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./report-results-management/report-results-management.module').then((m) => m.ReportResultsManagementModule),
   },
   {
     path: 'view-council',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./view-council-management/view-council-management.module').then((m) => m.ViewCouncilManagementModule),
   },
   {
     path: 'review-project-management',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./review-project-management/review-project-management.module').then((m) => m.ReviewProjectManagementModule),
   },
   {
     path: 'product-provider',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./product-provider/product-provider.module').then((m) => m.ProductProviderModule),
   },
   {
     path: 'buyed',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./buyed/buyed.module').then((m) => m.BuyedModule),
   },
   {

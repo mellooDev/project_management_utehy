@@ -6,3 +6,31 @@
   </p-carousel>
 </div>
 
+<div class="d-flex justify-content-center">
+  <div class="w-50">
+    <p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
+        <ng-template pTemplate="marker" let-event>
+            <span
+                class="d-flex align-items-center justify-content-center text-white border-circle z-1 shadow-1" style="width: 2rem; height: 2rem; border-radius: 50%;"
+                [style]="{ 'background-color': event.color }">
+                    <i [class]="event.icon"></i>
+            </span>
+        </ng-template>
+        <ng-template pTemplate="content" let-event>
+            <p-card [header]="event.status" [subheader]="event.date">
+                <img
+                    *ngIf="event.image"
+                    [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image"
+                    [alt]="event.name"
+                    width="200"
+                    class="shadow-2" />
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
+                    neque quas!
+                </p>
+                <p-button label="Read more" [text]="true" />
+            </p-card>
+        </ng-template>
+    </p-timeline>
+  </div>
+</div>

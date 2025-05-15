@@ -1,0 +1,117 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title font-weight-bolder text-dark">
+      Danh sách lịch hẹn của giảng viên
+    </h3>
+  </div>
+
+  <div class="card-body pt-0">
+    <div class="mt-4">
+      <div class="search-container mt-4">
+        <div class="d-flex gap-4">
+          <div class="input-group me-2 mb-2">
+            <input type="text" class="form-control" placeholder="Vòng đồ án" />
+            <span class="input-group-text" style="cursor: pointer">
+              <i class="bi bi-search"></i>
+              <!-- Biểu tượng kính lúp -->
+            </span>
+          </div>
+        </div>
+
+        <button type="button" class="button-add">
+          <i class="bi bi-plus icon-add"></i>
+          Thêm mới lịch hẹn
+        </button>
+      </div>
+
+      <div
+        class="appointment-box d-flex align-items-center justify-content-start gap-5"
+      >
+        <div class="w-25">
+          <div class="card appointment-card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-5">
+                <div class="d-flex align-items-center gap-2">
+                  <i class="bi bi-alarm"></i>
+                  <span>10:30 - 12:30</span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                  <i class="bi bi-geo-alt-fill"></i>
+                  <span>DH.206</span>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-start">
+                <div class="d-flex align-items-center gap-2">
+                  <span>Hẹn gặp đồ án lần 1</span>
+                </div>
+                <div class="d-flex gap-2">
+                  <img src="../../../../assets/media/others/image_schedules.png" alt="" width="60">
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <p-card >
+            <div class="d-flex justify-content-between">
+              <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-alarm"></i>
+                <span>10:30 - 12:30</span>
+              </div>
+            </div>
+          </p-card> -->
+        </div>
+
+      </div>
+    </div>
+
+    <div class="pagination-container mt-3">
+      <!-- <ngb-pagination
+        [collectionSize]="filteredData.length"
+        [pageSize]="pageSize"
+        (pageChange)="onPageChange($event)"
+      ></ngb-pagination> -->
+    </div>
+  </div>
+</div>
+
+<!-- <ng-template #deleteProject let-modal>
+  <form #myForm="ngForm">
+    <div class="modal-header">
+      <h5 class="mb-0 modal-title">Xóa đề xuất đề tài</h5>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body text-center">
+      <h4>Bạn chắc chắn muốn xóa đề tài abc?</h4>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="reset"
+        id="kt_modal_update_customer_cancel"
+        class="btn btn-light me-3"
+        (click)="modal.dismiss('cancel')"
+      >
+        Hủy
+      </button>
+
+      <button
+        type="submit"
+        id="kt_modal_update_customer_submit"
+        class="btn btn-danger"
+        [attr.data-kt-indicator]="isLoading ? 'on' : 'off'"
+      >
+        <span class="indicator-label"> Xóa </span>
+        <span class="indicator-progress">
+          Please wait...
+          <span
+            class="spinner-border spinner-border-sm align-middle ms-2"
+          ></span>
+        </span>
+      </button>
+    </div>
+  </form>
+</ng-template> -->

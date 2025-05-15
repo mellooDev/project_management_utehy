@@ -13,6 +13,7 @@ export const locale = {
       FEATURES: 'Tính năng',
       APPS: 'Apps',
       DASHBOARD: 'Cổng thông tin số hóa UTEHY',
+      STATISTIC_REPORT: 'Báo cáo, thống kê số liệu',
       INTRODUCE: 'Giới thiệu',
 
       // project management
@@ -26,6 +27,10 @@ export const locale = {
       REQUEST_PROJECT_APPROVAL: 'Quản lý duyệt đồ án',
       LECTURER_APPROVE_PROJECT_MANAGEMENT: 'Phê duyệt đồ án của sinh viên',
       REVIEW_PROJECT_MANAGEMENT: 'Đánh giá, nhận xét báo cáo',
+
+      APPOINTMENT_MANAGEMENT: 'Quản lý lịch hẹn',
+      STUDENT_APPOINTMENT: 'Quản lý lịch hẹn sinh viên',
+      LECTURER_APPOINTMENT: 'Quản lý lịch hẹn giảng viên',
 
       DEAN_APPROVE_PROJECT_MANAGEMENT: 'Phê duyệt đồ án',
       REGISTER_PROJECT: 'Đăng ký đề tài đồ án',

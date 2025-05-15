@@ -16,6 +16,8 @@ import { TableModule } from 'primeng/table';
 import { RippleModule } from 'primeng/ripple';
 import {DividerModule} from 'primeng/divider';
 import { InstructionManagementComponent } from './instruction-management.component';
+import {SafeHtmlPipe} from "../../utils/safehtml.pipe";
+
 
 
 @NgModule({
@@ -42,6 +44,7 @@ import { InstructionManagementComponent } from './instruction-management.compone
     NgbPaginationModule,
     MatDialogModule,
     TableModule,
+    SafeHtmlPipe,
     NgbDropdownModule,
     NgbTooltipModule,
     MatIconModule,
